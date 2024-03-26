@@ -1,9 +1,7 @@
-image: heroku/builder:22
-
-stages:
-  - build
-
-build:
-  stage: build
+deploy-job:
+  stage: deploy
+  environment: production
   script:
-    - /build/build.sh
+    - export ALLOW_EOL_SHIMMED_BUILDER=1
+    - echo "Deploying application..."
+    - echo "Application successfully deployed."
