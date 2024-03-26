@@ -1,0 +1,7 @@
+deploy-job:
+  stage: deploy
+  environment: production
+  script:
+    - export ALLOW_EOL_SHIMMED_BUILDER=1
+    - echo "Deploying application..."
+    - echo "Application successfully deployed."
