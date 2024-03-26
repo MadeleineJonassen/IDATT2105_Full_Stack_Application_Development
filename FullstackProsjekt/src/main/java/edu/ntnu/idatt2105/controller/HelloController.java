@@ -1,4 +1,4 @@
-package edu.ntnu.idatt2105;
+package edu.ntnu.idatt2105.controller;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
