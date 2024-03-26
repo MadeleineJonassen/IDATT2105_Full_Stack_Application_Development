@@ -1,6 +1,21 @@
 <template>
 	<body>
 	<section class ="header">
+		<nav>
+			<img src="../components/icons/brain.png"/>
+			<div class="nav-links" id="navLinks">
+				<img class="fa fa-bars" @click="showMenu" src="../components/icons/cross.png"/>
+				<ul>
+						<router-link to="/create"><a>Create</a></router-link>
+						<router-link to="/search"><a>Search</a></router-link>
+						<router-link to="/about"><a>About</a></router-link>
+						<router-link to="/feedback"><a>Feedback</a></router-link>
+						<router-link to="/login"><a>Login</a></router-link>
+					</ul>
+			</div>
+			<img class="fa fa-times" @click="hideMenu" src="../components/icons/menu-burger.png"/>
+
+		</nav>
 		<div class="text-box">
 			<h1 class="heading">BrainStormer</h1>
 			<p> An easy way to learn and share quizzes. <br> Make your own quiz now! </p>
@@ -31,25 +46,66 @@
 	</body>
 </template>
 
-<style scoped>
-body {
-	background-color: #f0f0f0;
-	font-family: Arial, sans-serif;
-	margin: 0;
-	padding: 0;
-	text-align: center;
+
+<script>
+export default {
+	data(){
+		return{
+		}
+	},
+	methods: {
+		showMenu() {
+			navLinks.style.right = "0";
+		},
+		hideMenu() {
+			navLinks.style.right = "-200px";
+		}
+	}
 }
 
+
+
+</script>
+
+
+
+<style scoped>
 /*---Top----*/
-.header {
+.header{
 	min-height: 100vh;
 	width: 100%;
 	background-image: linear-gradient(rgba(4,9,30,0.7), rgba(4,9,30,0.7)),url(photos/lightning.gif);
 	background-position: center;
 	background-size: cover;
 	position: relative;
-	color: white;
 }
+nav{
+	display: flex;
+	padding: 2% 6%;
+	justify-content: space-between;
+	align-items: center;
+}
+nav img{
+	height: 100px;
+	padding: 20px;
+}
+.nav-links{
+	flex: 1;
+	text-align: right;
+}
+.nav-links ul a{
+	list-style: none;
+	display: inline-block;
+	padding: 8px 12px;
+	position: relative;
+	color: white;
+	text-decoration: none;
+	font-size: 13px;
+}
+nav .fa{
+	display: none;
+}
+
 
 
 /*Front page*/
@@ -67,7 +123,7 @@ body {
 }
 .text-box p{
 	margin: 10px 0 40px;
-	font-size: 14px;
+	font-size: 18px;
 	color: #fff;
 }
 
@@ -88,10 +144,34 @@ body {
 	transition: 1s;
 }
 
-
 @media (max-width: 700px){
 	.text-box h1{
-		font-size: 36px;
+		font-size: 42px;
+		transition: 1s;
+	}
+	.nav-links ul a{
+		display: block;
+	}
+	.nav-links{
+		position: absolute;
+		background: #242F40;
+		height: 100vh;
+		width: 200px;
+		top: 0;
+		right: -200px;
+		text-align: left;
+		z-index: 2;
+		transition: 1s;
+	}
+	nav .fa{
+		display: block;
+		margin: 10px;
+		height: 22px;
+		cursor: pointer;
+	}
+	.nav-links a{
+		padding: 30px;
+
 	}
 	.row{
 		flex-direction: column;
@@ -140,4 +220,3 @@ h3{
 	box-shadow: 0 0 20px 0px rgba(0,0,0,0.3);
 }
 </style>
-```
