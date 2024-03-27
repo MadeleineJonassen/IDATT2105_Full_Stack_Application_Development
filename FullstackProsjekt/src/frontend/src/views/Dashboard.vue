@@ -2,7 +2,7 @@
 </script>
 
 <template>
-	<div>
-		<h1> hello</h1>
-	</div>
+	<body>
+		<h1> This is the dashboard</h1>
+	</body>
 </template>

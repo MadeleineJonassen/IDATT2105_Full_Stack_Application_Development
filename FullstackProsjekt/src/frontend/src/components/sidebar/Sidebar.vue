@@ -30,7 +30,8 @@ export default {
 		<SidebarLink to="/login" icon="fas fa-image">Login</SidebarLink>
 
 		<span class="collapse-icon" :class="{'rotate-180': collapsed}" @click="toggleSideBar">
-			<button> < </button>
+			<button class="iconButton"> <img id="icon" src="../icons/menu-burger.png"/>
+ </button>
 		</span>
 	</div>
 </template>
@@ -41,7 +42,7 @@ export default {
 :root{
 	--sidebar-bd-color: #242F40;
 	--sidebar-item-hover: #CCA43B;
-	--sidebar-item-active: #242F40;
+	--sidebar-item-active: #CCA43B;
 }
 </style>
 <style scoped>
@@ -66,10 +67,17 @@ export default {
 .collapse-icon{
 	position: absolute;
 	bottom: 0;
-	padding: 0.7rem;
+	padding: 4px;
 
 	color: white;
 	transition: 0.2s linear;
+}
+#icon{
+	height: 18px;
+}
+.iconButton{
+	background-color: transparent;
+	border-color: transparent;
 }
 
 .rotate-180{
