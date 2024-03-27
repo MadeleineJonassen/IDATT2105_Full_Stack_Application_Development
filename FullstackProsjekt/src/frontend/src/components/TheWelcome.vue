@@ -1,7 +1,18 @@
+<script>
+export default {
+	data(){
+		return{
+		}
+	},
+}
+</script>
+
+
 <template>
 	<body>
 	<section class ="header">
 		<div class="text-box">
+			<img id="logo" src="../components/icons/brain.png"/>
 			<h1 class="heading">BrainStormer</h1>
 			<p> An easy way to learn and share quizzes. <br> Make your own quiz now! </p>
 			<a href="" class="hero-btn">CREATE QUIZ</a>
@@ -31,26 +42,24 @@
 	</body>
 </template>
 
+
+
+
 <style scoped>
-body {
-	background-color: #f0f0f0;
-	font-family: Arial, sans-serif;
-	margin: 0;
-	padding: 0;
-	text-align: center;
-}
 
 /*---Top----*/
-.header {
+.header{
 	min-height: 100vh;
 	width: 100%;
 	background-image: linear-gradient(rgba(4,9,30,0.7), rgba(4,9,30,0.7)),url(photos/lightning.gif);
 	background-position: center;
 	background-size: cover;
 	position: relative;
-	color: white;
 }
-
+#logo{
+	height: 150px;
+	padding: 10px;
+}
 
 /*Front page*/
 .text-box{
@@ -67,7 +76,7 @@ body {
 }
 .text-box p{
 	margin: 10px 0 40px;
-	font-size: 14px;
+	font-size: 18px;
 	color: #fff;
 }
 
@@ -86,17 +95,6 @@ body {
 	border: 1px solid #CCA43B;
 	background: #CCA43B;
 	transition: 1s;
-}
-
-
-@media (max-width: 700px){
-	.text-box h1{
-		font-size: 36px;
-	}
-	.row{
-		flex-direction: column;
-
-	}
 }
 
 /*Info with three levels*/
@@ -124,7 +122,7 @@ p{
 }
 .course-col{
 	flex-basis: 31%;
-	background: #D9C590;
+	background: #E5E5E5;
 	border-radius: 10px;
 	margin-bottom: 5%;
 	padding: 20px;
@@ -139,5 +137,15 @@ h3{
 .course-col:hover{
 	box-shadow: 0 0 20px 0px rgba(0,0,0,0.3);
 }
+
+@media (max-width: 700px){
+	.text-box h1{
+		font-size: 42px;
+		transition: 1s;
+	}
+	.row{
+		flex-direction: column;
+	}
+}
+
 </style>
-```
