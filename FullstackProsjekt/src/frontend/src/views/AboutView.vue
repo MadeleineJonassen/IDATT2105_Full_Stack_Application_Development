@@ -1,9 +1,5 @@
-<script setup>
-import About from '../components/About.vue'
-</script>
-
 <template>
-	<main>
-		<About />
-	</main>
+	<h1> This is about page</h1>
 </template>
+<script setup>
+</script>

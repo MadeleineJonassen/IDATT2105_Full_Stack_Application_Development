@@ -1,22 +1,19 @@
+
+<script>
+export default {
+	data(){
+		return{
+		}
+	},
+}
+</script>
+
+
 <template>
 	<body>
 	<section class ="header">
-		<nav>
-			<img src="../components/icons/brain.png"/>
-			<div class="nav-links" id="navLinks">
-				<img class="fa fa-bars" @click="showMenu" src="../components/icons/cross.png"/>
-				<ul>
-						<router-link to="/create"><a>Create</a></router-link>
-						<router-link to="/search"><a>Search</a></router-link>
-						<router-link to="/about"><a>About</a></router-link>
-						<router-link to="/feedback"><a>Feedback</a></router-link>
-						<router-link to="/login"><a>Login</a></router-link>
-					</ul>
-			</div>
-			<img class="fa fa-times" @click="hideMenu" src="../components/icons/menu-burger.png"/>
-
-		</nav>
 		<div class="text-box">
+			<img id="logo" src="../components/icons/brain.png"/>
 			<h1 class="heading">BrainStormer</h1>
 			<p> An easy way to learn and share quizzes. <br> Make your own quiz now! </p>
 			<a href="" class="hero-btn">CREATE QUIZ</a>
@@ -47,29 +44,10 @@
 </template>
 
 
-<script>
-export default {
-	data(){
-		return{
-		}
-	},
-	methods: {
-		showMenu() {
-			navLinks.style.right = "0";
-		},
-		hideMenu() {
-			navLinks.style.right = "-200px";
-		}
-	}
-}
-
-
-
-</script>
-
 
 
 <style scoped>
+
 /*---Top----*/
 .header{
 	min-height: 100vh;
@@ -79,34 +57,10 @@ export default {
 	background-size: cover;
 	position: relative;
 }
-nav{
-	display: flex;
-	padding: 2% 6%;
-	justify-content: space-between;
-	align-items: center;
+#logo{
+	height: 150px;
+	padding: 10px;
 }
-nav img{
-	height: 100px;
-	padding: 20px;
-}
-.nav-links{
-	flex: 1;
-	text-align: right;
-}
-.nav-links ul a{
-	list-style: none;
-	display: inline-block;
-	padding: 8px 12px;
-	position: relative;
-	color: white;
-	text-decoration: none;
-	font-size: 13px;
-}
-nav .fa{
-	display: none;
-}
-
-
 
 /*Front page*/
 .text-box{
@@ -144,41 +98,6 @@ nav .fa{
 	transition: 1s;
 }
 
-@media (max-width: 700px){
-	.text-box h1{
-		font-size: 42px;
-		transition: 1s;
-	}
-	.nav-links ul a{
-		display: block;
-	}
-	.nav-links{
-		position: absolute;
-		background: #242F40;
-		height: 100vh;
-		width: 200px;
-		top: 0;
-		right: -200px;
-		text-align: left;
-		z-index: 2;
-		transition: 1s;
-	}
-	nav .fa{
-		display: block;
-		margin: 10px;
-		height: 22px;
-		cursor: pointer;
-	}
-	.nav-links a{
-		padding: 30px;
-
-	}
-	.row{
-		flex-direction: column;
-
-	}
-}
-
 /*Info with three levels*/
 .info{
 	width: 80%;
@@ -204,7 +123,7 @@ p{
 }
 .course-col{
 	flex-basis: 31%;
-	background: #D9C590;
+	background: #E5E5E5;
 	border-radius: 10px;
 	margin-bottom: 5%;
 	padding: 20px;
@@ -219,4 +138,15 @@ h3{
 .course-col:hover{
 	box-shadow: 0 0 20px 0px rgba(0,0,0,0.3);
 }
+
+@media (max-width: 700px){
+	.text-box h1{
+		font-size: 42px;
+		transition: 1s;
+	}
+	.row{
+		flex-direction: column;
+	}
+}
+
 </style>
