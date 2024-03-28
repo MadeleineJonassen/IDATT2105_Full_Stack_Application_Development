@@ -1,5 +1,6 @@
 
 <script>
+	import axios from "axios";
 	export default {
 		name: 'Register',
 		data(){
@@ -12,15 +13,16 @@
 			}
 		},
 		methods:{
-			handleSubmit(e){
-				const data={
+			async handleSubmit(e) {
+				const response = await axios.post('signup', {
 					first_name: this.first_name,
 					last_name: this.last_name,
-					email:this.email,
-				  password:this.password,
-				 	password_confirm: this.password_confirm
-				};
-				console.log('submitted')
+					email: this.email,
+					password: this.password,
+					password_confirm: this.password_confirm
+				});
+
+				this.$router.push('/login')
 			}
 		}
 	}
@@ -36,15 +38,15 @@
 				<h1 id="signup">Signup</h1>
 				<p> Create an account to get started!</p>
 				<div class="signupBox">
-					<label>First Name</label>
+					<label>First Name</label> <br>
 					<input type="text" required v-model="first_name" placeholder="John"/> <br>
-					<label>Last Name</label>
-					<input type="text" required v-model="last_name"  placeholder="Doe"/> <br>
-					<label>Email</label>
-					<input type="email" required v-model="email"  placeholder="JohnDoe@email.com"/> <br>
-					<label>Password</label>
+					<label>Last Name</label> <br>
+					<input type="text" required v-model="last_name" placeholder="Doe"/> <br>
+					<label>Email</label> <br>
+					<input type="email" required v-model="email" placeholder="JohnDoe@email.com"/> <br>
+					<label>Password</label> <br>
 					<input type="password" required v-model="password" /> <br>
-					<label>Confirm Password</label>
+					<label>Confirm Password</label> <br>
 					<input type="password" required v-model="password_confirm" /> <br>
 				</div>
 			</div>
