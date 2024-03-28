@@ -30,8 +30,7 @@ export default {
 		<SidebarLink to="/login" icon="fas fa-image">Login</SidebarLink>
 
 		<span class="collapse-icon" :class="{'rotate-180': collapsed}" @click="toggleSideBar">
-			<button class="iconButton"> <img id="icon" src="../icons/menu-burger.png"/>
- </button>
+			<button class="iconButton"> <img id="icon" src="../icons/menu-burger.png"/> </button>
 		</span>
 	</div>
 </template>
