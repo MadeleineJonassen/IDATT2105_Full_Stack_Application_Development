@@ -1,5 +1,29 @@
 
 <script>
+	export default {
+		name: 'Register',
+		data(){
+			return{
+				first_name:'',
+				last_name:'',
+				email:'',
+				password:'',
+				password_confirm:''
+			}
+		},
+		methods:{
+			handleSubmit(e){
+				const data={
+					first_name: this.first_name,
+					last_name: this.last_name,
+					email:this.email,
+				  password:this.password,
+				 	password_confirm: this.password_confirm
+				};
+				console.log('submitted')
+			}
+		}
+	}
 </script>
 
 
@@ -13,13 +37,15 @@
 				<p> Create an account to get started!</p>
 				<div class="signupBox">
 					<label>First Name</label>
-					<input type="text" required v-model="fName" ref="fNameInput"/> <br>
+					<input type="text" required v-model="first_name" placeholder="John"/> <br>
 					<label>Last Name</label>
-					<input type="text" required v-model="lName" ref="lNameInput"/> <br>
-					<label> Email </label>
-					<input type="email" required v-model="email" ref="emailInput"/> <br>
+					<input type="text" required v-model="last_name"  placeholder="Doe"/> <br>
+					<label>Email</label>
+					<input type="email" required v-model="email"  placeholder="JohnDoe@email.com"/> <br>
 					<label>Password</label>
-					<input type="password" required v-model="password" ref="passwordInput"/> <br>
+					<input type="password" required v-model="password" /> <br>
+					<label>Confirm Password</label>
+					<input type="password" required v-model="password_confirm" /> <br>
 				</div>
 			</div>
 			<div class="submit-section">
@@ -46,7 +72,6 @@
 	border-style: solid;
 	margin: 20px;
 }
-
 .signupBox {
 	padding: 30px;
 }
@@ -55,7 +80,6 @@ label {
 	display: inline-block;
 	font-weight: bold;
 }
-
 input {
 	padding: 5px;
 	border-radius: 5px;
@@ -64,18 +88,14 @@ input {
 	background-color: #E5E5E5;
 	margin: 10px;
 }
-
-input::placeholder, textarea::placeholder {
-	color: #242F40;
+input::placeholder {
+	color: #b0b0b0;
 }
-
-
 .submit-section {
 	display: flex;
 	justify-content: center;
 	align-items: center;
 }
-
 #submit {
 	min-width: 150px;
 	min-height: 60px;
@@ -87,10 +107,8 @@ input::placeholder, textarea::placeholder {
 	cursor: pointer;
 	margin-top: 20px;
 }
-
 #submit:hover:enabled {
 	background-color: rgba(23, 55, 44, 0.9);
 	transition: 0.5s;
 }
-
 </style>
