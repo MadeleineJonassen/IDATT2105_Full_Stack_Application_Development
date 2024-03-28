@@ -1,9 +1,12 @@
 <script>
+import axios from "axios";
 export default {
-	data(){
-		return{
-		}
-	},
+
+	name: 'Home',
+	async created() {
+		const response = await axios.get('user');
+		console.log(response)
+	}
 }
 </script>
 

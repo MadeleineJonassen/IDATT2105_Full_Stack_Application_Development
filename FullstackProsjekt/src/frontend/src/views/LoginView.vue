@@ -1,11 +1,23 @@
 <script>
+import axios from "axios";
+
 export default {
+	name: 'Login',
 	data() {
 		return {
-			email: this.email,
-			password: this.password,
-			login: this.login
-		};
+			email: '',
+			password: '',
+		}
+	},
+	methods:{
+		async handleSubmit(){
+			const response = await axios.post('login', {
+				email: this.email,
+				password: this.password
+			});
+			localStorage.setItem('token', response.data.token)
+
+		}
 	}
 }
 </script>
@@ -20,10 +32,10 @@ export default {
         <h1 id="login">Login</h1>
 	      <p> Sign in to your already existing account</p>
 	      <div class="loginBox">
-          <label>Email</label>
-          <input type="email" placeholder="JohnDoe@email.com" required v-model="email" ref="emailInput"/> <br>
-          <label>Password</label>
-          <input type="password" required v-model="password" ref="passwordInput"/> <br>
+          <label>Email</label> <br>
+          <input type="email" placeholder="JohnDoe@email.com" required v-model="email" /> <br>
+          <label>Password</label> <br>
+          <input type="password" required v-model="password" /> <br>
           <router-link to="/signup" id="signUpLink">SIGNUP</router-link>
         </div>
       </div>
