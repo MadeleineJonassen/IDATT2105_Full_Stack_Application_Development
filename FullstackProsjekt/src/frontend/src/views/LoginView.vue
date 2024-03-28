@@ -12,25 +12,39 @@ export default {
 
 
 <template>
+	<body >
+
+	<div class="loginPage">
     <form @submit.prevent="handleSubmit">
       <div class="login">
         <h1 id="login">Login</h1>
-        <div class="loginBox">
+	      <p> Sign in to your already existing account</p>
+	      <div class="loginBox">
           <label>Email</label>
-          <input type="email" required v-model="email" ref="emailInput"/> <br>
+          <input type="email" placeholder="JohnDoe@email.com" required v-model="email" ref="emailInput"/> <br>
           <label>Password</label>
           <input type="password" required v-model="password" ref="passwordInput"/> <br>
-          <router-link to="/signup">Signup</router-link>
+          <router-link to="/signup" id="signUpLink">SIGNUP</router-link>
         </div>
       </div>
       <div class="submit-section">
         <input id="submit" type="submit"/>
       </div>
     </form>
-  </template>
+	</div>
+
+	</body>
+</template>
 
 
   <style>
+  .loginPage {
+		padding-top: 85px;
+	  display: flex;
+	  justify-content: center;
+	  align-items: center;
+  }
+
   .login {
     text-align: center;
     padding: 20px;
@@ -38,10 +52,11 @@ export default {
     align-items: center;
     border-style: solid;
     margin: 20px;
+	  max-width: 450px;
   }
 
   .loginBox {
-    padding: 30px;
+    padding: 20px;
   }
 
   label {
@@ -59,8 +74,13 @@ export default {
     margin: 10px;
   }
 
-  input::placeholder, textarea::placeholder {
-    color: #242F40;
+  input::placeholder {
+    color: #b0b0b0;
+  }
+
+  #signUpLink{
+	  color: #CCA43B;
+	  padding: 10px;
   }
 
 

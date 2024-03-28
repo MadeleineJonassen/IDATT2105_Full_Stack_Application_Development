@@ -5,27 +5,39 @@
 
 
 <template>
-	<form  @submit.prevent="handleSubmit">
-		<div class="signup">
-			<h1 id="signup">Signup</h1>
-			<div class="signupBox">
-				<label>First Name</label>
-				<input type="text" required v-model="fName" ref="fNameInput"/> <br>
-				<label>Last Name</label>
-				<input type="text" required v-model="lName" ref="lNameInput"/> <br>
-				<label> Email </label>
-				<input type="email" required v-model="email" ref="emailInput"/> <br>
-				<label>Password</label>
-				<input type="password" required v-model="password" ref="passwordInput"/> <br>
+	<body>
+	<div class="signupPage">
+		<form  @submit.prevent="handleSubmit">
+			<div class="signup">
+				<h1 id="signup">Signup</h1>
+				<p> Create an account to get started!</p>
+				<div class="signupBox">
+					<label>First Name</label>
+					<input type="text" required v-model="fName" ref="fNameInput"/> <br>
+					<label>Last Name</label>
+					<input type="text" required v-model="lName" ref="lNameInput"/> <br>
+					<label> Email </label>
+					<input type="email" required v-model="email" ref="emailInput"/> <br>
+					<label>Password</label>
+					<input type="password" required v-model="password" ref="passwordInput"/> <br>
+				</div>
 			</div>
-		</div>
-		<div class="submit-section">
-			<input id="submit" type="submit"/>
-		</div>
-	</form>
+			<div class="submit-section">
+				<input id="submit" type="submit"/>
+			</div>
+		</form>
+	</div>
+	</body>
 </template>
 
 <style>
+.signupPage {
+	padding-top: 85px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
 .signup {
 	text-align: center;
 	padding: 20px;
