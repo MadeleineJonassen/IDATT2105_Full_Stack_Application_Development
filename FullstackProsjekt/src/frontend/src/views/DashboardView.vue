@@ -4,11 +4,12 @@
 <template>
 	<body class="dashboard">
 		<h1>Dashboard</h1>
-		<input class="searchBox" placeholder="Search">
+		<input class="searchBox" placeholder="Search for category..."> <br>
 		<router-link to="/createQuiz" class="hero-btn">CREATE QUIZ </router-link>
 		<div class="row">
 			<div class="course-col">
 				<h3>Quiz 1</h3>
+				<img id="quizImg" src="../components/photos/background.png"/>
 				<p>Insert photo </p>
 			</div>
 			<div class="course-col">
@@ -45,9 +46,10 @@
 	padding: 20px;
 }
 .searchBox{
+	width: 250px;
 	padding: 10px;
+	margin-bottom: 50px;
 }
-
 
 .hero-btn{
 	display: inline-block;
@@ -82,6 +84,11 @@
 }
 .course-col:hover{
 	box-shadow: 0 0 20px 0px rgba(0,0,0,0.3);
+}
+
+#quizImg{
+	height: 250px;
+	border-radius: 5px;
 }
 
 @media (max-width: 700px){
