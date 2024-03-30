@@ -5,7 +5,7 @@
 	<body class="dashboard">
 		<h1>Dashboard</h1>
 		<input class="searchBox" placeholder="Search for category..."> <br>
-		<router-link to="/createQuiz" class="hero-btn">CREATE QUIZ </router-link>
+		<router-link to="/overviewQuiz" class="hero-btn">CREATE QUIZ </router-link>
 		<div class="row">
 			<div class="course-col">
 				<h3>Quiz 1</h3>
@@ -87,8 +87,10 @@
 }
 
 #quizImg{
-	height: 250px;
+	height: 200px;
 	border-radius: 5px;
+	display: flex;
+
 }
 
 @media (max-width: 700px){
@@ -99,5 +101,6 @@
 	.row{
 		flex-direction: column;
 	}
+
 }
 </style>
