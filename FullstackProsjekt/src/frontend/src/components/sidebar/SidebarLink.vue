@@ -62,6 +62,7 @@ export default {
 
 .link.active {
 	background-color: var(--sidebar-item-active);
+	color: #242F40;
 }
 
 .link .icon {
