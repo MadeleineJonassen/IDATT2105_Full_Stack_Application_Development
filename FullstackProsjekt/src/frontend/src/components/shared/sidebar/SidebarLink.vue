@@ -1,7 +1,7 @@
 <script>
 import { computed } from 'vue'
 import { useRoute } from 'vue-router'
-import { collapsed } from './state'
+import { collapsed } from './state.js'
 
 export default {
 	props: {

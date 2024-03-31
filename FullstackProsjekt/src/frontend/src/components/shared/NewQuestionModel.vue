@@ -44,7 +44,7 @@ const props = defineProps({
 }
 
 .modal-container {
-	width: 300px;
+	width: 500px;
 	margin: auto;
 	padding: 20px 30px;
 	background-color: #fff;
@@ -53,9 +53,9 @@ const props = defineProps({
 	transition: all 0.3s ease;
 }
 
-.modal-header h3 {
+.modal-header h5 {
 	margin-top: 0;
-	color: rgba(4, 20, 30, 0.8);
+	color: #363636;
 }
 
 .modal-body {
@@ -66,14 +66,6 @@ const props = defineProps({
 	float: right;
 }
 
-
-.modal-enter-from {
-	opacity: 0;
-}
-
-.modal-leave-to {
-	opacity: 0;
-}
 
 .modal-enter-from .modal-container,
 .modal-leave-to .modal-container {

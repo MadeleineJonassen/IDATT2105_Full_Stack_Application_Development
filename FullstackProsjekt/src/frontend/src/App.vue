@@ -1,7 +1,7 @@
 <script>
 import { RouterLink, RouterView } from 'vue-router'
-import Sidebar from "@/components/sidebar/Sidebar.vue"
-import { sidebarWidth}  from "@/components/sidebar/state.js";
+import Sidebar from "@/components/shared/sidebar/Sidebar.vue"
+import { sidebarWidth}  from "@/components/shared/sidebar/state.js";
 export default {
 	components:{Sidebar},
 	setup(){

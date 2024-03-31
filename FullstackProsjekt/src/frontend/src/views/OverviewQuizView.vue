@@ -8,7 +8,7 @@
 		<div class="overViewQuestion-page">
 		<h1>Your quizzes</h1>
 		<p> Select a quiz fo your creation to either play, edit or delete</p>
-			<div class="question-table">
+			<div class="table">
 				<table class="table">
 					<thead>
 					<tr>
@@ -49,35 +49,5 @@
 <style>
 .overViewQuestion-page{
 	padding: 20px;
-}
-
-.question-table{
-	width: 450px;
-	padding: 10px;
-}
-
-.play-btn{
-	height: 25px;
-	padding: 5px;
-	text-decoration: none;
-	background-color: #242F40;
-	border-color: transparent;
-	color: #FFFFFF;
-}
-.edit-btn{
-	height: 25px;
-	padding: 5px;
-	text-decoration: none;
-	background-color: #CCA43B;
-	border-color: transparent;
-	color: #242F40;
-}
-.delete-btn{
-	height: 25px;
-	padding: 5px;
-	text-decoration: none;
-	background-color: #cc513b;
-	border-color: transparent;
-	color: #242F40;
 }
 </style>

@@ -1,6 +1,6 @@
 <script>
-import {collapsed, toggleSideBar, sidebarWidth} from "@/components/sidebar/state.js";
-import SidebarLink from "@/components/sidebar/SidebarLink.vue";
+import {collapsed, toggleSideBar, sidebarWidth} from "@/components/shared/sidebar/state.js";
+import SidebarLink from "@/components/shared/sidebar/SidebarLink.vue";
 
 export default {
 	components: {SidebarLink},
@@ -30,7 +30,7 @@ export default {
 		<SidebarLink to="/login" icon="fas fa-image">Login</SidebarLink>
 
 		<span class="collapse-icon" :class="{'rotate-180': collapsed}" @click="toggleSideBar">
-			<button class="iconButton"> <img id="icon" src="../icons/sidebar-arrow.png"/> </button>
+			<button class="iconButton"> <img id="icon" src="../../icons/sidebar-arrow.png"/> </button>
 		</span>
 	</div>
 </template>
