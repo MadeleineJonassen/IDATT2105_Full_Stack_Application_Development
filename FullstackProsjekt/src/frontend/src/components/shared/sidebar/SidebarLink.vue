@@ -18,6 +18,7 @@ export default {
 }
 </script>
 
+
 <template>
 	<router-link :to="to" class="link" :class="{ active: isActive }">
 		<Svg name="icon" :class="icon"/>
@@ -29,9 +30,8 @@ export default {
 	</router-link>
 </template>
 
+
 <style scoped>
-
-
 .link {
 	display: flex;
 	align-items: center;

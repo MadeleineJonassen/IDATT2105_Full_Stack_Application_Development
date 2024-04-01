@@ -32,7 +32,7 @@ export default {
 
 		<span class="collapse-icon" :class="{'rotate-180': collapsed}" @click="toggleSideBar">
 			<Svg name="sidebar-arrow.png" class="icon"/>
-			<button class="iconButton"> <img id="icon" src="../../icons/sidebar-arrow.png"/> </button>
+			<button class="iconButton"> <img id="icon" src="../../icons/sidebar-icons/sidebar-arrow.png"/> </button>
 		</span>
 	</div>
 </template>
