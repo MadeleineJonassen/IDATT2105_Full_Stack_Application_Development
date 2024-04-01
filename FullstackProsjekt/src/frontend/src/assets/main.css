@@ -33,39 +33,47 @@ body {
     border-color: transparent;
     color: #242F40;
 }
-.create-question-btn{
-    padding: 20px;
-    margin: 10px;
-    background-color: #242F40;
-    color: #F2F2F2;
-}
-.save-question-btn{
-    padding: 20px;
-    margin: 10px;
-    background-color: #CCA43B;
-}
-
-.add-Btn{
+.add-Btn {
     background-color: #242F40;
     color: white;
     font-size: 16px;
-    padding: 6px;
-    border-radius: 15px;
+    padding: 10px;
+    border-radius: 20px;
     border-color: transparent;
+    margin-top: 10px;
 }
+.save-Btn{
+    background-color: #CCA43B;
+    font-size: 24px;
+    padding: 15px;
+    border-radius: 20px;
+    border-color: transparent;
+    margin-top: 10px;
+}
+
 .close-btn{
     background-color: #cc513b;
     padding: 10px;
     border-radius: 5px;
     border-color: transparent;
+    margin-left: 10px;
+
 }
 
 .submit-btn{
-    background-color: #D9C590;
+    background-color: #CCA43B;
+    font-size: 16px;
     padding: 10px;
     border-radius: 5px;
     border-color: transparent;
+    margin-left: 130px;
 }
+
+
+
+
+
+
 
 
 

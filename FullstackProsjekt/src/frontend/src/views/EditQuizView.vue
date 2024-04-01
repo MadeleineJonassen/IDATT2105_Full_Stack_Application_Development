@@ -56,7 +56,7 @@ function submitQuestion() {
 		alert('Question cannot be empty');
 		return false
 	}
-	if(!validateAnswers()&& !answerCount()){
+	if(!validateAnswers() && !answerCount()){
 		alert('Fill all inputs before submitting')
 		return false
 	}
@@ -73,6 +73,7 @@ function submitQuestion() {
 <template>
 	<body>
 		<div class="createQuestion-page">
+			<router-link to="/overviewQuiz"> <-  </router-link>
 			<h1>Create a question to your quiz</h1>
 			<div class="question-table">
 				<table class="table">
@@ -85,7 +86,7 @@ function submitQuestion() {
 					</thead>
 					<tbody>
 					<tr>
-						<th scope="row">{answer.id}</th>
+						<th scope="row">1</th>
 						<td>What is Vue?</td>
 						<td>
 							<button class="play-btn">View</button>
@@ -99,6 +100,7 @@ function submitQuestion() {
 
 				<Teleport to="body">
 					<NewQuestionModel :show="showNewQuestionModal" @close="destroyModal">
+
 						<template #header>
 							<h5> Add New Question</h5>
 						</template>
@@ -119,7 +121,7 @@ function submitQuestion() {
 									</thead>
 									<tbody>
 									<tr v-for="(answer, index) in newAnswers">
-										<th scope="row">1</th>
+										<th scope="row">{{answer.id}}</th>
 										<td>
 											<input type="text" v-model="answer.answer" id="questionInput">
 										</td>
@@ -137,14 +139,15 @@ function submitQuestion() {
 							<button @click="destroyModal" class="close-btn"> Close</button>
 							<button v-if="newAnswers.length>=2" @click="submitQuestion" class="submit-btn">Submit</button>
 						</template>
+
 					</NewQuestionModel>
 				</Teleport>
 
 			</div>
 
 			<div>
-				<button @click="createQuestion" class="create-question-btn"> Create Question </button> <br>
-				<button class="save-question-btn"> SAVE QUIZ </button>
+				<button @click="createQuestion" class="add-Btn"> Add Question </button> <br>
+				<button class="save-Btn"> SAVE QUIZ </button>
 			</div>
 		</div>
 	</body>

@@ -6,6 +6,7 @@
 <template>
 	<body>
 		<div class="overViewQuestion-page">
+			<router-link to="/dashboard"> <- </router-link>
 		<h1>Your quizzes</h1>
 		<p> Select a quiz fo your creation to either play, edit or delete</p>
 			<div class="table">
