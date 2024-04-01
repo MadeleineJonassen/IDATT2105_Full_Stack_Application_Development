@@ -9,7 +9,6 @@
 		<div class="row">
 			<div class="course-col">
 				<h3>Quiz 1</h3>
-				<img id="quizImg" src="../components/photos/background.png"/>
 				<p>Insert photo </p>
 			</div>
 			<div class="course-col">
