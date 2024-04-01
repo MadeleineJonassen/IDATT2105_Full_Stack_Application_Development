@@ -1,5 +1,6 @@
 
 <script>
+	import Svg from '../assets/Svg.vue'
 	import axios from "axios";
 	export default {
 		name: 'Register',

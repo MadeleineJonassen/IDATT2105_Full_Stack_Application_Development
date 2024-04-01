@@ -1,9 +1,10 @@
 <script>
 import {collapsed, toggleSideBar, sidebarWidth} from "@/components/shared/sidebar/state.js";
 import SidebarLink from "@/components/shared/sidebar/SidebarLink.vue";
+import Svg from "@/assets/Svg.vue";
 
 export default {
-	components: {SidebarLink},
+	components: {Svg, SidebarLink},
 	props: {},
 	setup() {
 		return{ collapsed,toggleSideBar,sidebarWidth }
@@ -23,13 +24,14 @@ export default {
 			</span>
 		</h1>
 
-		<SidebarLink to="/" icon="fas fa-home">Home</SidebarLink>
-		<SidebarLink to="/dashboard" icon="fas fa-columns">Dashboard</SidebarLink>
-		<SidebarLink to="/about" icon="fas fa-chart-bar">About</SidebarLink>
-		<SidebarLink to="/feedback" icon="fas fa-users">Feedback</SidebarLink>
-		<SidebarLink to="/login" icon="fas fa-image">Login</SidebarLink>
+		<SidebarLink to="/" icon="home-icon">Home</SidebarLink>
+		<SidebarLink to="/dashboard" icon="dashboard-icon">Dashboard</SidebarLink>
+		<SidebarLink to="/about" icon="about-icon">About</SidebarLink>
+		<SidebarLink to="/feedback" icon="feedback-icon">Feedback</SidebarLink>
+		<SidebarLink to="/login" icon="login-icon">Login</SidebarLink>
 
 		<span class="collapse-icon" :class="{'rotate-180': collapsed}" @click="toggleSideBar">
+			<Svg name="sidebar-arrow.png" class="icon"/>
 			<button class="iconButton"> <img id="icon" src="../../icons/sidebar-arrow.png"/> </button>
 		</span>
 	</div>
