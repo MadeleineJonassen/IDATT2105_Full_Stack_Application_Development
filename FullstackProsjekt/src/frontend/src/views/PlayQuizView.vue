@@ -1,0 +1,47 @@
+<script >
+</script>
+
+
+<template>
+
+	<body>
+
+	<div class="quiz">
+
+		<div id="info">
+			<div id="score">Score: 0</div>
+			<div id="ques-left">Question:1/20</div>
+		</div>
+		<div id="ques-view">
+
+		</div>
+		<div class="question">
+			<h1>Question</h1>
+		</div>
+
+		<div class="choice">
+			<div class="options"><input type="radio" name="options" value="option1" id="opt0"><label for="opt0" id="lb0">Option1</label></div>
+			<div class="options"><input type="radio" name="options" value="option2" id="opt1"><label for="opt1" id="lb1">Option2</label></div>
+			<div class="options"><input type="radio" name="options" value="option3" checked="checked" id="opt2"><label for="opt2" id="lb2">Option3</label></div>
+			<div class="options"><input type="radio" name="options" value="option4" id="opt3"><label for="opt3" id="lb3">Option4</label></div>
+		</div>
+
+		<div class="ans-btn">
+			<button type="button" class="submit-answer">Submit Answer</button>
+			<a href="#display-final-score" type="button" class="view-results">View Results</a>
+		</div>
+
+	</div>
+
+	<div class="final-result">
+		<h1>The Quiz is Over</h1>
+		<div class="solved-ques-no">You Solved 10 questions of HTML</div>
+		<div class="right-wrong">3 Were Right and 4 were Wrong</div>
+		<div id="display-final-score">Your Final Score is: 35</div>
+		<div class="remark">Remark: Satisfactory, Keep trying.</div>
+		<button id="restart">Restart Quiz</button>
+	</div>
+
+	</body>
+
+</template>

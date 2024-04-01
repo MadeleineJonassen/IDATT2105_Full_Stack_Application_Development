@@ -16,6 +16,7 @@
 						<th scope="col">#</th>
 						<th scope="col">Quiz</th>
 						<th scope="col">Action</th>
+						<th scope="col">Category </th>
 					</tr>
 					</thead>
 					<tbody>
@@ -23,21 +24,46 @@
 						<th scope="row">1</th>
 						<td>Vue Quiz</td>
 						<td>
-							<router-link to="/playQuiz" class="play-btn">Play</router-link>
+							<router-link to="/play-quiz" class="play-btn">Play</router-link>
 							<router-link to="/createQuiz" class="edit-btn">Edit</router-link>
 							<button class="delete-btn"> Delete</button>
 						</td>
+						<th>
+							<div id="form-box">
+								<form>
+									<select id="language">
+										<option value="IT" selected="selected">IT</option>
+										<option value="Nature">Nature</option>
+										<option value="Chemistry">Chemistry</option>
+										<option value="Religion">Religion</option>
+										<option value="Other">Other</option>
+									</select>
+								</form>
+							</div>
+						</th>
 					</tr>
 					<tr>
 						<th scope="row">2</th>
 						<td>What is Java?</td>
 						<td>
-							<router-link to="/playQuiz" class="play-btn">Play</router-link>
+							<router-link to="/play-quiz" class="play-btn">Play</router-link>
 							<router-link to="/overviewQuiz" class="edit-btn">Edit</router-link>
 							<button class="delete-btn"> Delete</button>
 						</td>
+						<th>
+							<div id="form-box">
+								<form>
+									<select id="language">
+										<option value="IT" selected="selected">IT</option>
+										<option value="Nature">Nature</option>
+										<option value="Chemistry">Chemistry</option>
+										<option value="Religion">Religion</option>
+										<option value="Other">Other</option>
+									</select>
+								</form>
+							</div>
+						</th>
 					</tr>
-
 					</tbody>
 				</table>
 			</div>
