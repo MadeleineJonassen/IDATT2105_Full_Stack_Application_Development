@@ -7,24 +7,31 @@ import jakarta.persistence.*;
 public abstract class Question {
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
-  private Long id;
+  private Integer id;
 
+  @ManyToOne
+  @JoinColumn(name = "quiz_id")
+  private Quiz quiz;
+
+  @Column(nullable = false)
   private String questionText;
+
+  @Column(nullable = false)
   private int score;
 
   public Question() {
   }
 
-  public Question(String questionText, int score) {
+  public Question(Quiz quiz, String questionText, int score) {
     this.questionText = questionText;
     this.score = score;
   }
 
-  public Long getId() {
+  public Integer getId() {
     return id;
   }
 
-  public void setId(Long id) {
+  public void setId(Integer id) {
     this.id = id;
   }
 
@@ -45,4 +52,11 @@ public abstract class Question {
   }
 
   public abstract boolean checkAnswer(String answer);
+
+  public Quiz getQuiz() {
+    return quiz;
+  }
+  public void setQuiz(Quiz quiz) {
+    this.quiz = quiz;
+  }
 }

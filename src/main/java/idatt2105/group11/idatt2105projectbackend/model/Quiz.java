@@ -9,8 +9,9 @@ import java.util.List;
 public class Quiz {
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
-  private Long id;
+  private Integer id;
 
+  @Column(nullable = false)
   private String title;
 
   @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
@@ -25,21 +26,26 @@ public class Quiz {
   @Enumerated(EnumType.STRING)
   private QuizCategory category;
 
+  @Enumerated(EnumType.STRING)
+  private QuizDifficulty difficulty;
+
   public Quiz() {
   }
 
-  public Quiz(String title, List<Question> questions, User creator, QuizCategory category) {
+  public Quiz(String title, List<Question> questions, User creator, QuizCategory category, QuizDifficulty difficulty) {
     this.title = title;
     this.questions = questions;
     this.creator = creator;
     this.category = category;
+    this.difficulty = difficulty;
+
   }
 
-  public Long getId() {
+  public Integer getId() {
     return id;
   }
 
-  public void setId(Long id) {
+  public void setId(Integer id) {
     this.id = id;
   }
 
@@ -72,5 +78,13 @@ public class Quiz {
 
   public void setCreator(User creator) {
     this.creator = creator;
+  }
+
+  public QuizDifficulty getDifficulty() {
+    return difficulty;
+  }
+
+  public void setDifficulty(QuizDifficulty difficulty) {
+    this.difficulty = difficulty;
   }
 }

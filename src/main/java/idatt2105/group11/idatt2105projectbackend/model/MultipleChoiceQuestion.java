@@ -11,13 +11,14 @@ public class MultipleChoiceQuestion extends Question {
   @Column(name = "option")
   private List<String> answerOptions;
 
+  @Column(nullable = false)
   private int correctAnswerIndex;
 
   public MultipleChoiceQuestion() {
   }
 
-  public MultipleChoiceQuestion(String questionText, int score, List<String> answerOptions, int correctAnswerIndex) {
-    super(questionText, score);
+  public MultipleChoiceQuestion(Quiz quiz, String questionText, int score, List<String> answerOptions, int correctAnswerIndex) {
+    super(quiz, questionText, score);
     this.answerOptions = answerOptions;
     this.correctAnswerIndex = correctAnswerIndex;
   }

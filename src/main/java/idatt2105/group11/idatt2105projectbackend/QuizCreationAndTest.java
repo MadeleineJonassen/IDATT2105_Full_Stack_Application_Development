@@ -4,8 +4,10 @@ import idatt2105.group11.idatt2105projectbackend.model.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashSet;
 import java.util.List;
 
 public class QuizCreationAndTest {
@@ -17,11 +19,14 @@ public class QuizCreationAndTest {
     logger.info("Quiz creation and test started.");
 
     //Step 0: Create a User
-    User JohnDoe = new User("JohnDoe", "Ilikefish", "admin");
+    Role admin = new Role("ROLE_ADMIN");
+    HashSet<Role> roles = new HashSet<>(Arrays.asList(admin));
+
+    User JohnDoe = new User("John Doe", "password", roles);
     logger.info("Created user: {}", JohnDoe.getName());
 
     // Step 1: Create questions with assigned scores
-    MultipleChoiceQuestion question1 = new MultipleChoiceQuestion(
+    MultipleChoiceQuestion question1 = new MultipleChoiceQuestion(null,
             "What is the capital of France?",
             2,
             Arrays.asList("1. Paris", "2. London", "3. Berlin", "4. Madrid"),
@@ -29,7 +34,7 @@ public class QuizCreationAndTest {
     );
     logger.info("Created question: {}", question1.getQuestionText());
 
-    MultipleChoiceQuestion question2 = new MultipleChoiceQuestion(
+    MultipleChoiceQuestion question2 = new MultipleChoiceQuestion(null,
             "Which language is primarily spoken in Brazil?",
             3,
             Arrays.asList("1. Spanish", "2. Portuguese", "3. French", "4. English"),
@@ -41,7 +46,8 @@ public class QuizCreationAndTest {
     List<Question> questions = new ArrayList<>();
     questions.add(question1);
     questions.add(question2);
-    Quiz quiz = new Quiz("Sample Quiz", questions, JohnDoe, QuizCategory.GEOGRAPHY); // Assuming constructor exists
+    Quiz quiz = new Quiz("Sample Quiz", questions, JohnDoe, QuizCategory.GEOGRAPHY, QuizDifficulty.EASY);
+    questions.forEach(question -> question.setQuiz(quiz));
     logger.info("Created quiz: {}", quiz.getTitle());
 
     // Step 3: Simulate answers from a user
@@ -50,7 +56,7 @@ public class QuizCreationAndTest {
     logger.info("Simulated answers for the quiz.");
 
     // Step 4: Create a QuizResult and add answers
-    QuizResult quizResult = new QuizResult(quiz, new ArrayList<>(), JohnDoe); // Initialize with an empty answers list
+    QuizResult quizResult = new QuizResult(quiz, new ArrayList<>(), JohnDoe, "påbegynt", LocalDateTime.now(), null); // Initialize with an empty answers list
     quizResult.addQuestionAnswer(answer1);
     quizResult.addQuestionAnswer(answer2);
     logger.info("Created quiz result for user: {}", JohnDoe.getName());

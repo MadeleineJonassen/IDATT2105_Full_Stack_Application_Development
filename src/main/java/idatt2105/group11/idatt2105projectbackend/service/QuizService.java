@@ -1,58 +1,96 @@
 package idatt2105.group11.idatt2105projectbackend.service;
 
-import idatt2105.group11.idatt2105projectbackend.model.User;
-import idatt2105.group11.idatt2105projectbackend.repository.UserRepository;
-import idatt2105.group11.idatt2105projectbackend.model.QuestionAnswer;
-import idatt2105.group11.idatt2105projectbackend.model.Quiz;
-import idatt2105.group11.idatt2105projectbackend.model.QuizResult;
+import idatt2105.group11.idatt2105projectbackend.dto.QuizDTO;
+import idatt2105.group11.idatt2105projectbackend.exception.QuizNotFoundException;
+import idatt2105.group11.idatt2105projectbackend.model.*;
+import idatt2105.group11.idatt2105projectbackend.repository.QuestionRepository;
 import idatt2105.group11.idatt2105projectbackend.repository.QuizRepository;
-import idatt2105.group11.idatt2105projectbackend.repository.QuizResultRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
-import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class QuizService {
-
   @Autowired
   private QuizRepository quizRepository;
 
   @Autowired
-  private UserRepository userRepository;
+  private QuestionRepository questionRepository;
 
   @Autowired
-  private QuizResultRepository quizResultRepository;
+  public QuizService(QuizRepository quizRepository, QuestionRepository questionRepository) {
+    this.quizRepository = quizRepository;
+    this.questionRepository = questionRepository;
+  }
 
-  public Quiz createQuiz(Long userId, Quiz quiz) {
-    User user = userRepository.findById(userId).orElseThrow(() -> new RuntimeException("User not found"));
-    quiz.setCreator(user);
+  @Transactional
+  public Quiz createQuiz(QuizDTO quizDTO) {
+    Quiz quiz = new Quiz();
+    quiz.setTitle(quizDTO.getTitle());
+    quiz.setCategory(quizDTO.getCategory());
+
+    List<Question> questions = questionRepository.findAllById(quizDTO.getQuestionIds());
+    quiz.setQuestions(questions);
+
     return quizRepository.save(quiz);
   }
 
-  public QuizResult startQuiz(Long userId, Long quizId) {
-    User user = userRepository.findById(userId).orElseThrow(() -> new RuntimeException("User not found"));
-    Quiz quiz = quizRepository.findById(quizId).orElseThrow(() -> new RuntimeException("Quiz not found"));
+  public QuizDTO updateQuiz(QuizDTO quizDTO) {
+    Quiz quiz = quizRepository.findById(quizDTO.getId())
+            .orElseThrow(() -> new QuizNotFoundException("Quiz not found with id " + quizDTO.getId()));
 
-    QuizResult quizResult = new QuizResult();
-    quizResult.setUser(user);
-    quizResult.setQuiz(quiz);
-    quizResult.setAnswers(List.of());
-    return quizResultRepository.save(quizResult);
+    quiz.setTitle(quizDTO.getTitle());
+    quiz.setCategory(quizDTO.getCategory());
+
+    Quiz updatedQuiz = quizRepository.save(quiz);
+    return convertToQuizDTO(updatedQuiz);
   }
 
-  public QuizResult submitAnswers(Long quizResultId, List<QuestionAnswer> answers) {
-    QuizResult quizResult = quizResultRepository.findById(quizResultId).orElseThrow(() -> new RuntimeException("Quiz attempt not found"));
-    quizResult.setAnswers(answers);
-    return quizResultRepository.save(quizResult);
+  public void deleteQuiz(Integer id) {
+    Quiz quiz = quizRepository.findById(id)
+            .orElseThrow(() -> new QuizNotFoundException("Quiz not found with id " + id));
+
+    questionRepository.deleteAll(quiz.getQuestions());
+
+    quizRepository.delete(quiz);
   }
 
-  public Quiz getQuiz(Long id) {
-    // Attempt to find the quiz by ID
-    Optional<Quiz> quizOptional = quizRepository.findById(id);
-
-    // Throw a custom exception or handle the case where the quiz isn't found
-    return quizOptional.orElseThrow(() -> new RuntimeException("Quiz not found with id: " + id));
+  public List<Quiz> findAllQuizzes() {
+    return quizRepository.findAll();
   }
+
+  public List<Quiz> findAllQuizzesByCategory(QuizCategory category) {
+    return quizRepository.findAllByCategory(category);
+  }
+  public List<Quiz> findAllQuizzesByDifficulty(QuizDifficulty difficulty) {
+    return quizRepository.findAllByDifficulty(difficulty);
+  }
+  public List<Quiz> findAllQuizzesByCreatorId(Integer creatorId) {
+    return quizRepository.findAllByCreatorId(creatorId);
+  }
+
+  public Quiz findQuizById(Integer id) {
+    return quizRepository.findById(id)
+            .orElseThrow(() -> new QuizNotFoundException("Quiz not found with id " + id));
+  }
+
+  public QuizDTO convertToQuizDTO(Quiz quiz) {
+    QuizDTO quizDTO = new QuizDTO();
+    quizDTO.setId(quiz.getId());
+    quizDTO.setTitle(quiz.getTitle());
+    quizDTO.setCategory(quiz.getCategory());
+
+    List<Integer> questionIds = quiz.getQuestions().stream()
+            .map(Question::getId)
+            .collect(Collectors.toList());
+    quizDTO.setQuestionIds(questionIds);
+
+    return quizDTO;
+  }
+
+
 }
+

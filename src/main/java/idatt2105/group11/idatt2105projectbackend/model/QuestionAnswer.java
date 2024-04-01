@@ -6,13 +6,16 @@ import jakarta.persistence.*;
 public class QuestionAnswer {
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
-  private Long id;
+  private Integer id;
 
   @ManyToOne(fetch = FetchType.LAZY)
   @JoinColumn(name = "question_id")
   private Question question;
 
+  @Column(nullable = false)
   private String givenAnswer;
+
+  @Column(nullable = false)
   private boolean correct;
 
   @ManyToOne(fetch = FetchType.LAZY)
@@ -34,11 +37,11 @@ public class QuestionAnswer {
     return question.checkAnswer(givenAnswer);
   }
 
-  public Long getId() {
+  public Integer getId() {
     return id;
   }
 
-  public void setId(Long id) {
+  public void setId(Integer id) {
     this.id = id;
   }
 
@@ -65,6 +68,11 @@ public class QuestionAnswer {
   public boolean isCorrect() {
     return correct;
   }
+
+  public void setCorrect(boolean correct) {
+    this.correct = correct;
+  }
+
 
   public QuizResult getQuizResult() {
     return quizResult;
