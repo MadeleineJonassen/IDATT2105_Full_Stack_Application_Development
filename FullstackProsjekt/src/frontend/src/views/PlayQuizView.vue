@@ -67,7 +67,6 @@
 	width:50%;
 	float:left;
 	font-size:25px;
-
 }
 
 #ques-view{
@@ -76,7 +75,6 @@
 	padding: 2px;
 }
 .question{
-	font-family: 'Roboto Slab', sans-serif;
 	letter-spacing: .13em;
 }
 
@@ -106,12 +104,12 @@ input[type=radio] {
 	border: 2px solid #CCA43B;
 	padding: 15px;
 	border-radius: 20px;
-	font-family: monospace;
 	transition: background-color 0.3s,border 0.2s, color 0.2s;
+	margin-right: 10px;
+	font-family: monospace;
 }
 
 .submit-answer:hover{
-
 	background-color: #CCA43B;
 	padding: 16px;
 	color: #fff;
@@ -125,9 +123,9 @@ input[type=radio] {
 	border: 2px solid #CCA43B;
 	padding: 15px;
 	border-radius: 20px;
-	font-family: monospace;
 	transition: background-color 0.3s,border 0.2s, color 0.2s;
 }
+
 
 .view-results:hover{
 	background-color: #CCA43B;
