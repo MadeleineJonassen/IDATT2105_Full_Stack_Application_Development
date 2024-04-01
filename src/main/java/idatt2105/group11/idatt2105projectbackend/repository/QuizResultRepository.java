@@ -5,14 +5,13 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Optional;
 
 @Repository
-public interface QuizResultRepository extends JpaRepository<QuizResult, Long> {
+public interface QuizResultRepository extends JpaRepository<QuizResult, Integer> {
+  List<QuizResult> findByUserId(Integer userId);
 
-  // Find all QuizResults for a specific user by the user's ID
-  List<QuizResult> findByUserId(Long userId);
+  Optional<QuizResult> findFirstByUserIdOrderByCompletedAtDesc(Integer userId);
 
-  // Find all QuizResults for a specific quiz by the quiz's ID
-  List<QuizResult> findByQuizId(Long quizId);
 
 }

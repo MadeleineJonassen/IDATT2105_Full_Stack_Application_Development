@@ -3,20 +3,32 @@ package idatt2105.group11.idatt2105projectbackend.model;
 import idatt2105.group11.idatt2105projectbackend.model.Quiz;
 import idatt2105.group11.idatt2105projectbackend.model.QuizResult;
 import jakarta.persistence.*;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 
 @Entity
 @Table(name = "users")
-public class User {
+public class User implements UserDetails {
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
-  private Long id;
+  @Column(name = "app_user_id", unique = true)
+  private Integer id;
+
+  @Column(nullable = false, unique = true)
   private String name;
+
+  @Column(nullable = false)
   private String password;
-  private String role;
+
+  @ManyToMany(fetch = FetchType.EAGER)
+  @JoinTable(name = "app_user_role",
+          joinColumns = {@JoinColumn(name = "app_user_id")},
+          inverseJoinColumns = {@JoinColumn(name = "role_id")}
+  )
+  private Set<Role> authorities;
 
   // Quizzes created by the user
   @OneToMany(mappedBy = "creator", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
@@ -28,19 +40,27 @@ public class User {
 
 
   public User() {
+    this.authorities = new HashSet<>();
   }
 
-  public User(String name, String password, String role) {
+  public User(String name, String password, Set<Role> authorities) {
     this.name = name;
     this.password = password;
-    this.role = role;
+    this.authorities = authorities;
   }
 
-  public Long getId() {
+  public User(Integer id, String name, String password, Set<Role> authorities) {
+    this.id = id;
+    this.name = name;
+    this.password = password;
+    this.authorities = authorities;
+  }
+
+  public Integer getId() {
     return id;
   }
 
-  public void setId(Long id) {
+  public void setId(Integer id) {
     this.id = id;
   }
 
@@ -68,21 +88,45 @@ public class User {
     this.name = name;
   }
 
+  @Override
+  public Collection<? extends GrantedAuthority> getAuthorities() {
+    return null;
+  }
+
   public String getPassword() {
     return password;
+  }
+
+  @Override
+  public String getUsername() {
+    return null;
+  }
+
+  @Override
+  public boolean isAccountNonExpired() {
+    return false;
+  }
+
+  @Override
+  public boolean isAccountNonLocked() {
+    return false;
+  }
+
+  @Override
+  public boolean isCredentialsNonExpired() {
+    return false;
+  }
+
+  @Override
+  public boolean isEnabled() {
+    return false;
   }
 
   public void setPassword(String password) {
     this.password = password;
   }
 
-  public String getRole() {
-    return role;
+  public void setAuthorities(Set<Role> authorities) {
+    this.authorities = authorities;
   }
-
-  public void setRole(String role) {
-    this.role = role;
-  }
-
-
 }
