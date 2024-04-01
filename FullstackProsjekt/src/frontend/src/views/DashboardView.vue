@@ -3,9 +3,16 @@
 
 <template>
 	<body class="dashboard">
-		<h1>Dashboard</h1>
-		<input class="searchBox" placeholder="Search for category..."> <br>
-		<router-link to="/overviewQuiz" class="hero-btn">CREATE QUIZ </router-link>
+	<div class="top-bar">
+
+		<div class="search-container">
+			<input class="searchBox" placeholder="Search for category...">
+		</div> <br>
+		<div class="create-container">
+			<router-link to="/overviewQuiz" class="create-btn">CREATE QUIZ</router-link>
+		</div>
+
+	</div>
 		<div class="row">
 			<div class="course-col">
 				<h3>Quiz 1</h3>
@@ -44,25 +51,41 @@
 .dashboard{
 	padding: 20px;
 }
+.top-bar {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	margin-bottom: 20px;
+}
+
+.search-container {
+	flex-grow: 1; /* Grow to take available space */
+	margin-right: 10px; /* Adjust margin between search box and button */
+}
+
+.create-container {
+	flex-shrink: 0; /* Do not shrink */
+}
 .searchBox{
 	width: 250px;
 	padding: 10px;
-	margin-bottom: 50px;
+	margin: 0 auto; /* Center horizontally */
+	display: block;
+	text-align: center;
 }
 
-.hero-btn{
-	display: inline-block;
+.create-btn{
 	text-decoration: none;
-	color: #242F40;
-	border: 1px solid #242F40;
+	color: #E5E5E5;
 	padding: 12px 34px;
 	font-size: 16px;
-	background: transparent;
-	position: relative;
 	cursor: pointer;
+	margin-bottom: 60px;
+	background-color: #242F40;
 }
-.hero-btn:hover{
+.create-btn:hover{
 	border: 1px solid #CCA43B;
+	color: #242F40;
 	background: #CCA43B;
 	transition: 1s;
 }
@@ -85,12 +108,6 @@
 	box-shadow: 0 0 20px 0px rgba(0,0,0,0.3);
 }
 
-#quizImg{
-	height: 200px;
-	border-radius: 5px;
-	display: flex;
-
-}
 
 @media (max-width: 700px){
 	.text-box h1{
@@ -99,6 +116,9 @@
 	}
 	.row{
 		flex-direction: column;
+	}
+	.create-btn{
+		display: flex;
 	}
 
 }
