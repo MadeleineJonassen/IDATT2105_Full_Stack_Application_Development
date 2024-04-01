@@ -1,5 +1,5 @@
 <script>
-import {collapsed, toggleSideBar, sidebarWidth} from "@/components/shared/sidebar/state.js";
+import { collapsed, toggleSideBar, sidebarWidth } from "@/components/shared/sidebar/state.js";
 import SidebarLink from "@/components/shared/sidebar/SidebarLink.vue";
 import Svg from "@/assets/Svg.vue";
 
@@ -7,10 +7,24 @@ export default {
 	components: {Svg, SidebarLink},
 	props: {},
 	setup() {
-		return{ collapsed,toggleSideBar,sidebarWidth }
+		const handleClickOutside = (event) => {
+			const sidebar = document.querySelector('.sidebar');
+			if (sidebar && !sidebar.contains(event.target)) {
+				collapsed.value = true; // Collapse the sidebar
+			}
+		}
+
+		document.addEventListener('click', handleClickOutside);
+
+		const beforeUnmount = () => {
+			document.removeEventListener('click', handleClickOutside);
+		};
+
+		return { collapsed, toggleSideBar, sidebarWidth, beforeUnmount };
 	}
 }
 </script>
+
 
 <template>
 	<div class="sidebar" :style="{width: sidebarWidth}">
@@ -59,7 +73,7 @@ export default {
 	bottom: 0;
 	padding: 0.5rem;
 
-	transition: 0.3s ease;
+	transition: 0.25s ease;
 
 	display: flex;
 	flex-direction: column;

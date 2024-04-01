@@ -18,7 +18,6 @@ export default {
 }
 </script>
 
-
 <template>
 	<router-link :to="to" class="link" :class="{ active: isActive }">
 		<Svg name="icon" :class="icon"/>
