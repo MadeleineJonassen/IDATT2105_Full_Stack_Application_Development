@@ -1,4 +1,5 @@
 <script setup>
+import Svg from '../assets/Svg.vue'
 </script>
 
 <template>
@@ -6,3 +7,7 @@
 		<h1> This is about page</h1>
 	</body>
 </template>
+
+<style>
+
+</style>

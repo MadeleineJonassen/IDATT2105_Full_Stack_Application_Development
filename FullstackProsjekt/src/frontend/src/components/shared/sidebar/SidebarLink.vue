@@ -2,8 +2,10 @@
 import { computed } from 'vue'
 import { useRoute } from 'vue-router'
 import { collapsed } from './state.js'
+import Svg from "@/assets/Svg.vue";
 
 export default {
+	components: {Svg},
 	props: {
 		to: { type: String, required: true },
 		icon: { type: String, required: true }
@@ -18,7 +20,7 @@ export default {
 
 <template>
 	<router-link :to="to" class="link" :class="{ active: isActive }">
-		<i class="icon" :class="icon" />
+		<Svg name="icon" :class="icon"/>
 		<transition name="fade">
       <span v-if="!collapsed">
         <slot />
@@ -27,17 +29,8 @@ export default {
 	</router-link>
 </template>
 
+
 <style scoped>
-.fade-enter-active,
-.fade-leave-active {
-	transition: opacity 0.1s;
-}
-
-.fade-enter,
-.fade-leave-to {
-	opacity: 0;
-}
-
 .link {
 	display: flex;
 	align-items: center;
@@ -65,9 +58,5 @@ export default {
 	color: #242F40;
 }
 
-.link .icon {
-	flex-shrink: 0;
-	width: 25px;
-	margin-right: 10px;
-}
+
 </style>

@@ -1,5 +1,7 @@
 
 <script>
+import Svg from '../assets/Svg.vue'
+
 export default {
 	data() {
 		return {
