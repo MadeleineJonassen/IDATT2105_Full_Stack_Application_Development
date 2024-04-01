@@ -46,9 +46,9 @@
 					<label>Email</label> <br>
 					<input type="email" required v-model="email" placeholder="JohnDoe@email.com"/> <br>
 					<label>Password</label> <br>
-					<input type="password" required v-model="password" /> <br>
+					<input type="text" required v-model="password" /> <br>
 					<label>Confirm Password</label> <br>
-					<input type="password" required v-model="password_confirm" /> <br>
+					<input type="text" required v-model="password_confirm" /> <br>
 				</div>
 			</div>
 			<div class="submit-section">

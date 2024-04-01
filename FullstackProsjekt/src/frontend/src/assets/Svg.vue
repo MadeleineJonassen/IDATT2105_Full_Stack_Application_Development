@@ -13,6 +13,17 @@ const icon = defineAsyncComponent(()=>
 
 
 <template>
-	<component :is="icon"/>
+	<component class="icon" :is="icon"/>
 </template>
 
+<style>
+.icon{
+	height: 20px;
+	width: 20px;
+	display: inline-block;
+	background-size: contain;
+	background-repeat: no-repeat;
+	background-position: center;
+	margin-left: 40px;
+}
+</style>
