@@ -126,7 +126,7 @@ textarea {
 	padding: 8px;
 	border-radius: 5px;
 	border: none;
-	min-width: 350px;
+	min-width: 400px;
 	height: 100px;
 	background-color: #E5E5E5;
 }
