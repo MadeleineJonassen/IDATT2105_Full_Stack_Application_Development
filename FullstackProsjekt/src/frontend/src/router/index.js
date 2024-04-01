@@ -34,6 +34,21 @@ const router = createRouter({
     name: 'signup',
     component: () => import('../views/SignupView.vue')
     },
+    {
+      path: '/createQuiz',
+      name: 'create Quiz',
+      component: () => import('../views/EditQuizView.vue')
+    },
+    {
+      path: '/overviewQuiz',
+      name: 'overview Quiz',
+      component: () => import('../views/OverviewQuizView.vue')
+    },
+    {
+      path: '/play-quiz',
+      name: 'playQuiz',
+      component: () => import('../views/PlayQuizView.vue')
+    },
   ]
 })
 

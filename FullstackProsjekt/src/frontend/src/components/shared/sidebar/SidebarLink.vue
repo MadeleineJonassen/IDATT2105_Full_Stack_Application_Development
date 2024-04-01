@@ -1,7 +1,7 @@
 <script>
 import { computed } from 'vue'
 import { useRoute } from 'vue-router'
-import { collapsed } from './state'
+import { collapsed } from './state.js'
 
 export default {
 	props: {
@@ -62,6 +62,7 @@ export default {
 
 .link.active {
 	background-color: var(--sidebar-item-active);
+	color: #242F40;
 }
 
 .link .icon {

@@ -1,4 +1,80 @@
 body {
-    font-family: Arial, sans-serif;
+    font-family: monospace;
     margin: 0 0 0 27px;
+    background-color: #F2F2F2;
 }
+.table{
+    width: 450px;
+    padding: 10px;
+    background-color: #dcdcdc;
+}
+
+.play-btn{
+    height: 25px;
+    padding: 5px;
+    text-decoration: none;
+    background-color: #242F40;
+    border-color: transparent;
+    color: #FFFFFF;
+}
+.edit-btn{
+    height: 25px;
+    padding: 5px;
+    text-decoration: none;
+    background-color: #CCA43B;
+    border-color: transparent;
+    color: #242F40;
+}
+.delete-btn{
+    height: 25px;
+    padding: 5px;
+    text-decoration: none;
+    background-color: #cc513b;
+    border-color: transparent;
+    color: #242F40;
+}
+.add-Btn {
+    background-color: #242F40;
+    color: white;
+    font-size: 16px;
+    padding: 10px;
+    border-radius: 20px;
+    border-color: transparent;
+    margin-top: 10px;
+}
+.save-Btn{
+    background-color: #CCA43B;
+    font-size: 24px;
+    padding: 15px;
+    border-radius: 20px;
+    border-color: transparent;
+    margin-top: 10px;
+}
+
+.close-btn{
+    background-color: #cc513b;
+    padding: 10px;
+    border-radius: 5px;
+    border-color: transparent;
+    margin-left: 10px;
+
+}
+
+.submit-btn{
+    background-color: #CCA43B;
+    font-size: 16px;
+    padding: 10px;
+    border-radius: 5px;
+    border-color: transparent;
+    margin-left: 130px;
+}
+
+
+
+
+
+
+
+
+
+

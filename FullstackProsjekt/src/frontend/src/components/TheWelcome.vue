@@ -18,7 +18,7 @@ export default {
 			<img id="logo" src="../components/icons/brain.png"/>
 			<h1 class="heading">BrainStormer</h1>
 			<p> An easy way to learn and share quizzes. <br> Make your own quiz now! </p>
-			<a href="" class="hero-btn">CREATE QUIZ</a>
+			<router-link to="/overviewQuiz" class="hero-btn">CREATE QUIZ </router-link>
 		</div>
 	</section>
 
@@ -98,6 +98,7 @@ export default {
 	border: 1px solid #CCA43B;
 	background: #CCA43B;
 	transition: 1s;
+	color: #242F40;
 }
 
 /*Info with three levels*/
@@ -125,7 +126,7 @@ p{
 }
 .course-col{
 	flex-basis: 31%;
-	background: #E5E5E5;
+	background: #cccaca;
 	border-radius: 10px;
 	margin-bottom: 5%;
 	padding: 20px;
@@ -139,6 +140,7 @@ h3{
 }
 .course-col:hover{
 	box-shadow: 0 0 20px 0px rgba(0,0,0,0.3);
+
 }
 
 @media (max-width: 700px){
