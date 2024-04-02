@@ -1,6 +1,7 @@
 <script>
-import axios from "axios";
 import Svg from "@/assets/Svg.vue";
+import {setToken} from "@/tokenController.js";
+import {apiClient} from "@/api.js";
 
 export default {
 	name: 'Login',
@@ -9,16 +10,23 @@ export default {
 		return {
 			email: '',
 			password: '',
-			showPassword: false // Add showPassword property
+			showPassword: false, // Add showPassword property
+      errorMsg: '', //TODO: display error to user
 		}
 	},
 	methods: {
 		async handleSubmit() {
-			const response = await axios.post('login', {
-				email: this.email,
-				password: this.password
-			});
-			localStorage.setItem('token', response.data.token)
+      try {
+        await apiClient.post('/login', {
+          email: this.email,
+          password: this.password
+        }).then(response => {
+          setToken(response.data.token); //TODO: check token name
+        });
+      } catch (error) {
+        //TODO: proper error handling
+        this.errorMsg = 'Error logging in';
+      }
 		},
 		togglePasswordVisibility() {
 			this.showPassword = !this.showPassword;

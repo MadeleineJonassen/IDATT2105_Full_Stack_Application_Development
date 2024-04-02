@@ -1,7 +1,7 @@
 
 <script>
 	import Svg from '../assets/Svg.vue'
-	import axios from "axios";
+  import {apiClient} from "@/api.js";
 	export default {
 		name: 'Register',
 		data(){
@@ -10,20 +10,27 @@
 				last_name:'',
 				email:'',
 				password:'',
-				password_confirm:''
+				password_confirm:'',
+        errorMsg: '', //TODO: display error to user
 			}
 		},
 		methods:{
 			async handleSubmit(e) {
-				const response = await axios.post('signup', {
-					first_name: this.first_name,
-					last_name: this.last_name,
-					email: this.email,
-					password: this.password,
-					password_confirm: this.password_confirm
-				});
-
-				this.$router.push('/login')
+        //TODO: use interceptor to check matching password, send one password
+        try {
+          await apiClient.post('/api/auth/register', {
+            first_name: this.first_name,
+            last_name: this.last_name,
+            email: this.email,
+            password: this.password
+            //password_confirm: this.password_confirm
+          }).then(response => {
+            this.$router.push('/login')
+          });
+        } catch (error) {
+          //TODO: proper error handling
+          this.errorMsg = 'Error signing up';
+        }
 			}
 		}
 	}
