@@ -6,7 +6,10 @@ import edu.ntnu.idatt2105.dto.TokenDTO;
 import edu.ntnu.idatt2105.dto.UserRegistrationDTO;
 import edu.ntnu.idatt2105.model.User;
 import edu.ntnu.idatt2105.service.AuthenticationService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.web.bind.annotation.*;
+
 
 
 @RestController
@@ -15,6 +18,7 @@ import org.springframework.web.bind.annotation.*;
 public class AuthenticationController {
 
   private final AuthenticationService authService;
+  private static final Logger logger = LoggerFactory.getLogger(AuthenticationController.class);
 
   public AuthenticationController(AuthenticationService authService) {
     this.authService = authService;
@@ -28,6 +32,7 @@ public class AuthenticationController {
 
   @PostMapping("/login")
   public LoginResponseDTO loginUser(@RequestBody UserRegistrationDTO registrationDTO) {
+    logger.info("Logging in with user " + registrationDTO.toString());
     return authService.loginUser(registrationDTO.getName(), registrationDTO.getPassword());
   }
 
