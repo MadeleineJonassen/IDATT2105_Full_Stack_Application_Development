@@ -29,7 +29,7 @@ body {
 
 
 .play-btn{
-    padding: 5px;
+    padding: 10px;
     text-decoration: none;
     background-color: #242F40;
     border-color: transparent;
@@ -37,7 +37,7 @@ body {
     border-radius: 10px;
 }
 .edit-btn{
-    padding: 5px;
+    padding: 10px;
     text-decoration: none;
     background-color: #CCA43B;
     border-color: transparent;
@@ -45,7 +45,7 @@ body {
     border-radius: 10px;
 }
 .delete-btn{
-    padding: 3px;
+    padding: 8px;
     background-color: #cc513b;
     border-color: transparent;
     color: #242F40;
