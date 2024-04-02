@@ -33,8 +33,8 @@ public class UserService implements UserDetailsService {
             userRepository.findByPassword(user.getPassword()).isPresent();
   }
 
-  public User findAppUserByName(String name) {
-    Optional<User> userOptional = userRepository.findByUsername(name);
+  public User findAppUserByUsername(String username) {
+    Optional<User> userOptional = userRepository.findByUsername(username);
 
     return userOptional.orElse(null);
   }
