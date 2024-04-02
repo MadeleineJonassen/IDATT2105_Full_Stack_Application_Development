@@ -1,5 +1,7 @@
 package edu.ntnu.idatt2105.dto;
 
+import java.util.List;
+
 public class UserDTO extends UserRegistrationDTO {
   private Integer id;
 
@@ -9,8 +11,8 @@ public class UserDTO extends UserRegistrationDTO {
     super();
   }
 
-  public UserDTO(Integer id, String username, String password) {
-    super(username, password);
+  public UserDTO(Integer id, String name, String password) {
+    super(name, password);
     this.id = id;
   }
 

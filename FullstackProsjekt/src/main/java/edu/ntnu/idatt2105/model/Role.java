@@ -11,11 +11,12 @@ import jakarta.persistence.GenerationType;
 import org.springframework.security.core.GrantedAuthority;
 
 @Entity
+@Table(name = "role")
 public class Role implements GrantedAuthority {
 
   @Id
   @GeneratedValue(strategy = GenerationType.AUTO)
-  @Column(unique = true, nullable = false)
+  @Column(name = "role_id")
   private Integer roleId;
 
   @Column(nullable = false)
