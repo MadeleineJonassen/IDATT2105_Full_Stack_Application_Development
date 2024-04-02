@@ -16,7 +16,7 @@ public class User implements UserDetails {
   private Integer id;
 
   @Column(nullable = false, unique = true)
-  private String name;
+  private String username;
 
   @Column(nullable = false)
   private String password;
@@ -41,15 +41,15 @@ public class User implements UserDetails {
     this.authorities = new HashSet<>();
   }
 
-  public User(String name, String password, Set<Role> authorities) {
-    this.name = name;
+  public User(String username, String password, Set<Role> authorities) {
+    this.username = username;
     this.password = password;
     this.authorities = authorities;
   }
 
-  public User(Integer id, String name, String password, Set<Role> authorities) {
+  public User(Integer id, String username, String password, Set<Role> authorities) {
     this.id = id;
-    this.name = name;
+    this.username = username;
     this.password = password;
     this.authorities = authorities;
   }
@@ -78,12 +78,13 @@ public class User implements UserDetails {
     this.quizResults = quizResults;
   }
 
-  public String getName() {
-    return name;
+  @Override
+  public String getUsername() {
+    return username;
   }
 
-  public void setName(String name) {
-    this.name = name;
+  public void setUsername(String name) {
+    this.username = name;
   }
 
   @Override
@@ -93,11 +94,6 @@ public class User implements UserDetails {
 
   public String getPassword() {
     return password;
-  }
-
-  @Override
-  public String getUsername() {
-    return null;
   }
 
   @Override

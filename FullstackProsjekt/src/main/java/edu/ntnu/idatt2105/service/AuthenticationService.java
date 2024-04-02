@@ -59,7 +59,7 @@ public class AuthenticationService {
       String token = tokenService.generateJwt(auth);
       System.out.println("first token: " + token);
 
-      Optional<User> optionalUser = userRepository.findByName(username);
+      Optional<User> optionalUser = userRepository.findByUsername(username);
 
       if (optionalUser.isPresent()) {
         return new LoginResponseDTO(optionalUser.get(), token);

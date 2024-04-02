@@ -14,7 +14,7 @@ public class LoginResponseDTO {
   }
 
   public LoginResponseDTO(User user, String jwt) {
-    this.name = user.getName();
+    this.name = user.getUsername();
     this.password = user.getPassword();
     this.jwt = jwt;
   }
@@ -23,7 +23,7 @@ public class LoginResponseDTO {
     return name;
   }
 
-  public void setName(String username) {
+  public void setName(String name) {
     this.name = name;
   }
 
