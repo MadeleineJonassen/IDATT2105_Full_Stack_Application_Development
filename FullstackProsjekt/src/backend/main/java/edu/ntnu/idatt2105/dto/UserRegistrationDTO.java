@@ -2,7 +2,7 @@ package edu.ntnu.idatt2105.dto;
 
 public class UserRegistrationDTO {
 
-  private String name;
+  private String username;
   private String password;
 
 
@@ -10,19 +10,19 @@ public class UserRegistrationDTO {
     super();
   }
 
-  public UserRegistrationDTO(String name, String password) {
-    this.name = name;
+  public UserRegistrationDTO(String username, String password) {
+    this.username = username;
     this.password = password;
   }
 
   // Getters and setters
 
-  public String getName() {
-    return name;
+  public String getUsername() {
+    return username;
   }
 
-  public void setName(String name) {
-    this.name = name;
+  public void setUsername(String username) {
+    this.username = username;
   }
 
   public String getPassword() {
@@ -36,7 +36,7 @@ public class UserRegistrationDTO {
   @Override
   public String toString() {
     return "UserRegistrationDTO{" +
-            "username='" + name + '\'' +
+            "username='" + username + '\'' +
             ", password='" + password + '\'' +
             '}';
   }

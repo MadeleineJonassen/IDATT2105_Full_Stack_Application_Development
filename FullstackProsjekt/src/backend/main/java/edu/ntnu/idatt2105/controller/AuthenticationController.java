@@ -27,13 +27,13 @@ public class AuthenticationController {
   @PostMapping("/register")
   public User registerUser(@RequestBody UserRegistrationDTO registrationDTO) {
     //TODO: Remove return of password, use DTO
-    return authService.registerUser(registrationDTO.getName(), registrationDTO.getPassword());
+    return authService.registerUser(registrationDTO.getUsername(), registrationDTO.getPassword());
   }
 
   @PostMapping("/login")
   public LoginResponseDTO loginUser(@RequestBody UserRegistrationDTO registrationDTO) {
     logger.info("Logging in with user " + registrationDTO.toString());
-    return authService.loginUser(registrationDTO.getName(), registrationDTO.getPassword());
+    return authService.loginUser(registrationDTO.getUsername(), registrationDTO.getPassword());
   }
 
   @PostMapping("/refresh")
