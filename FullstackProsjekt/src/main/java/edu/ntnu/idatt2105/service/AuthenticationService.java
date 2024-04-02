@@ -75,7 +75,7 @@ public class AuthenticationService {
   public String refreshJWT(String existingToken) {
     tokenService.verifyToken(existingToken);
 
-    String username = tokenService.getNameFromToken(existingToken);
+    String username = tokenService.getUsernameFromToken(existingToken);
 
     UserDetails userDetails = userService.loadUserByUsername(username);
 

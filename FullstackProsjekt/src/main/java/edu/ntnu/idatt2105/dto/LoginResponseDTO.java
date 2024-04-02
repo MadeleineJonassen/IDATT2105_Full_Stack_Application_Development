@@ -5,7 +5,7 @@ import edu.ntnu.idatt2105.model.User;
 
 public class LoginResponseDTO {
 
-  private String name;
+  private String username;
   private String password;
   private String jwt;
 
@@ -14,17 +14,17 @@ public class LoginResponseDTO {
   }
 
   public LoginResponseDTO(User user, String jwt) {
-    this.name = user.getUsername();
+    this.username = user.getUsername();
     this.password = user.getPassword();
     this.jwt = jwt;
   }
 
-  public String getName() {
-    return name;
+  public String getUsername() {
+    return username;
   }
 
-  public void setName(String name) {
-    this.name = name;
+  public void setUsername(String username) {
+    this.username = username;
   }
 
   public String getPassword() {
@@ -46,7 +46,7 @@ public class LoginResponseDTO {
   @Override
   public String toString() {
     return "LoginResponseDTO{" +
-            "username='" + name + '\'' +
+            "username='" + username + '\'' +
             ", password='" + password + '\'' +
             ", jwt='" + jwt + '\'' +
             '}';

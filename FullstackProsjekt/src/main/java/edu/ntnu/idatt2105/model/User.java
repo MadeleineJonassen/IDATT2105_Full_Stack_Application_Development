@@ -8,11 +8,10 @@ import java.util.*;
 
 
 @Entity
-@Table(name = "users")
 public class User implements UserDetails {
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
-  @Column(name = "app_user_id", unique = true)
+  @Column(unique = true)
   private Integer id;
 
   @Column(nullable = false, unique = true)
