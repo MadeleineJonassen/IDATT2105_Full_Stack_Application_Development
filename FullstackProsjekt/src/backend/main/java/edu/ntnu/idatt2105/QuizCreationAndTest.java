@@ -23,7 +23,7 @@ public class QuizCreationAndTest {
     HashSet<Role> roles = new HashSet<>(Arrays.asList(admin));
 
     User JohnDoe = new User("John Doe", "password", roles);
-    logger.info("Created user: {}", JohnDoe.getName());
+    logger.info("Created user: {}", JohnDoe.getUsername());
 
     // Step 1: Create questions with assigned scores
     MultipleChoiceQuestion question1 = new MultipleChoiceQuestion(null,
@@ -59,7 +59,7 @@ public class QuizCreationAndTest {
     QuizResult quizResult = new QuizResult(quiz, new ArrayList<>(), JohnDoe, "påbegynt", LocalDateTime.now(), null); // Initialize with an empty answers list
     quizResult.addQuestionAnswer(answer1);
     quizResult.addQuestionAnswer(answer2);
-    logger.info("Created quiz result for user: {}", JohnDoe.getName());
+    logger.info("Created quiz result for user: {}", JohnDoe.getUsername());
 
     // Output results
     quizResult.getAnswers().forEach(answer -> {

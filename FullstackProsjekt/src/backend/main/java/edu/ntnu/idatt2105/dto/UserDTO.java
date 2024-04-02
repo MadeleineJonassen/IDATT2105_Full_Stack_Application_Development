@@ -11,8 +11,8 @@ public class UserDTO extends UserRegistrationDTO {
     super();
   }
 
-  public UserDTO(Integer id, String name, String password) {
-    super(name, password);
+  public UserDTO(Integer id, String username, String password) {
+    super(username, password);
     this.id = id;
   }
 

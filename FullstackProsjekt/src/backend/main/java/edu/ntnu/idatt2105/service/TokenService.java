@@ -46,7 +46,7 @@ public class TokenService {
     }
   }
 
-  public String getNameFromToken(String token) {
+  public String getUsernameFromToken(String token) {
     Jwt jwt = jwtDecoder.decode(token);
     return jwt.getSubject();
   }
