@@ -71,6 +71,9 @@
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
+				<configuration>
+                <mainClass>edu.ntnu.idatt2105.FullstackProsjektApplication</mainClass>
+            	</configuration>
 			</plugin>
 		</plugins>
 	</build>
