@@ -9,7 +9,7 @@
 			<input class="searchBox" placeholder="Search for category...">
 		</div> <br>
 		<div class="create-container">
-			<router-link to="/overviewQuiz" class="create-btn">CREATE QUIZ</router-link>
+			<router-link to="/overviewQuiz" class="create-btn">YOUR QUIZES</router-link>
 		</div>
 
 	</div>
@@ -57,7 +57,6 @@
 	align-items: center;
 	margin-bottom: 20px;
 }
-
 .search-container {
 	flex-grow: 1; /* Grow to take available space */
 	margin-right: 10px; /* Adjust margin between search box and button */
@@ -90,36 +89,4 @@
 	transition: 1s;
 }
 
-.row{
-	margin-top: 5%;
-	display: flex;
-	justify-content: space-between;
-}
-.course-col{
-	flex-basis: 31%;
-	background: #E5E5E5;
-	border-radius: 10px;
-	margin-bottom: 5%;
-	padding: 20px;
-	box-sizing: border-box;
-	transition: 0.5s;
-}
-.course-col:hover{
-	box-shadow: 0 0 20px 0px rgba(0,0,0,0.3);
-}
-
-
-@media (max-width: 700px){
-	.text-box h1{
-		font-size: 42px;
-		transition: 1s;
-	}
-	.row{
-		flex-direction: column;
-	}
-	.create-btn{
-		display: flex;
-	}
-
-}
 </style>

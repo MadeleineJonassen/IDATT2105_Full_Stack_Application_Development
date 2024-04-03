@@ -8,34 +8,49 @@ body {
     margin: 100px;
 }
 
-.table{
-    padding: 10px;
-    background-color: #dcdcdc;
+
+.row{
+    margin-top: 5%;
+    display: flex;
+    justify-content: space-between;
+}
+.course-col{
+    flex-basis: 31%;
+    background: #d7d7d7;
+    border-radius: 10px;
+    margin-bottom: 5%;
+    padding: 20px;
+    box-sizing: border-box;
+    transition: 0.5s;
+}
+.course-col:hover{
+    box-shadow: 0 0 20px 0px rgba(0,0,0,0.3);
 }
 
+
 .play-btn{
-    height: 25px;
-    padding: 5px;
+    padding: 10px;
     text-decoration: none;
     background-color: #242F40;
     border-color: transparent;
     color: #FFFFFF;
+    border-radius: 10px;
 }
 .edit-btn{
-    height: 25px;
-    padding: 5px;
+    padding: 10px;
     text-decoration: none;
     background-color: #CCA43B;
     border-color: transparent;
     color: #242F40;
+    border-radius: 10px;
 }
 .delete-btn{
-    height: 25px;
-    padding: 5px;
-    text-decoration: none;
+    padding: 8px;
     background-color: #cc513b;
     border-color: transparent;
     color: #242F40;
+    border-radius: 10px;
+    font-family: monospace;
 }
 .add-Btn {
     background-color: #242F40;
@@ -45,6 +60,14 @@ body {
     border-radius: 20px;
     border-color: transparent;
     margin-top: 10px;
+}
+.add-Btn:hover{
+    cursor: pointer;
+    background-color: #2f3d54;
+}
+.add-Btn:active{
+    background-color: #425575;
+    transition: 0.2s ;
 }
 .save-Btn{
     background-color: #CCA43B;
@@ -73,12 +96,8 @@ body {
     margin-left: 130px;
 }
 
-
-
-
-
-
-
-
-
-
+@media (max-width: 700px){
+    .row{
+        flex-direction: column;
+    }
+}
