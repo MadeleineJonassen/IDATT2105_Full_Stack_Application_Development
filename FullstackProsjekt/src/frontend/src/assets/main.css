@@ -16,7 +16,7 @@ body {
 }
 .course-col{
     flex-basis: 31%;
-    background: #E5E5E5;
+    background: #d7d7d7;
     border-radius: 10px;
     margin-bottom: 5%;
     padding: 20px;
@@ -60,6 +60,14 @@ body {
     border-radius: 20px;
     border-color: transparent;
     margin-top: 10px;
+}
+.add-Btn:hover{
+    cursor: pointer;
+    background-color: #2f3d54;
+}
+.add-Btn:active{
+    background-color: #425575;
+    transition: 0.2s ;
 }
 .save-Btn{
     background-color: #CCA43B;

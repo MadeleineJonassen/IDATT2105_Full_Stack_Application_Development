@@ -18,7 +18,7 @@ export default {
 			<img id="logo" src="../components/icons/brain.png"/>
 			<h1 class="heading">BrainStormer</h1>
 			<p> An easy way to learn and share quizzes. <br> Make your own quiz now! </p>
-			<router-link to="/overviewQuiz" class="hero-btn">CREATE QUIZ </router-link>
+			<router-link to="/dashboard" class="hero-btn">LOOK AT QUIZZES</router-link>
 		</div>
 	</section>
 

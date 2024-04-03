@@ -9,7 +9,7 @@
 			<input class="searchBox" placeholder="Search for category...">
 		</div> <br>
 		<div class="create-container">
-			<router-link to="/overviewQuiz" class="create-btn">CREATE QUIZ</router-link>
+			<router-link to="/overviewQuiz" class="create-btn">YOUR QUIZES</router-link>
 		</div>
 
 	</div>

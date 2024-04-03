@@ -1,35 +1,24 @@
-<script>
-
-import {defineComponent} from "vue";
-import Svg from "@/assets/Svg.vue";
-
-export default defineComponent({
-	components: {Svg}
-})
-</script>
-
-
 <template>
 	<body>
-		<div class="overViewQuestion-page">
-			<router-link to="/dashboard"> <- </router-link>
+	<div class="overViewQuestion-page">
+		<router-link to="/dashboard"> <- </router-link>
 		<h1>Your quizzes</h1>
-		<p> Select a quiz for your creation to either play, edit or delete</p>
+		<p>Select a quiz for your creation to either play, edit or delete</p>
 
 		<div class="row">
 			<div class="course-col">
 
 				<div class="quiz-header">
-				<h3>Quiz 1</h3>
-				<Svg name="computer-category"/>
+					<h3>Quiz 1</h3>
+					<Svg :name="selectedIcon" />
 				</div>
 
 				<div class="quiz-body">
-					<p> Info about quiz...</p>
+					<p>Info about quiz...</p>
 					<p>Category:</p>
 					<div id="form-box">
 						<form>
-							<select id="quiz-category">
+							<select id="quiz-category-1" @change="changeCategory">
 								<option value="Animal">Animals</option>
 								<option value="Athletic">Athletic/Sport</option>
 								<option value="Computer" selected="selected">Computer Science</option>
@@ -47,15 +36,54 @@ export default defineComponent({
 				<div class="quiz-footer">
 					<router-link to="/play-quiz" class="play-btn">Play</router-link>
 					<router-link to="/createQuiz" class="edit-btn">Edit</router-link>
-					<button class="delete-btn"> Delete</button>
+					<button class="delete-btn">Delete</button>
 				</div>
 			</div>
-		</div>
+
+			<div>
+				<button class="add-Btn">Create Quiz</button>
+			</div>
 
 		</div>
+	</div>
 	</body>
-
 </template>
+
+<script>
+import { defineComponent } from "vue";
+import Svg from "@/assets/Svg.vue";
+
+export default defineComponent({
+	components: { Svg },
+	data() {
+		return {
+			selectedCategory: 'Computer',
+			categoryIcons: {
+				'Animal': 'animal-category',
+				'Athletic': 'athletic-category',
+				'Computer': 'computer-category',
+				'Drama': 'drama-category',
+				'Music': 'music-category',
+				'Religion': 'religion-category',
+				'Science': 'science-category',
+				'Society': 'society-category',
+				'Other': 'other-category'
+			}
+		};
+	},
+	computed: {
+		selectedIcon() {
+			return this.categoryIcons[this.selectedCategory];
+		}
+	},
+	methods: {
+		changeCategory(event) {
+			this.selectedCategory = event.target.value;
+		}
+	}
+});
+</script>
+
 
 <style>
 .overViewQuestion-page{
