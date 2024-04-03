@@ -7,9 +7,13 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import java.util.Optional;
 
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.verify;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
 class UserServiceTest {
@@ -36,6 +40,33 @@ class UserServiceTest {
 
     // Verify that userRepository.save() was called with the correct user
     verify(userRepository).save(user);
+  }
+
+  @Test
+  void testLoadUserByUsername_UserFound() {
+    // Mock behavior of userRepository.findByUsername to return a user
+    String username = "testUser";
+    User user = new User();
+    user.setUsername(username);
+    user.setPassword("password");
+    when(userRepository.findByUsername(username)).thenReturn(Optional.of(user));
+
+    // Call the method under test
+    UserDetails userDetails = userService.loadUserByUsername(username);
+
+    // Verify that the returned UserDetails object has the correct username
+    assertEquals(username, userDetails.getUsername());
+  }
+
+  @Test
+  void testLoadUserByUsername_UserNotFound() {
+    // Mock behavior of userRepository.findByUsername to return an empty Optional
+    String username = "nonExistentUser";
+    when(userRepository.findByUsername(username)).thenReturn(Optional.empty());
+
+    // Call the method under test and expect UsernameNotFoundException
+    assertThrows(UsernameNotFoundException.class, () ->
+      userService.loadUserByUsername(username));
   }
 }
 
