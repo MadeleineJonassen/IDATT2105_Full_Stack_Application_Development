@@ -1,6 +1,6 @@
 
 <script>
-	import Svg from '../assets/Svg.vue'
+	//import Svg from '../assets/Svg.vue'
   import {apiClient} from "@/api.js";
 	export default {
 		name: 'Register',

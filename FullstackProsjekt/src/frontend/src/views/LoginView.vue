@@ -1,11 +1,11 @@
 <script>
-import Svg from "@/assets/Svg.vue";
+//import Svg from "@/assets/Svg.vue";
 import {setToken} from "@/tokenController.js";
 import {apiClient} from "@/api.js";
 
 export default {
-	name: 'Login',
-	components: {Svg},
+	//name: 'Login',
+	//components: {Svg},
 	data() {
 		return {
 			email: '',

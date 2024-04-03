@@ -1,7 +1,16 @@
 <script>
+  import {apiClient} from "@/api.js";
+  import {ref} from "vue";
+  getQuizzes();
 
+  const quizzes = ref([]);
+
+  async function getQuizzes() {
+    //TODO: try/catch
+    const response = await apiClient.get('/quizzes/${quizId.value}');
+    quizzes.value = response.data; //TODO: create parsing method
+  }
 </script>
-
 
 <template>
 	<body>

@@ -2,12 +2,17 @@
 import NewQuestionModel from "@/components/shared/NewQuestionModel.vue";
 import {ref} from "vue";
 import router from "@/router/index.js";
+import {apiClient} from "@/api.js";
 
+const quizId = ref(null); //TODO: set quiz id when routing here
 const createdQuestion = ref(null);
 const newAnswers = ref([]);
 const showNewQuestionModal = ref(false);
 const selectedAnswer = ref(null);
+const existingQuestions = ref([]);
 let answerId = 1;
+const errorMsg = ''; //TODO: display error to user
+
 
 
 function createQuestion() {
@@ -51,20 +56,39 @@ function answerCount() {
 	}
 }
 
-function submitQuestion() {
+async function getExistingQuestions() {
+  try {
+    const response = await apiClient.get(`/quizzes/${quizId.value}/questions`); // Fetch questions for a specific quiz
+    existingQuestions.value = response.data; // Update existingQuestions with the fetched questions
+  } catch (error) {
+    console.error('Error fetching existing questions:', error);
+    // Optionally, you can handle error response here
+    alert('An error occurred while fetching existing questions');
+  }
+}
+
+async function submitQuestion() {
+  //TODO: proper error handling
 	if(!createdQuestion.value){
 		alert('Question cannot be empty');
 		return false
 	}
-	if(!validateAnswers() && !answerCount()){
+  if(!validateAnswers() && !answerCount()){
 		alert('Fill all inputs before submitting')
 		return false
 	}
-	//Supposed to send request to backend with a finnished Question with id and such
-	router.post('/questions',{
-		question:createdQuestion.value,
-		answers:newAnswers.value
-	})
+
+  try {
+    await apiClient.post('questions', {
+      //TODO: find quizID, send this too
+      question: createdQuestion.value,
+      correctAnswer: selectedAnswer.value,
+      answers: newAnswers.value
+    });
+  } catch (error) {
+    //TODO: proper error handling
+    this.errorMsg = 'Error logging in';
+  }
 }
 
 </script>
