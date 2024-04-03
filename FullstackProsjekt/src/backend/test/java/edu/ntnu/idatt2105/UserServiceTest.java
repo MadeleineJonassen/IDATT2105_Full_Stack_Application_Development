@@ -11,8 +11,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import java.util.Optional;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
@@ -67,6 +66,48 @@ class UserServiceTest {
     // Call the method under test and expect UsernameNotFoundException
     assertThrows(UsernameNotFoundException.class, () ->
       userService.loadUserByUsername(username));
+  }
+
+  @Test
+  void testVerifyAppUser_ExistingUser() {
+    // Mocking UserRepository
+    UserRepository userRepository = mock(UserRepository.class);
+
+    // Creating a sample user
+    User user = new User();
+    user.setUsername("existingUser");
+    user.setPassword("password123");
+
+    // Mocking UserRepository's behavior to return an existing user when queried by username or password
+    when(userRepository.findByUsername(user.getUsername())).thenReturn(Optional.of(user));
+    when(userRepository.findByPassword(user.getPassword())).thenReturn(Optional.of(user));
+
+    // Creating an instance of UserService
+    UserService userService = new UserService(userRepository);
+
+    // Verifying that the method returns true for an existing user
+    assertTrue(userService.verifyAppUser(user));
+  }
+
+  @Test
+  void testVerifyAppUser_NonExistingUser() {
+    // Mocking UserRepository
+    UserRepository userRepository = mock(UserRepository.class);
+
+    // Creating a sample user
+    User user = new User();
+    user.setUsername("nonExistingUser");
+    user.setPassword("password123");
+
+    // Mocking UserRepository's behavior to return empty Optional when queried by username or password
+    when(userRepository.findByUsername(user.getUsername())).thenReturn(Optional.empty());
+    when(userRepository.findByPassword(user.getPassword())).thenReturn(Optional.empty());
+
+    // Creating an instance of UserService
+    UserService userService = new UserService(userRepository);
+
+    // Verifying that the method returns false for a non-existing user
+    assertFalse(userService.verifyAppUser(user));
   }
 }
 
