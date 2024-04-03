@@ -1,5 +1,8 @@
 image: maven:eclipse-temurin
 
+before_script:
+  - cd FullstackProsjekt
+
 stages:
   - build
   - test
