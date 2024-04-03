@@ -8,6 +8,7 @@ export default {
 	//components: {Svg},
 	data() {
 		return {
+      username: '',
 			email: '',
 			password: '',
 			showPassword: false, // Add showPassword property
@@ -17,8 +18,8 @@ export default {
 	methods: {
 		async handleSubmit() {
       try {
-        await apiClient.post('/login', {
-          email: this.email,
+        await apiClient.post('/auth/login', {
+          username: this.username,
           password: this.password
         }).then(response => {
           setToken(response.data.token); //TODO: check token name
@@ -43,14 +44,19 @@ export default {
 				<h1 id="login">Login</h1>
 				<p> Sign in to your already existing account</p>
 				<div class="loginBox">
+          <label>Username</label> <br>
+          <input type="text" required v-model="username" placeholder="username"/> <br>
+          <!--
 					<label>Email</label> <br>
 					<input type="email" placeholder="JohnDoe@email.com" required v-model="email"/> <br>
+          -->
 					<label>Password</label> <br>
 					<input :type="showPassword ? 'text' : 'password'" required v-model="password"/>
 					<button  type="button" class="showPasswordIcon" @click="togglePasswordVisibility">
 						<Svg v-if="showPassword" :name="'hide-password-icon'" />
 						<Svg v-else :name="'show-password-icon'" />
 					</button><br>
+          <label></label>{{errorMsg}}<br>
 					<router-link to="/signup" id="signUpLink">SIGNUP</router-link>
 				</div>
 			</div>

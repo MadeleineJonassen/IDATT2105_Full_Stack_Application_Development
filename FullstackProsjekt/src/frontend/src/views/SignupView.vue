@@ -6,9 +6,10 @@
 		name: 'Register',
 		data(){
 			return{
-				first_name:'',
-				last_name:'',
-				email:'',
+        username: '',
+				//first_name:'',
+				//last_name:'',
+				//email:'',
 				password:'',
 				password_confirm:'',
         errorMsg: '', //TODO: display error to user
@@ -18,10 +19,11 @@
 			async handleSubmit() {
         //TODO: use interceptor to check matching password, send one password
         try {
-          await apiClient.post('/api/auth/register', {
-            first_name: this.first_name,
-            last_name: this.last_name,
-            email: this.email,
+          await apiClient.post('/auth/register', {
+            //first_name: this.first_name,
+            //last_name: this.last_name,
+            //email: this.email,
+            username: this.username,
             password: this.password
             //password_confirm: this.password_confirm
           }).then(response => {
@@ -47,13 +49,18 @@
 				<h1 id="signup">Signup</h1>
 				<p> Create an account to get started!</p>
 				<div class="signupBox">
-					<label>First Name</label> <br>
+          <label>First Name</label> <br>
+          <input type="text" required v-model="username" placeholder="username"/> <br>
+          <!--
+            <label>First Name</label> <br>
 					<input type="text" required v-model="first_name" placeholder="John"/> <br>
 					<label>Last Name</label> <br>
 					<input type="text" required v-model="last_name" placeholder="Doe"/> <br>
 					<label>Email</label> <br>
 					<input type="email" required v-model="email" placeholder="JohnDoe@email.com"/> <br>
-					<label>Password</label> <br>
+
+          -->
+          <label>Password</label> <br>
 					<input type="text" required v-model="password" /> <br>
 					<label>Confirm Password</label> <br>
 					<input type="text" required v-model="password_confirm" /> <br>
