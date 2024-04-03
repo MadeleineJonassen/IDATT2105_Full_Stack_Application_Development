@@ -15,7 +15,7 @@
 			}
 		},
 		methods:{
-			async handleSubmit(e) {
+			async handleSubmit() {
         //TODO: use interceptor to check matching password, send one password
         try {
           await apiClient.post('/api/auth/register', {
@@ -25,6 +25,7 @@
             password: this.password
             //password_confirm: this.password_confirm
           }).then(response => {
+            //TODO: display successful registration to user
             this.$router.push('/login')
           });
         } catch (error) {
