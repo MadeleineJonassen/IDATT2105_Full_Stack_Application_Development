@@ -52,6 +52,17 @@
 <script>
 import { defineComponent } from "vue";
 import Svg from "@/assets/Svg.vue";
+import {apiClient} from "@/api.js";
+import {ref} from "vue";
+getQuizzes();
+
+const quizzes = ref([]);
+
+async function getQuizzes() {
+  //TODO: try/catch
+  const response = await apiClient.get('/quizzes/${quizId.value}');
+  quizzes.value = response.data; //TODO: create parsing method
+}
 
 export default defineComponent({
 	components: { Svg },
@@ -83,7 +94,6 @@ export default defineComponent({
 	}
 });
 </script>
-
 
 <style>
 .overViewQuestion-page{
