@@ -29,19 +29,19 @@ public class UserService implements UserDetailsService {
   }
 
   public Boolean verifyAppUser(User user) {
-    return userRepository.findByName(user.getName()).isPresent() &&
+    return userRepository.findByUsername(user.getUsername()).isPresent() &&
             userRepository.findByPassword(user.getPassword()).isPresent();
   }
 
   public User findAppUserByName(String name) {
-    Optional<User> userOptional = userRepository.findByName(name);
+    Optional<User> userOptional = userRepository.findByUsername(name);
 
     return userOptional.orElse(null);
   }
 
   @Override
   public UserDetails loadUserByUsername(String name) throws UsernameNotFoundException {
-    return userRepository.findByName(name)
+    return userRepository.findByUsername(name)
             .orElseThrow(() -> new UsernameNotFoundException("User '" + name + "' not found."));
   }
 }
