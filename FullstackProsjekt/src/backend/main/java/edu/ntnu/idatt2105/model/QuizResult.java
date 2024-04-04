@@ -1,5 +1,6 @@
 package edu.ntnu.idatt2105.model;
 
+import jakarta.annotation.Nullable;
 import jakarta.persistence.*;
 
 import java.time.LocalDateTime;
@@ -28,7 +29,6 @@ public class QuizResult {
   @JoinColumn(name = "user_id")
   private User user;
 
-
   @Column(nullable = false)
   private String status;
 
@@ -36,6 +36,7 @@ public class QuizResult {
   private LocalDateTime startedAt;
 
   @Column
+  @Nullable
   private LocalDateTime completedAt;
 
 
@@ -115,11 +116,12 @@ public class QuizResult {
     this.startedAt = startedAt;
   }
 
+  @Nullable
   public LocalDateTime getCompletedAt() {
     return completedAt;
   }
 
-  public void setCompletedAt(LocalDateTime completedAt) {
+  public void setCompletedAt(@Nullable LocalDateTime completedAt) {
     this.completedAt = completedAt;
   }
 

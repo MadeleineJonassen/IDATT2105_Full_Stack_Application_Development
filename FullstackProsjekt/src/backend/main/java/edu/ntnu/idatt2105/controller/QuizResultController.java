@@ -50,7 +50,7 @@ public class QuizResultController {
     QuizResultDTO quizResultDTO = new QuizResultDTO();
     quizResultDTO.setQuizId(quizResult.getQuiz().getId());
     quizResultDTO.setUserId(quizResult.getUser().getId());
-    quizResultDTO.setScore(quizResult.getScore());
+    quizResultDTO.setTotalScore(quizResult.getScore());
     quizResultDTO.setStatus(quizResult.getStatus());
     quizResultDTO.setStartedAt(quizResult.getStartedAt());
     quizResultDTO.setCompletedAt(quizResult.getCompletedAt());

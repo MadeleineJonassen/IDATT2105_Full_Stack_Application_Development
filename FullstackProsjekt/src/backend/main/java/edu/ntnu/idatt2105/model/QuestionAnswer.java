@@ -15,9 +15,6 @@ public class QuestionAnswer {
   @Column(nullable = false)
   private String givenAnswer;
 
-  @Column(nullable = false)
-  private boolean correct;
-
   @ManyToOne(fetch = FetchType.LAZY)
   @JoinColumn(name = "quiz_result_id")
   private QuizResult quizResult;
@@ -29,12 +26,6 @@ public class QuestionAnswer {
   public QuestionAnswer(Question question, String givenAnswer) {
     this.question = question;
     this.givenAnswer = givenAnswer;
-    this.correct = validateAnswer(givenAnswer);
-  }
-
-  // Validation method
-  private boolean validateAnswer(String givenAnswer) {
-    return question.checkAnswer(givenAnswer);
   }
 
   public Integer getId() {
@@ -51,8 +42,6 @@ public class QuestionAnswer {
 
   public void setQuestion(Question question) {
     this.question = question;
-    // Update 'correct' whenever the question changes
-    this.correct = validateAnswer(this.givenAnswer);
   }
 
   public String getGivenAnswer() {
@@ -61,18 +50,11 @@ public class QuestionAnswer {
 
   public void setGivenAnswer(String givenAnswer) {
     this.givenAnswer = givenAnswer;
-    // Update 'correct' whenever the given answer changes
-    this.correct = validateAnswer(givenAnswer);
   }
 
   public boolean isCorrect() {
-    return correct;
+    return this.question.getAnswer().equalsIgnoreCase(this.givenAnswer);
   }
-
-  public void setCorrect(boolean correct) {
-    this.correct = correct;
-  }
-
 
   public QuizResult getQuizResult() {
     return quizResult;

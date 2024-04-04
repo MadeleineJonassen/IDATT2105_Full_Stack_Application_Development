@@ -8,7 +8,7 @@ public class QuizResultDTO {
   private Integer quizId;
   private Integer userId;
   private List<QuestionAnswerDTO> answers;
-  private int score;
+  private int totalScore;
   private String status;
   private LocalDateTime startedAt;
   private LocalDateTime completedAt;
@@ -17,12 +17,12 @@ public class QuizResultDTO {
   public QuizResultDTO() {
   }
 
-  public QuizResultDTO(Integer id, Integer quizId, Integer userId, List<QuestionAnswerDTO> answers, int score, String status, LocalDateTime startedAt, LocalDateTime completedAt) {
+  public QuizResultDTO(Integer id, Integer quizId, Integer userId, List<QuestionAnswerDTO> answers, int totalScore, String status, LocalDateTime startedAt, LocalDateTime completedAt) {
     this.id = id;
     this.quizId = quizId;
     this.userId = userId;
     this.answers = answers;
-    this.score = score;
+    this.totalScore = totalScore;
     this.status = status;
     this.startedAt = startedAt;
     this.completedAt = completedAt;
@@ -60,12 +60,12 @@ public class QuizResultDTO {
     this.answers = answers;
   }
 
-  public int getScore() {
-    return score;
+  public int getTotalScore() {
+    return totalScore;
   }
 
-  public void setScore(int score) {
-    this.score = score;
+  public void setTotalScore(int totalScore) {
+    this.totalScore = totalScore;
   }
 
   public String getStatus() {
@@ -99,7 +99,7 @@ public class QuizResultDTO {
             ", quizId=" + quizId +
             ", userId=" + userId +
             ", answers=" + answers +
-            ", score=" + score +
+            ", score=" + totalScore +
             '}';
   }
 }

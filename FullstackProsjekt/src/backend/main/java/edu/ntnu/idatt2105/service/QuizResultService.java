@@ -54,7 +54,6 @@ public class QuizResultService {
     quizResult.setUser(user);
     quizResult.setStatus("Påbegynt");
     quizResult.setStartedAt(LocalDateTime.now());
-    quizResult.setCompletedAt(creationDTO.getCompletedAt());
     return quizResultRepository.save(quizResult);
   }
 
@@ -81,7 +80,7 @@ public class QuizResultService {
     quizResultDTO.setId(quizResult.getId());
     quizResultDTO.setQuizId(quizResult.getQuiz().getId());
     quizResultDTO.setUserId(quizResult.getUser().getId());
-    quizResultDTO.setScore(quizResult.getScore());
+    quizResultDTO.setTotalScore(quizResult.getScore());
     quizResultDTO.setStatus(quizResult.getStatus());
     quizResultDTO.setStartedAt(quizResult.getStartedAt());
     quizResultDTO.setCompletedAt(quizResult.getCompletedAt());
@@ -104,26 +103,5 @@ public class QuizResultService {
     questionAnswerDTO.setCorrect(questionAnswer.isCorrect());
 
     return questionAnswerDTO;
-  }
-
-
-
-
-
-  private List<QuestionAnswer> convertToQuestionAnswers(List<QuestionAnswerDTO> answerDTOs, QuizResult quizResult) {
-    List<QuestionAnswer> answers = new ArrayList<>();
-    for (QuestionAnswerDTO answerDTO : answerDTOs) {
-      QuestionAnswer answer = new QuestionAnswer();
-
-      MultipleChoiceQuestion question = (MultipleChoiceQuestion) questionRepository.findById(answerDTO.getQuestionId())
-              .orElseThrow(() -> new QuestionNotFoundException("Question not found with id: " + answerDTO.getQuestionId()));
-      answer.setQuestion(question);
-      answer.setGivenAnswer(answerDTO.getGivenAnswer());
-      answer.setCorrect(question.checkAnswer(answerDTO.getGivenAnswer()));
-      answer.setQuizResult(quizResult);
-
-      answers.add(answer);
-    }
-    return answers;
   }
 }

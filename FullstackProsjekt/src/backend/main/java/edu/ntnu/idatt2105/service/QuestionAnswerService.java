@@ -38,11 +38,13 @@ public class QuestionAnswerService {
     QuestionAnswer answer = new QuestionAnswer();
     answer.setQuestion(question);
     answer.setGivenAnswer(answerDTO.getGivenAnswer());
-    answer.setCorrect(question.checkAnswer(answerDTO.getGivenAnswer()));
     answer.setQuizResult(quizResult);
 
     quizResult.addQuestionAnswer(answer);
 
     return questionAnswerRepository.save(answer);
+  }
+  public boolean isCorrect(QuestionAnswer questionAnswer) {
+    return questionAnswer.getQuestion().getAnswer().equalsIgnoreCase(questionAnswer.getGivenAnswer());
   }
 }
