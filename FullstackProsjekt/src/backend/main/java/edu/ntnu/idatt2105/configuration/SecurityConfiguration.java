@@ -1,6 +1,5 @@
 package edu.ntnu.idatt2105.configuration;
 
-
 import com.nimbusds.jose.jwk.JWK;
 import com.nimbusds.jose.jwk.JWKSet;
 import com.nimbusds.jose.jwk.RSAKey;
@@ -27,6 +26,7 @@ import org.springframework.security.oauth2.server.resource.authentication.JwtAut
 import org.springframework.security.oauth2.server.resource.authentication.JwtGrantedAuthoritiesConverter;
 import org.springframework.security.web.SecurityFilterChain;
 
+
 @Configuration
 public class SecurityConfiguration {
 
@@ -37,16 +37,15 @@ public class SecurityConfiguration {
   }
 
   @Bean
-  public PasswordEncoder passwordEncoder() {
-    return new BCryptPasswordEncoder();
-  }
-
-  @Bean
   public AuthenticationManager authenticationManager(UserDetailsService userDetailsService, PasswordEncoder encoder) {
     DaoAuthenticationProvider daoAuthenticationProvider = new DaoAuthenticationProvider();
     daoAuthenticationProvider.setUserDetailsService(userDetailsService);
     daoAuthenticationProvider.setPasswordEncoder(encoder);
     return new ProviderManager(daoAuthenticationProvider);
+  }
+  @Bean
+  public PasswordEncoder passwordEncoder() {
+    return new BCryptPasswordEncoder();
   }
 
   @Bean
@@ -91,3 +90,6 @@ public class SecurityConfiguration {
     return jwtAuthenticationConverter;
   }
 }
+
+
+

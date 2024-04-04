@@ -30,12 +30,14 @@ public class QuizController {
 
   @PostMapping("/create")
   public QuizDTO createQuiz(@RequestBody QuizDTO quizDTO) {
-    Quiz quiz = quizService.createQuiz(quizDTO);
-    return convertToDTO(quiz);
+    return quizService.createQuiz(quizDTO);
   }
 
   @PostMapping("/update")
   public QuizDTO updateQuiz(@RequestBody QuizDTO quizDTO) {
+    if (quizDTO.getId() == null) {
+      throw new IllegalArgumentException("Quiz ID must be provided for update.");
+    }
     return quizService.updateQuiz(quizDTO);
   }
 
