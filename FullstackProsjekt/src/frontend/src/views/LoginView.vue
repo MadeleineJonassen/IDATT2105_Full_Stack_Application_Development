@@ -73,7 +73,6 @@ export default {
 <style>
 .loginPage {
 	padding-top: 85px;
-	padding-left: 20px;
 	display: flex;
 	justify-content: center;
 	align-items: center;
@@ -123,6 +122,11 @@ export default {
 	display: flex;
 	justify-content: center;
 	align-items: center;
+}
+
+@media (max-width: 700px) {
+
+
 }
 
 </style>

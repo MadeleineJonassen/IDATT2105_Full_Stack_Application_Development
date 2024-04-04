@@ -30,6 +30,8 @@ label {
     margin-top: 5%;
     display: flex;
     justify-content: space-between;
+    margin-left: 5%;
+    margin-right: 5%;
 }
 .course-col{
     flex-basis: 31%;
