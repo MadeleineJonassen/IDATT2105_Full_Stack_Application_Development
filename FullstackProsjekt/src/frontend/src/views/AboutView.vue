@@ -5,22 +5,27 @@
 		<p>Welcome to our quiz web application! We provide a comprehensive and user-friendly platform for creating, managing, and taking quizzes for educational, training, or entertainment purposes.</p>
 		<div class="space"> </div>
 		<h2>Our Features</h2>
-		<ul>
-			<li>User Authentication: Register, login, and manage your account securely.</li>
-			<li>Quiz Creation: Create quizzes with various question types, difficulty levels, and multimedia elements.</li>
-			<li>Tagging and Categorization: Organize your questions with keywords and categories.</li>
-			<li>Search and Filter: Quickly find relevant questions based on keywords, categories, and difficulty levels.</li>
-			<li>Question Management: Add, edit, delete, and organize questions within quizzes.</li>
-			<li>Quiz Templates: Use pre-designed or customizable templates for easy quiz creation.</li>
-			<li>Collaboration: Share quizzes, collaborate with co-authors, and access revision history.</li>
-			<li>Import and Export: Import questions from external sources and export quizzes in various formats.</li>
-			<li>Randomization: Randomize question order and answer choices to prevent cheating.</li>
-			<li>Scoring and Feedback: Automatically score quizzes and provide immediate feedback.</li>
-			<li>Progress Tracking: Track your progress, view past quiz attempts, and monitor performance statistics.</li>
-			<li>Feedback and Support: Provide feedback, report issues, and access customer support.</li>
-		</ul>
-
+		<div class="columns">
+			<div class="column">
+				<ul>
+					<li>Quiz Creation: Create quizzes with various question types, difficulty levels, and multimedia elements.</li>
+					<li>Tagging and Categorization: Organize your questions with difficulty level and categories.</li>
+					<li>Search and Filter: Quickly find relevant questions based on categories and difficulty levels.</li>
+					<li>Question Management: Add, edit, delete, and organize questions within quizzes.</li>
+				</ul>
+			</div>
+			<div class="column">
+				<ul>
+					<li>Quiz Templates: Use pre-designed or customizable templates for easy quiz creation.</li>
+					<li>Import and Export: Import questions from external sources and export quizzes in various formats.</li>
+					<li>Scoring and Feedback: Automatically score quizzes and provide immediate feedback.</li>
+					<li>Progress Tracking: Track your progress, view past quiz attempts, and monitor performance statistics.</li>
+					<li>Feedback and Support: Provide feedback, report issues, and access customer support.</li>
+				</ul>
+			</div>
+		</div>
 	</div>
+
 
 
 	<h1 class ="our-team" style="text-align:center">Our Team</h1>
@@ -89,9 +94,16 @@ export default {
 </script>
 
 <style>
-.column {
-	float: left;
+.columns {
+	display: flex;
+	justify-content: space-between;
 }
+
+.column {
+	flex: 1;
+	margin-right: 20px;
+}
+
 .column p{
 	font-size: 14px;
 }
