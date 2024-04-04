@@ -2,7 +2,8 @@
 	<body>
 	<div class="about-section">
 		<h1>About</h1>
-		<p>Welcome to our quiz bank web application! We provide a comprehensive and user-friendly platform for creating, managing, and taking quizzes for educational, training, or entertainment purposes.</p>
+		<p>Welcome to our quiz web application! We provide a comprehensive and user-friendly platform for creating, managing, and taking quizzes for educational, training, or entertainment purposes.</p>
+		<div class="space"> </div>
 		<h2>Our Features</h2>
 		<ul>
 			<li>User Authentication: Register, login, and manage your account securely.</li>
@@ -18,9 +19,12 @@
 			<li>Progress Tracking: Track your progress, view past quiz attempts, and monitor performance statistics.</li>
 			<li>Feedback and Support: Provide feedback, report issues, and access customer support.</li>
 		</ul>
+		<div class="space"> </div>
+
 	</div>
 
-	<h2 style="text-align:center">Our Team</h2>
+
+	<h2 class ="our-team" style="text-align:center">Our Team</h2>
 	<div class="row">
 		<div class="column">
 			<div class="card">
@@ -102,11 +106,15 @@ export default {
 	padding: 50px;
 	text-align: center;
 	background-color: #858A93;
-	color: #363636;
+	color: #242F40;
+}
+.our-team{
+	color: #242F40;
 }
 
 .container {
 	padding: 0 16px;
+	color: #242F40;
 }
 
 .title {
@@ -123,6 +131,8 @@ export default {
 	text-align: center;
 	cursor: pointer;
 	width: 100%;
+	font-family: monospace;
+
 }
 
 .button:hover {
