@@ -93,16 +93,11 @@ export default {
 	padding: 40px;
 }
 
-
-
 .password-input {
 	position: relative;
 	display: inline-block;
 }
 
-.password-input input {
-	padding-left: 5px;
-}
 
 .showPasswordIcon {
 	position: absolute;

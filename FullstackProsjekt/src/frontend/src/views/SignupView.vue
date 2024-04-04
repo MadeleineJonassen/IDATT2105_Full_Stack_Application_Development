@@ -101,14 +101,14 @@
 }
 
 .signupBox {
-	padding: 30px;
+	padding: 40px;
+	min-width: 400px;
 }
 
 .password-input {
 	position: relative;
 	display: inline-block;
 }
-
 
 .showPasswordIcon {
 	position: absolute;
