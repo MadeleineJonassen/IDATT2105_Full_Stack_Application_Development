@@ -1,26 +1,80 @@
-<script setup>
+<script>
 import NewQuestionModel from "@/components/shared/NewQuestionModel.vue";
-import {ref} from "vue";
+import { ref, onMounted } from 'vue';
+import { useRoute } from 'vue-router';
 import router from "@/router/index.js";
 import {apiClient} from "@/api.js";
+import QuestionCard from "@/components/shared/QuestionCard.vue";
 
+/**
 const quizId = ref(null); //TODO: set quiz id when routing here
+
 const createdQuestion = ref(null);
 const newAnswers = ref([]);
-const showNewQuestionModal = ref(false);
+let showNewQuestionModal = ref(false);
 const selectedAnswer = ref(null);
 const existingQuestions = ref([]);
 let answerId = 1;
-const errorMsg = ''; //TODO: display error to user
+const quizName = ref('');
+const errorMsg = ''; //TODO: display error to user*/
 
+export default {
+  components: {NewQuestionModel, QuestionCard},
+  data() {
+    return {
+      showNewQuestion: false,
+      quizId: null,
+      quizTitle: '',
+      questions: [
+        {id: 0, num: 1, text:'first question'},
+        {id: 1, num: 2, text:'second question'},
+        {id: 2, num: 3, text:'third question'}
+      ],
+      category: '',
+      difficulty: '',
+      errorMsg: ''
+      //TODO: make quiz object
+    };
+  },
+  mounted() {
+    this.quizId = this.$route.params.quizId;
+    this.getQuiz(this.quizId);
+  },
+  methods: {
+    getQuiz(quizId) {
+      console.log('Fetching data for quiz: ', quizId);
+      /*
+      try {
+        apiClient.get('/quiz/quiz/' + this.quizId).then(response => {
+          this.quizTitle = JSON.parse(response.data.title);
+          this.category = JSON.parse(response.data.category);
+          this.difficulty = JSON.parse(response.data.difficulty);
+          this.questions = JSON.parse(JSON.stringify(response.data.questions));
+        });
+      } catch (error) {
+        //TODO: proper error handling
+        this.errorMsg = 'Error retrieving quizzes';
+      }*/
+    },
+    newQuestion() {
+      this.showNewQuestion = true;
+      console.log(this.showNewQuestion);
+    },
+    hideNewQuestion() {
+      this.showNewQuestion = false;
+      //TODO: update answers, +answer count
+    }
+  },
+};
 
-
+/**
 function createQuestion() {
 	showNewQuestionModal.value = true;
 }
 function destroyModal() {
 	showNewQuestionModal.value = false;
 }
+
 function addNewAnswers() {
 	const newAnswer = {
 		id: answerId++,
@@ -38,8 +92,9 @@ function handleRadioToggle(Id) {
 			answer.correct_answer = 0
 		}
 	})
-}
+}*/
 
+/**
 function validateAnswers() {
 	for(const answer of newAnswers.value) {
 		if(answer.answer.trim()==='') {
@@ -55,7 +110,7 @@ function answerCount() {
 		return true
 	}
 }
-
+/*
 async function getExistingQuestions() {
   try {
     const response = await apiClient.get(`/quizzes/${quizId.value}/questions`); // Fetch questions for a specific quiz
@@ -66,7 +121,9 @@ async function getExistingQuestions() {
     alert('An error occurred while fetching existing questions');
   }
 }
+*/
 
+/**
 async function submitQuestion() {
   //TODO: proper error handling
 	if(!createdQuestion.value){
@@ -90,7 +147,7 @@ async function submitQuestion() {
     this.errorMsg = 'Error logging in';
   }
 }
-
+*/
 </script>
 
 
@@ -98,7 +155,14 @@ async function submitQuestion() {
 	<body>
 		<div class="createQuestion-page">
 			<router-link to="/overviewQuiz"> <-  </router-link>
-			<h1>Create a question to your quiz</h1>
+			<h1>Edit quiz {{quizId}}</h1>
+      <p>Add questions</p>
+      <div class="question-div">
+        <QuestionCard question-id="questionCard" v-for="question in questions"
+                      :key="question.id" :question-num="question.num" :question="question.text"/>
+      </div>
+      <NewQuestionModel v-if="showNewQuestion" @close="hideNewQuestion"/>
+      <!--
 			<div class="question-table">
 				<table class="table">
 					<thead>
@@ -121,6 +185,9 @@ async function submitQuestion() {
 
 					</tbody>
 				</table>
+				-->
+        <!--
+
 
 				<Teleport to="body">
 					<NewQuestionModel :show="showNewQuestionModal" @close="destroyModal">
@@ -166,11 +233,10 @@ async function submitQuestion() {
 
 					</NewQuestionModel>
 				</Teleport>
-
-			</div>
-
+				</div>
+				-->
 			<div>
-				<button @click="createQuestion" class="add-Btn"> Add Question </button> <br>
+				<button @click="newQuestion" class="add-Btn"> Add Question </button> <br>
 				<button class="save-Btn"> SAVE QUIZ </button>
 			</div>
 		</div>
