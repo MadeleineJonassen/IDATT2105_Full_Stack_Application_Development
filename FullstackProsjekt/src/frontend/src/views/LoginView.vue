@@ -1,11 +1,11 @@
 <script>
-//import Svg from "@/assets/Svg.vue";
+import Svg from "@/assets/Svg.vue";
 import {setToken} from "@/tokenController.js";
 import {apiClient} from "@/api.js";
 
 export default {
-	//name: 'Login',
-	//components: {Svg},
+	name: 'Login',
+	components: {Svg},
 	data() {
 		return {
       username: '',
@@ -26,7 +26,7 @@ export default {
         });
       } catch (error) {
         //TODO: proper error handling
-        this.errorMsg = 'Error logging in';
+        this.errorMsg = 'Error logging in, try again';
       }
 		},
 		togglePasswordVisibility() {
@@ -43,25 +43,27 @@ export default {
 			<div class="login">
 				<h1 id="login">Login</h1>
 				<p> Sign in to your already existing account</p>
+
 				<div class="loginBox">
           <label>Username</label> <br>
           <input type="text" required v-model="username" placeholder="username"/> <br>
-          <!--
-					<label>Email</label> <br>
-					<input type="email" placeholder="JohnDoe@email.com" required v-model="email"/> <br>
-          -->
+
 					<label>Password</label> <br>
-					<input :type="showPassword ? 'text' : 'password'" required v-model="password"/>
-					<button  type="button" class="showPasswordIcon" @click="togglePasswordVisibility">
-						<Svg v-if="showPassword" :name="'hide-password-icon'" />
-						<Svg v-else :name="'show-password-icon'" />
-					</button><br>
-          <label></label>{{errorMsg}}<br>
-					<router-link to="/signup" id="signUpLink">SIGNUP</router-link>
+					<div class="password-input">
+						<input :type="showPassword ? 'text' : 'password'" required v-model="password"/>
+						<button type="button" class="showPasswordIcon" @click="togglePasswordVisibility">
+							<Svg v-if="showPassword" :name="'hide-password-icon'"/>
+							<Svg v-else :name="'show-password-icon'" />
+						</button>
+					</div> <br>
+
+          <label class="error-message">{{errorMsg}}</label><br>
+					<p1> Don't have a account?</p1><router-link to="/signup" id="signUpLink">SIGNUP!</router-link>
 				</div>
 			</div>
+
 			<div class="submit-section">
-				<input id="submit" type="submit"/>
+				<input class="submit-btn" type="submit"/>
 			</div>
 		</form>
 	</div>
@@ -71,6 +73,7 @@ export default {
 <style>
 .loginPage {
 	padding-top: 85px;
+	padding-left: 20px;
 	display: flex;
 	justify-content: center;
 	align-items: center;
@@ -87,59 +90,47 @@ export default {
 }
 
 .loginBox {
-	padding: 20px;
+	padding: 40px;
 }
 
 label {
 	display: inline-block;
-	margin-right: 10px;
 	font-weight: bold;
 }
 
-input {
-	padding: 5px;
-	border-radius: 5px;
+.password-input {
+	position: relative;
+	display: inline-block;
+}
+
+.password-input input {
+	padding-left: 5px;
+}
+
+.showPasswordIcon {
+	position: absolute;
+	top: 50%;
+	right: 10px;
+	transform: translateY(-50%);
 	border: none;
-	min-width: 250px;
-	background-color: #E5E5E5;
-	margin: 10px;
-}
-
-input::placeholder {
-	color: #b0b0b0;
-}
-.showPasswordIcon{
-	border-color: transparent;
+	background: none;
 	cursor: pointer;
-	margin-left: 0;
 }
-
 #signUpLink {
 	color: #CCA43B;
 	padding: 10px;
+	font-size: 16px;
+	text-decoration: none;
+}
+#signUpLink:hover{
+	color: #242F40;
+	transition: 0.3s;
 }
 
 .submit-section {
 	display: flex;
 	justify-content: center;
 	align-items: center;
-}
-
-#submit {
-	min-width: 150px;
-	min-height: 60px;
-	font-size: 24px;
-	border-radius: 6px;
-	background-color: #242F40;
-	color: white;
-	border: none;
-	cursor: pointer;
-	margin-top: 20px;
-}
-
-#submit:hover:enabled {
-	background-color: rgba(23, 55, 44, 0.9);
-	transition: 0.5s;
 }
 
 </style>
