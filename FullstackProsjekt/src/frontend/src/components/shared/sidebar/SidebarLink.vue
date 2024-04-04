@@ -20,31 +20,26 @@ export default {
 
 <template>
 	<router-link :to="to" class="link" :class="{ active: isActive }">
-		<Svg name="icon" :class="icon"/>
+		<div class="icon-wrapper" v-if="collapsed">
+			<Svg :name="icon" class="icon" />
+		</div>
 		<transition name="fade">
-      <span v-if="!collapsed">
+      <span v-if="!collapsed" class="link-content">
+        <Svg :name="icon" class="icon" />
         <slot />
       </span>
 		</transition>
 	</router-link>
 </template>
 
-
 <style scoped>
 .link {
-	display: flex;
-	align-items: center;
-
-	cursor: pointer;
 	position: relative;
 	font-weight: 400;
-	user-select: none;
-
 	margin: 0.1em 0;
 	padding: 0.4em;
 	border-radius: 0.25em;
-	height: 1.5em;
-
+	height: 2.4em;
 	color: white;
 	text-decoration: none;
 }
@@ -55,8 +50,17 @@ export default {
 
 .link.active {
 	background-color: var(--sidebar-item-active);
-	color: #242F40;
+	color: #242f40;
 }
 
+.icon {
+	width: 2.2em;
+	height: 2.2em;
+	margin-right: 1vh;
+}
 
+.link-content {
+	display: flex;
+	align-items: center;
+}
 </style>

@@ -40,7 +40,7 @@ export default {
 
 		<SidebarLink to="/" icon="home-icon">Home</SidebarLink>
 		<SidebarLink to="/dashboard" icon="dashboard-icon">Dashboard</SidebarLink>
-		<SidebarLink to="/about" icon="about-icon">About</SidebarLink>
+		<SidebarLink to="/about" icon="about-us-icon">About</SidebarLink>
 		<SidebarLink to="/feedback" icon="feedback-icon">Feedback</SidebarLink>
 		<SidebarLink to="/login" icon="login-icon">Login</SidebarLink>
 
@@ -83,9 +83,8 @@ export default {
 	position: absolute;
 	bottom: 0;
 	padding: 4px;
-
-	color: white;
 	transition: 0.2s linear;
+
 }
 #icon{
 	height: 18px;
