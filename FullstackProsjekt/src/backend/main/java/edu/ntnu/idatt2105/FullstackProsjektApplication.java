@@ -15,7 +15,6 @@ import java.util.HashSet;
 import java.util.Set;
 
 @SpringBootApplication
-@CrossOrigin(origins = "http://localhost:5173")
 public class FullstackProsjektApplication {
 
     public static void main(String[] args) {
