@@ -1,6 +1,6 @@
 body {
     font-family: monospace;
-    margin: 0 0 0 27px;
+    margin: 0 0 0 48px;
     background-color: #F2F2F2;
 }
 input {
@@ -23,7 +23,7 @@ label {
 
 
 .space{
-    margin: 100px;
+    margin: 90px;
 }
 
 .row{

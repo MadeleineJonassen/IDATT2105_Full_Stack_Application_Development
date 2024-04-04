@@ -5,7 +5,7 @@ export const collapsed = ref(true)
 export const toggleSideBar = () => (collapsed.value = !collapsed.value)
 
 export const SIDEBAR_WIDTH = 180
-export const SIDEBAR_WIDTH_COLLAPSED = 38
+export const SIDEBAR_WIDTH_COLLAPSED = 80 //38
 export const sidebarWidth = computed(
     () => `${collapsed.value ? SIDEBAR_WIDTH_COLLAPSED : SIDEBAR_WIDTH}px`
 )
