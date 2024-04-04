@@ -1,18 +1,17 @@
 
 <script>
-	//import Svg from '../assets/Svg.vue'
+	import Svg from '../assets/Svg.vue'
   import {apiClient} from "@/api.js";
 	export default {
 		name: 'Register',
+		components: {Svg},
 		data(){
 			return{
         username: '',
-				//first_name:'',
-				//last_name:'',
-				//email:'',
 				password:'',
 				password_confirm:'',
         errorMsg: '', //TODO: display error to user
+				showPassword: false,
 			}
 		},
 		methods:{
@@ -20,21 +19,22 @@
         //TODO: use interceptor to check matching password, send one password
         try {
           await apiClient.post('/auth/register', {
-            //first_name: this.first_name,
-            //last_name: this.last_name,
-            //email: this.email,
             username: this.username,
-            password: this.password
-            //password_confirm: this.password_confirm
+            password: this.password,
+            password_confirm: this.password_confirm
           }).then(response => {
             //TODO: display successful registration to user
+	          alert("User: " + this.username + " created!")
             this.$router.push('/login')
           });
         } catch (error) {
           //TODO: proper error handling
-          this.errorMsg = 'Error signing up';
+          this.errorMsg = 'Error signing up, try again';
         }
-			}
+			},
+			togglePasswordVisibility() {
+				this.showPassword = !this.showPassword;
+			},
 		}
 	}
 </script>
@@ -49,30 +49,39 @@
 				<h1 id="signup">Signup</h1>
 				<p> Create an account to get started!</p>
 				<div class="signupBox">
-          <label>First Name</label> <br>
-          <input type="text" required v-model="username" placeholder="username"/> <br>
-          <!--
-            <label>First Name</label> <br>
-					<input type="text" required v-model="first_name" placeholder="John"/> <br>
-					<label>Last Name</label> <br>
-					<input type="text" required v-model="last_name" placeholder="Doe"/> <br>
-					<label>Email</label> <br>
-					<input type="email" required v-model="email" placeholder="JohnDoe@email.com"/> <br>
+          <label>Username</label> <br>
+          <input type="text" required v-model="username" placeholder="Insert username here..."/> <br>
 
-          -->
-          <label>Password</label> <br>
-					<input type="text" required v-model="password" /> <br>
+					<label>Password</label> <br>
+					<div class="password-input">
+						<input :type="showPassword ? 'text' : 'password'" required v-model="password"/>
+						<button type="button" class="showPasswordIcon" @click="togglePasswordVisibility">
+							<Svg v-if="showPassword" :name="'hide-password-icon'"/>
+							<Svg v-else :name="'show-password-icon'" />
+						</button>
+					</div> <br>
+
 					<label>Confirm Password</label> <br>
-					<input type="text" required v-model="password_confirm" /> <br>
+					<div class="password-input">
+						<input :type="showPassword ? 'text' : 'password'" required v-model="password_confirm"/>
+						<button type="button" class="showPasswordIcon" @click="togglePasswordVisibility">
+							<Svg v-if="showPassword" :name="'hide-password-icon'"/>
+							<Svg v-else :name="'show-password-icon'" />
+						</button>
+					</div> <br>
+
+					<label class="error-message">{{errorMsg}}</label><br>
+
 				</div>
 			</div>
 			<div class="submit-section">
-				<input id="submit" type="submit"/>
+				<input class="submit-btn" type="submit"/>
 			</div>
 		</form>
 	</div>
 	</body>
 </template>
+
 
 <style>
 .signupPage {
@@ -90,43 +99,31 @@
 	border-style: solid;
 	margin: 20px;
 }
+
 .signupBox {
 	padding: 30px;
 }
 
-label {
+.password-input {
+	position: relative;
 	display: inline-block;
-	font-weight: bold;
 }
-input {
-	padding: 5px;
-	border-radius: 5px;
+
+
+.showPasswordIcon {
+	position: absolute;
+	top: 50%;
+	right: 5px; /* Adjust positioning as needed */
+	transform: translateY(-50%);
 	border: none;
-	min-width: 250px;
-	background-color: #E5E5E5;
-	margin: 10px;
+	background: none;
+	cursor: pointer;
 }
-input::placeholder {
-	color: #b0b0b0;
-}
+
 .submit-section {
 	display: flex;
 	justify-content: center;
 	align-items: center;
 }
-#submit {
-	min-width: 150px;
-	min-height: 60px;
-	font-size: 24px;
-	border-radius: 6px;
-	background-color: #242F40;
-	color: white;
-	border: none;
-	cursor: pointer;
-	margin-top: 20px;
-}
-#submit:hover:enabled {
-	background-color: rgba(23, 55, 44, 0.9);
-	transition: 0.5s;
-}
+
 </style>

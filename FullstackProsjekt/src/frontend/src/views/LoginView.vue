@@ -11,8 +11,8 @@ export default {
       username: '',
 			email: '',
 			password: '',
-			showPassword: false, // Add showPassword property
-      errorMsg: '', //TODO: display error to user
+			showPassword: false,
+      errorMsg: '',
 		}
 	},
 	methods: {
@@ -46,7 +46,7 @@ export default {
 
 				<div class="loginBox">
           <label>Username</label> <br>
-          <input type="text" required v-model="username" placeholder="username"/> <br>
+          <input type="text" required v-model="username" placeholder="Rizz_Dragon420"/> <br>
 
 					<label>Password</label> <br>
 					<div class="password-input">
@@ -93,10 +93,7 @@ export default {
 	padding: 40px;
 }
 
-label {
-	display: inline-block;
-	font-weight: bold;
-}
+
 
 .password-input {
 	position: relative;

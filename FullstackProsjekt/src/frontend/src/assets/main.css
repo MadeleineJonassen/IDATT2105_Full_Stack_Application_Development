@@ -16,6 +16,10 @@ input {
 input::placeholder {
     color: #b0b0b0;
 }
+label {
+    display: inline-block;
+    font-weight: bold;
+}
 
 
 .space{
@@ -63,6 +67,8 @@ input::placeholder {
     border-color: transparent;
     color: #242F40;
     border-radius: 10px;
+    cursor: pointer;
+
 }
 .delete-btn{
     padding: 8px;
@@ -71,6 +77,8 @@ input::placeholder {
     color: #242F40;
     border-radius: 10px;
     font-family: monospace;
+    cursor: pointer;
+
 }
 .add-Btn {
     background-color: #242F40;
@@ -80,6 +88,8 @@ input::placeholder {
     border-radius: 20px;
     border-color: transparent;
     margin-top: 10px;
+    cursor: pointer;
+
 }
 .add-Btn:hover{
     cursor: pointer;
@@ -96,6 +106,8 @@ input::placeholder {
     border-radius: 20px;
     border-color: transparent;
     margin-top: 10px;
+    cursor: pointer;
+
 }
 
 .close-btn{
@@ -104,6 +116,7 @@ input::placeholder {
     border-radius: 5px;
     border-color: transparent;
     margin-left: 10px;
+    cursor: pointer;
 
 }
 
@@ -116,7 +129,7 @@ input::placeholder {
     min-width: 160px;
     font-family: monospace;
     transition: 0.2s;
-
+    cursor: pointer;
 }
 .submit-btn:hover{
     background-color: #a67d0e;
