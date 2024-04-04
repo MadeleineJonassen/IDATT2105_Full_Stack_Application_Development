@@ -19,12 +19,11 @@
 			<li>Progress Tracking: Track your progress, view past quiz attempts, and monitor performance statistics.</li>
 			<li>Feedback and Support: Provide feedback, report issues, and access customer support.</li>
 		</ul>
-		<div class="space"> </div>
 
 	</div>
 
 
-	<h2 class ="our-team" style="text-align:center">Our Team</h2>
+	<h1 class ="our-team" style="text-align:center">Our Team</h1>
 	<div class="row">
 		<div class="column">
 			<div class="card">
@@ -90,11 +89,17 @@ export default {
 </script>
 
 <style>
-
 .column {
 	float: left;
-	margin-bottom: 16px;
-	padding: 0 8px;
+}
+.column p{
+	font-size: 14px;
+}
+p {
+	font-size: 20px;
+}
+li{
+	font-size: 16px;
 }
 
 .card {
@@ -103,7 +108,7 @@ export default {
 }
 
 .about-section {
-	padding: 50px;
+	padding: 10vh 10vh 10vh 10vh;
 	text-align: center;
 	background-color: #858A93;
 	color: #242F40;
@@ -132,7 +137,6 @@ export default {
 	cursor: pointer;
 	width: 100%;
 	font-family: monospace;
-
 }
 
 .button:hover {
