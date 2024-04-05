@@ -3,6 +3,8 @@ body {
     margin: 0 0 0 28px;
     background-color: #F2F2F2;
 }
+
+
 input {
     padding: 5px;
     border-radius: 5px;
@@ -12,10 +14,10 @@ input {
     margin: 10px;
     font-family: monospace;
 }
-
 input::placeholder {
     color: #b0b0b0;
 }
+
 label {
     display: inline-block;
     font-weight: bold;
@@ -52,7 +54,6 @@ label {
     margin-bottom: 20px;
 }
 
-
 .play-btn{
     padding: 10px;
     text-decoration: none;
@@ -69,7 +70,6 @@ label {
     color: #242F40;
     border-radius: 10px;
     cursor: pointer;
-
 }
 .delete-btn{
     padding: 8px;
@@ -108,7 +108,6 @@ label {
     border-color: transparent;
     margin-top: 10px;
     cursor: pointer;
-
 }
 
 .close-btn{
@@ -118,7 +117,6 @@ label {
     border-color: transparent;
     margin-left: 10px;
     cursor: pointer;
-
 }
 
 .submit-btn{
