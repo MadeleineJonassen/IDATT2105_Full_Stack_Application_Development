@@ -18,7 +18,6 @@ export default {
       quiz: null,
       quizId: null,
       quizTitle: '',
-      questions: [],
       category: '',
       difficulty: '',
       errorMsg: '',
@@ -35,13 +34,13 @@ export default {
   methods: {
     async constructQuiz() {
       try {
-        await apiClient.post('quiz/create', {
+        const post = {
           title: this.quizTitle,
-          questionIds: this.questions,
           creatorId: this.creatorId,
           category: this.selectedCategory,
           difficulty: this.selectedDifficulty
-        }).then(response => {
+        }
+        await apiClient.post('quiz/create', post).then(response => {
           this.quizId = JSON.parse(response.data.id);
           router.push({name: 'editQuiz', params: {quizId: this.quizId}});
         })
@@ -49,8 +48,8 @@ export default {
         this.errorMsg = 'Cannot construct quiz';
       }
     },
-    getUser() {
-      this.creatorId = getIdByToken();
+    async getUser() {
+      this.creatorId = await getIdByToken();
     }
 
   },
@@ -65,13 +64,13 @@ export default {
 			<h1>New quiz</h1>
       <div>
         <h2>Title</h2>
-        <input>
+        <input type="text" required v-model="quizTitle" placeholder="Insert title here..."/> <br>
       </div>
       <div>
         <h2>Category</h2>
         <form>
           <select v-model="selectedCategory">
-            <option v-for="category in categories" :key="category.id" :value="category.id">{{category.category}}</option>
+            <option v-for="category in categories" :key="category" :value="category">{{ category }}</option>
           </select>
         </form>
       </div>
@@ -79,7 +78,7 @@ export default {
         <h2>Difficulty</h2>
         <form>
           <select v-model="selectedDifficulty">
-            <option v-for="difficulty in difficulties" :key="difficulty.id" :value="difficulty.id">{{difficulty.difficulty}}</option>
+            <option v-for="difficulty in difficulties" :key="difficulty" :value="difficulty">{{ difficulty}}</option>
           </select>
         </form>
       </div>
