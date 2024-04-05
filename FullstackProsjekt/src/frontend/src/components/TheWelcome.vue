@@ -1,7 +1,6 @@
 <script>
 import axios from "axios";
 export default {
-
 	name: 'Home',
 	async created() {
 		const response = await axios.get('user');
@@ -38,19 +37,23 @@ export default {
 			</div>
 			<div class="course-col">
 				<h3>Hard</h3>
-				<p>Quizes that challenge the mind to new limits... </p>
+				<p>Quizzes that challenge the mind to new limits... </p>
 			</div>
 		</div>
 	</section>
+	<div class="space"> </div>
+
+	<section class="cta">
+		<h1> Enroll For Our Various Online Quizzes Anywhere You Are </h1>
+		<router-link to="/about" class="hero-btn"> About us</router-link>
+	</section>
+
 	</body>
 </template>
 
 
 
-
 <style scoped>
-
-/*---Top----*/
 .header{
 	min-height: 100vh;
 	width: 100%;
@@ -64,7 +67,6 @@ export default {
 	padding: 10px;
 }
 
-/*Front page*/
 .text-box{
 	width: 90%;
 	color: #fff;
@@ -101,7 +103,6 @@ export default {
 	color: #242F40;
 }
 
-/*Info with three levels*/
 .info{
 	width: 80%;
 	margin: auto;
@@ -119,28 +120,27 @@ p{
 	line-height: 22px;
 	padding: 10px;
 }
-.row{
-	margin-top: 5%;
-	display: flex;
-	justify-content: space-between;
-}
-.course-col{
-	flex-basis: 31%;
-	background: #cccaca;
-	border-radius: 10px;
-	margin-bottom: 5%;
-	padding: 20px;
-	box-sizing: border-box;
-	transition: 0.5s;
-}
+
 h3{
 	text-align: center;
 	font-weight: 600;
 	margin: 10px 0;
 }
-.course-col:hover{
-	box-shadow: 0 0 20px 0px rgba(0,0,0,0.3);
 
+.cta{
+	margin: 100px auto;
+	width: 80%;
+	background-image: linear-gradient(rgba(4,9,30,0.7), rgba(4,9,30,0.7)),url(photos/background.png);
+	background-position: center;
+	background-size: cover;
+	border-radius: 10px;
+	text-align: center;
+	padding: 100px 0;
+}
+.cta h1{
+	color: #F2F2F2;
+	margin-bottom: 40px;
+	padding: 0;
 }
 
 @media (max-width: 700px){
@@ -148,8 +148,8 @@ h3{
 		font-size: 42px;
 		transition: 1s;
 	}
-	.row{
-		flex-direction: column;
+	.cta h1{
+		font-size: 24px;
 	}
 }
 
