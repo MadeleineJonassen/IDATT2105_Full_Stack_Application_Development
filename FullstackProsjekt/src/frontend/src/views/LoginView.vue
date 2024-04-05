@@ -22,7 +22,7 @@ export default {
           username: this.username,
           password: this.password
         }).then(response => {
-          setToken(response.data.token); //TODO: check token name
+          setToken(response.data.jwt); //TODO: check token name
         });
       } catch (error) {
         //TODO: proper error handling
