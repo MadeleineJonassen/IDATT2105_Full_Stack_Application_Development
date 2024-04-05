@@ -1,6 +1,7 @@
 package edu.ntnu.idatt2105.controller;
 
 
+import edu.ntnu.idatt2105.dto.UserDTO;
 import edu.ntnu.idatt2105.model.User;
 import edu.ntnu.idatt2105.service.TokenService;
 import edu.ntnu.idatt2105.service.UserService;
@@ -27,8 +28,8 @@ public class UserController {
     return userService.findAllAppUsers();
   }
 
-  @GetMapping("/id/")
-  public Integer getUserIdFromToken(@RequestHeader("Authorization") String token) {
-    return tokenService.getUserIdFromToken(token);
+  @GetMapping("/getId/{token}")
+  public UserDTO getUserDTOFromToken(@PathVariable String token) {
+    return tokenService.getUserDTOFromToken(token);
   }
 }
