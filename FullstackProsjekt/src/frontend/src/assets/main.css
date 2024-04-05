@@ -11,7 +11,7 @@ input {
     border: none;
     min-width: 220px;
     background-color: #E5E5E5;
-    margin: 10px;
+    margin-bottom: 10px;
     font-family: monospace;
 }
 input::placeholder {
@@ -72,25 +72,24 @@ label {
     cursor: pointer;
 }
 .delete-btn{
-    padding: 8px;
+    padding: 10px;
     background-color: #cc513b;
     border-color: transparent;
     color: #242F40;
     border-radius: 10px;
     font-family: monospace;
     cursor: pointer;
-
+    text-decoration: none;
 }
 .add-Btn {
     background-color: #242F40;
     color: white;
     font-size: 16px;
     padding: 10px;
-    border-radius: 20px;
+    border-radius: 10px;
     border-color: transparent;
-    margin-top: 10px;
     cursor: pointer;
-
+    text-decoration: none;
 }
 .add-Btn:hover{
     cursor: pointer;
