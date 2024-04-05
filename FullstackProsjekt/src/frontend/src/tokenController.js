@@ -12,7 +12,14 @@ export const removeToken = () => {
     localStorage.removeItem('token');
 }
 
-export const getIdByToken= () => {
-    //TODO: set up encryption and getID
-    return apiClient.get('/user/getId/' + getToken());
-}
+export const getIdByToken = async () => {
+    return new Promise((resolve, reject) => {
+        apiClient.get('/user/getId/' + getToken())
+            .then(response => {
+                resolve(response.data.id);
+            })
+            .catch(error => {
+                reject(error);
+            });
+    });
+};
