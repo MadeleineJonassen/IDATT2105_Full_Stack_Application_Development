@@ -64,6 +64,7 @@ export default {
 }
 #logo{
 	height: 150px;
+	width: 150px;
 	padding: 10px;
 }
 

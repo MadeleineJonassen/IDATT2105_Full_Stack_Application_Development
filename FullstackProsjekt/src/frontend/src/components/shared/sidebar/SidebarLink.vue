@@ -23,16 +23,26 @@ export default {
 		<div class="icon-wrapper" v-if="collapsed">
 			<Svg :name="icon" class="icon" />
 		</div>
-		<transition name="fade">
+		<Transition name="fade">
       <span v-if="!collapsed" class="link-content">
         <Svg :name="icon" class="icon" />
         <slot />
       </span>
-		</transition>
+		</Transition>
 	</router-link>
 </template>
 
 <style scoped>
+.fade-enter-active,
+.fade-leave-active {
+	transition: opacity 0.1ms;
+}
+
+.fade-enter,
+.fade-leave-to {
+	transform: translateX(20px);
+	opacity: 0;
+}
 .link {
 	position: relative;
 	font-weight: 400;
