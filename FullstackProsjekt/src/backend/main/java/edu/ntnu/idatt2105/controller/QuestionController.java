@@ -38,7 +38,21 @@ public class QuestionController {
     );
   }
 
-  @PostMapping("/delete{questionId}")
+  @GetMapping("/get/{questionId}")
+    public QuestionDTO getQuestion(@PathVariable Integer questionId) {
+        Question question = questionService.findQuestionById(questionId);
+        return new QuestionDTO(
+                question.getId(),
+                question.getQuestionText(),
+                question.getType(),
+                question.getAnswer(),
+                question.getOptionsList(),
+                question.getScore(),
+                question.getQuiz().getId()
+        );
+    }
+
+  @PostMapping("/delete/{questionId}")
   public void deleteQuestion(@PathVariable Integer questionId) {
     questionService.deleteQuestion(questionId);
   }
