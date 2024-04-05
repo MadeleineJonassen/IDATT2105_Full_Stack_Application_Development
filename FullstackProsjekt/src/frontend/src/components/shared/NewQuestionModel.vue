@@ -1,10 +1,103 @@
-<script setup>
-const props = defineProps({
-	show: Boolean
-})
+<script>
+import {apiClient} from "@/api.js";
+export default {
+  props: {
+    quizId: {
+      type: Number,
+      required: true
+    }
+  },
+  data() {
+    return {
+      questionText: '',
+      answers: [{ text: '', correct: false }],
+      correctAnswerIndex: 0,
+      type: 'MC',
+      score: 0,
+      correctAnswer: null,
+      errorMsg: ''
+    }
+  },
+  methods: {
+    //TODO: error prevention/handling
+    async handleSubmit() {
+      try {
+        this.findCorrectAnswer();
+        await apiClient.post('/questions', {
+          quizId: this.quizId,
+          questionText: this.questionText,
+          type: this.type,
+          answer: this.correctAnswer,
+          options: this.answers.map(answer => answer.text), //just the strings!
+          score: this.score
+          //add questionId to questions in editQuiz!
+
+        })
+      } catch (error) {
+        this.errorMsg = 'Error signing up';
+      }
+    },
+    closeModal() {
+      this.$emit('close');
+    },
+    newAnswer() {
+      this.answers.push({ text: '', correct: false });
+    },
+    findCorrectAnswer(){
+      if (this.correctAnswerIndex !== null && this.answers[this.correctAnswerIndex]) {
+        this.correctAnswer = this.answers[this.correctAnswerIndex].text;
+      }
+    }
+  }
+
+};
 </script>
 
 <template>
+  <div class="modal-overlay" @click="closeModal">
+    <div @click.stop class="modal-mask">
+      <div class="modal-container">
+        <form @submit.prevent="handleSubmit">
+          <div class="question-title">
+            <h3>Question:</h3>
+            <input v-model="questionText" placeholder="Type your question here">
+
+            <label>Score:</label>
+            <input type="number" id="scoreInput" v-model="score">
+          </div>
+          <div class="modal-body">
+            <!--
+            <AnswerCard answer-id="answerCard" v-for="answer in answers"
+                        :key="answer.id" :answerId="answer.id" :answer="answer.answer" :correct="answer.correct"/>
+            -->
+            <table class="table">
+              <thead>
+              <tr>
+                <th scope="col">Answer</th>
+                <th scope="col">Correct ?</th>
+              </tr>
+              </thead>
+              <tbody>
+                <tr v-for="(answer, index) in answers">
+                  <td><input type="text" v-model="answer.text"></td>
+                  <td>
+                    <input type="radio" :id="'correctAnswer_' + index" :value="index" v-model="correctAnswerIndex">
+                    <label :for="'correctAnswer_' + index">Correct</label>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="modal-footer">
+            <button class="edit-btn" @click="newAnswer">Add answer</button>
+            <button class="modal-default-button" @click="$emit('close')">SUBMIT</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+  <!--
+
 	<Transition name="modal">
 		<div v-if="show" class="modal-mask">
 			<div class="modal-container">
@@ -28,6 +121,7 @@ const props = defineProps({
 			</div>
 		</div>
 	</Transition>
+	-->
 </template>
 
 <style>
@@ -52,6 +146,14 @@ const props = defineProps({
 	box-shadow: 0 2px 8px rgba(0, 0, 0, 0.33);
 	transition: all 0.3s ease;
 }
+
+.question-title {
+  display: flex;
+  justify-content: space-between;
+}
+
+
+
 
 .modal-header h5 {
 	margin-top: 0;
