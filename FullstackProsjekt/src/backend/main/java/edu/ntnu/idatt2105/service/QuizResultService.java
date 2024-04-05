@@ -28,14 +28,11 @@ public class QuizResultService {
 
   private final UserRepository userRepository;
 
-  private final QuestionRepository questionRepository;
-
   @Autowired
-  public QuizResultService(QuizResultRepository quizResultRepository, QuizRepository quizRepository, UserRepository userRepository, QuestionRepository questionRepository) {
+  public QuizResultService(QuizResultRepository quizResultRepository, QuizRepository quizRepository, UserRepository userRepository) {
     this.quizResultRepository = quizResultRepository;
     this.quizRepository = quizRepository;
     this.userRepository = userRepository;
-    this.questionRepository = questionRepository;
   }
 
 
@@ -84,13 +81,6 @@ public class QuizResultService {
     quizResultDTO.setStatus(quizResult.getStatus());
     quizResultDTO.setStartedAt(quizResult.getStartedAt());
     quizResultDTO.setCompletedAt(quizResult.getCompletedAt());
-
-    // Anta at vi også trenger å konvertere listen av QuestionAnswer til QuestionAnswerDTO
-    // Dette krever at vi har en metode for å gjøre denne konverteringen:
-    List<QuestionAnswerDTO> answerDTOs = quizResult.getAnswers().stream()
-            .map(this::convertToQuestionAnswerDTO)
-            .collect(Collectors.toList());
-    quizResultDTO.setAnswers(answerDTOs);
 
     return quizResultDTO;
   }

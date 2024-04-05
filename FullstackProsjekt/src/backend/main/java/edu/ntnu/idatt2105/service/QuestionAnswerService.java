@@ -40,8 +40,6 @@ public class QuestionAnswerService {
     answer.setGivenAnswer(answerDTO.getGivenAnswer());
     answer.setQuizResult(quizResult);
 
-    quizResult.addQuestionAnswer(answer);
-
     return questionAnswerRepository.save(answer);
   }
   public boolean isCorrect(QuestionAnswer questionAnswer) {
