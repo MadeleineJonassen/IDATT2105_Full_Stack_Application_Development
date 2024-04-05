@@ -21,7 +21,6 @@
           await apiClient.post('/auth/register', {
             username: this.username,
             password: this.password,
-            password_confirm: this.password_confirm
           }).then(response => {
             //TODO: display successful registration to user
 	          alert("User: " + this.username + " created!")
