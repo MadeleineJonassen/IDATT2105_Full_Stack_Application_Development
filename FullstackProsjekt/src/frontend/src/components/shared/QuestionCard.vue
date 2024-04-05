@@ -2,33 +2,36 @@
 import { RouterLink, RouterView } from 'vue-router';
 import router from "@/router/index.js";
 import { useRouter } from 'vue-router';
+import EditQuestionModel from "@/components/shared/EditQuestionModel.vue";
 export default {
+  components: {EditQuestionModel},
   props: {
     questionId: {
       type: Number,
       required: true,
-    },
-    questionNum: {
-      type: Number,
-      required: false,
-    },
-    question: {
-      type: String,
-      required: false,
-    },
+    }
+  },
+  mounted() {
+    //API req, get question from id
+  },
+  data() {
+    return {
+      showEditQuestion: false,
+      questionNum: 0,
+      question: 'question text'
+    }
   },
   methods: {
-    //link to pages, play quiz, edit, delete, with quizId
-    viewQuestion() {
-      //create new router-method to playQuiz, using quizId
-      //router.push({name: 'playQuiz', params: {questionId: this.questionId}});
+    deleteQuestion() {
+      //API req, delete question
     },
     editQuestion() {
-      //create new router-method to editQuiz, using quizId
-      //this.$router.push({name: 'editQuiz', params: {questionId: this.questionId}});
+      this.showEditQuestion = true;
+      console.log(this.showEditQuestion);
     },
-    deleteQuestion() {
-
+    hideEditQuestion() {
+      this.showEditQuestion = false;
+      //TODO: update answers, +answer count
     }
   }
 }
@@ -36,13 +39,13 @@ export default {
 
 <template>
   <div class="question-wrapper">
-    <h4>{{questionNum}}</h4>
+    <h4>{{questionId}}</h4>
     <h3>{{question}}</h3>
     <div class="quiz-footer">
-      <button @click="viewQuestion" class="play-btn">Play</button>
       <button @click="editQuestion" class="edit-btn">Edit</button>
-      <button @click="deleteQuestion" class="delete-btn">Edit</button>
+      <button @click="deleteQuestion" class="delete-btn">Delete</button>
     </div>
+    <EditQuestionModel :question-id=questionId v-if="this.showEditQuestion" @close="hideEditQuestion"/>
   </div>
 </template>
 

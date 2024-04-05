@@ -18,18 +18,16 @@ let answerId = 1;
 const quizName = ref('');
 const errorMsg = ''; //TODO: display error to user*/
 
+//send list of question-ids?
 export default {
   components: {NewQuestionModel, QuestionCard},
   data() {
     return {
       showNewQuestion: false,
+      creatorId: null,
       quizId: null,
       quizTitle: '',
-      questions: [
-        {id: 0, num: 1, text:'first question'},
-        {id: 1, num: 2, text:'second question'},
-        {id: 2, num: 3, text:'third question'}
-      ],
+      questions: [], //question list is just a list of q-ids!!
       category: '',
       difficulty: '',
       errorMsg: ''
@@ -43,18 +41,18 @@ export default {
   methods: {
     getQuiz(quizId) {
       console.log('Fetching data for quiz: ', quizId);
-      /*
       try {
         apiClient.get('/quiz/quiz/' + this.quizId).then(response => {
           this.quizTitle = JSON.parse(response.data.title);
+          this.questions = JSON.parse(JSON.stringify(response.data.questions));
+          this.creatorId = JSON.parse(response.data.creatorId);
           this.category = JSON.parse(response.data.category);
           this.difficulty = JSON.parse(response.data.difficulty);
-          this.questions = JSON.parse(JSON.stringify(response.data.questions));
         });
       } catch (error) {
         //TODO: proper error handling
         this.errorMsg = 'Error retrieving quizzes';
-      }*/
+      }
     },
     newQuestion() {
       this.showNewQuestion = true;
@@ -62,7 +60,10 @@ export default {
     },
     hideNewQuestion() {
       this.showNewQuestion = false;
-      //TODO: update answers, +answer count
+      //TODO: questions answers, +question count
+    },
+    deleteQuiz() {
+      //API req, quizId
     }
   },
 };
@@ -153,15 +154,14 @@ async function submitQuestion() {
 
 <template>
 	<body>
-		<div class="createQuestion-page">
+		<div class="newQuizDiv">
 			<router-link to="/overviewQuiz"> <-  </router-link>
 			<h1>Edit quiz {{quizId}}</h1>
-      <p>Add questions</p>
       <div class="question-div">
-        <QuestionCard question-id="questionCard" v-for="question in questions"
-                      :key="question.id" :question-num="question.num" :question="question.text"/>
+        <QuestionCard  v-for="question in questions" :question-id=question.id
+                      :key="question.id"/>
       </div>
-      <NewQuestionModel v-if="showNewQuestion" @close="hideNewQuestion"/>
+      <NewQuestionModel v-if="showNewQuestion" @close="hideNewQuestion" quiz-id="this.quizId"/>
       <!--
 			<div class="question-table">
 				<table class="table">
@@ -235,8 +235,9 @@ async function submitQuestion() {
 				</Teleport>
 				</div>
 				-->
-			<div>
-				<button @click="newQuestion" class="add-Btn"> Add Question </button> <br>
+			<div class="footer">
+				<button @click="newQuestion" class="add-Btn"> Add Question </button>
+        <button class="delete-btn"> DELETE QUIZ </button>
 				<button class="save-Btn"> SAVE QUIZ </button>
 			</div>
 		</div>
@@ -245,7 +246,7 @@ async function submitQuestion() {
 </template>
 
 <style>
-.createQuestion-page{
+.newQuizDiv{
 	padding: 20px;
 }
 

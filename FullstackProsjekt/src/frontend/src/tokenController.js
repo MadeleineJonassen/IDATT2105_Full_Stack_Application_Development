@@ -13,7 +13,6 @@ export const removeToken = () => {
 }
 
 export const getIdByToken= () => {
-    //const token = getToken();
-    //return apiClient.get('/user/getId');
-    return 'UserName';
+    //TODO: set up encryption and getID
+    return apiClient.get('/user/getId/' + getToken());
 }

@@ -4,27 +4,36 @@
 const props = defineProps({
 	show: Boolean
 })*/
-import AnswerCard from "@/components/shared/AnswerCard.vue";
+
 export default {
-  components: {AnswerCard},
+  props: {
+    questionId: {
+      type: Number,
+      required: true
+    }
+  },
+  mounted() {
+    //APi req
+  },
   data() {
     return {
       questionText: '',
+      correctIndex: 0,
       answers: [
         {answerId: 0, answer: 'first answer', correct: true},
         {answerId: 1, answer: 'second answer', correct: false},
-        {answerId: 2, answer: 'third answer', correct: false},
-      ],
-      correctIndex: 0
+        {answerId: 2, answer: 'third answer', correct: false}
+      ]
     }
   },
+
   methods: {
     closeModal() {
       this.$emit('close');
     },
     newAnswer() {
       //default: not correct!
-    }
+    },
   }
 
 };
@@ -35,12 +44,30 @@ export default {
     <div @click.stop class="modal-mask">
       <div class="modal-container">
         <div class="question-title">
-          <h3>Question:</h3>
+          <h3>Question: </h3>
           <input v-model="questionText" placeholder="Type your question here">
         </div>
         <div class="modal-body">
-          <AnswerCard answer-id="answerCard" v-for="answer in answers"
-                      :key="answer.id" :answerId="answer.id" :answer="answer.answer" :correct="answer.correct"/>
+          <table class="table">
+            <thead>
+            <tr>
+              <th scope="col">#</th>
+              <th scope="col">Answer</th>
+              <th scope="col">Correct ?</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr v-for="answer in answers">
+              <th scope="row">{{answer.answer}}</th>
+              <td>
+                <input type="text" v-model="answer.answer" id="questionInput">
+              </td>
+              <td>
+                <input :checked="answer.correct_answer === 1" class="form-check-input" :value="answer.id" @change="handleRadioToggle(answer.id)"  type="radio">
+              </td>
+            </tr>
+            </tbody>
+          </table>
         </div>
         <div class="modal-footer">
           default footer

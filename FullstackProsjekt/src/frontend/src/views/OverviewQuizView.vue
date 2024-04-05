@@ -9,13 +9,14 @@
       </div>
       <div>
         <button class="add-Btn">Create Quiz</button>
+        <router-link to="/createQuiz"> New quiz </router-link>
       </div>
     </div>
 
 
 		<div class="row">
       <div class="quiz-div">
-        <QuizCard id="quizCard" v-for= "quiz in quizList" :key="quiz.id" :quizDescription="quiz.description" :quizName="quiz.name" :quiz-id="quiz.id" />
+        <QuizCard id="quizCard" v-for= "quiz in quizList" :key="quiz.id" :quiz-id="quiz.id" />
       </div>
 		</div>
 	</div>
@@ -25,6 +26,7 @@
 <script>
 import QuizCard from "@/components/shared/QuizCard.vue";
 import {getIdByToken} from "@/tokenController.js";
+import {apiClient} from "@/api.js";
 
 export default {
 	components: {
@@ -32,19 +34,17 @@ export default {
   },
 	data() {
 		return {
-      userName: '',
+      userId: null,
       quizNo: 0,
-      quizList: [
-      { name: 'Quiz 1', description: 'Description of Quiz 1', id: 1 },
-      { name: 'Quiz 2', description: 'Description of Quiz 2', id: 2 },
-      { name: 'Quiz 3', description: 'Description of Quiz 3', id: 3 },
-      { name: 'Quiz 4', description: 'Description of Quiz 4', id: 3 },
-      { name: 'Quiz 5', description: 'Description of Quiz 5', id: 3 }
-    ], //TODO: replace with request-method when ready, using quiz-objects
+      quizList: [],
 		};
 	},
-	methods: {
-    /*
+  mounted() {
+    this.setUserId();
+    this.populateQuizzes();
+  },
+  methods: {
+
     async populateQuizzes() {
       try {
         await apiClient.get('/quiz/creator/' + this.userId).then(response => {
@@ -56,15 +56,12 @@ export default {
         //TODO: proper error handling
         this.errorMsg = 'Error retrieving quizzes';
       }
-    },*/
+    },/*
     populateQuizzes() {
       this.quizNo = this.quizList.length;
-    },
-    newQuiz() {
-      //link to new quiz page
-    },
+    },*/
     setUserId() {
-      this.userName = getIdByToken();
+      this.userId = getIdByToken();
     }
 	},
   created() {
