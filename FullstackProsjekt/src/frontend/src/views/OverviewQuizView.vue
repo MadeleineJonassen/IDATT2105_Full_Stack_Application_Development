@@ -40,34 +40,25 @@ export default {
 		};
 	},
   mounted() {
-    this.setUserId();
-    this.populateQuizzes();
+    this.populateQuizzes(); // Call populateQuizzes directly
   },
-  methods: {
 
+  methods: {
     async populateQuizzes() {
       try {
-        await apiClient.get('/quiz/creator/' + this.userId).then(response => {
-          this.quizList = JSON.parse(JSON.stringify(response.data));
-          //TODO: set max amt.
-          this.quizNo = this.quizList.length;
-        });
+        await this.setUserId(); // Wait for setUserId to complete before fetching quizzes
+        const response = await apiClient.get('/quiz/creator/' + this.userId);
+        this.quizList = response.data;
+        this.quizNo = this.quizList.length;
       } catch (error) {
-        //TODO: proper error handling
+        // Handle errors
         this.errorMsg = 'Error retrieving quizzes';
       }
-    },/*
-    populateQuizzes() {
-      this.quizNo = this.quizList.length;
-    },*/
-    setUserId() {
-      this.userId = getIdByToken();
+    },
+    async setUserId() {
+      this.userId = await getIdByToken(); // Wait for getIdByToken() to resolve before assigning to this.userId
     }
-	},
-  created() {
-    this.setUserId();
-    this.populateQuizzes();
-  }
+	}
 }
 </script>
 
