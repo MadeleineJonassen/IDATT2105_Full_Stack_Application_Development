@@ -5,6 +5,7 @@ import edu.ntnu.idatt2105.exception.QuizNotFoundException;
 import edu.ntnu.idatt2105.model.*;
 import edu.ntnu.idatt2105.repository.QuestionRepository;
 import edu.ntnu.idatt2105.repository.QuizRepository;
+import edu.ntnu.idatt2105.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -22,9 +23,13 @@ public class QuizService {
   private QuestionRepository questionRepository;
 
   @Autowired
-  public QuizService(QuizRepository quizRepository, QuestionRepository questionRepository) {
+  private UserRepository userRepository;
+
+  @Autowired
+  public QuizService(QuizRepository quizRepository, QuestionRepository questionRepository, UserRepository userRepository) {
     this.quizRepository = quizRepository;
     this.questionRepository = questionRepository;
+    this.userRepository = userRepository;
   }
 
   @Transactional
@@ -33,8 +38,8 @@ public class QuizService {
     quiz.setTitle(quizDTO.getTitle());
     quiz.setCategory(quizDTO.getCategory());
     quiz.setDifficulty(quizDTO.getDifficulty());
-
-    //creator
+    userRepository.findById(quizDTO.getCreatorId())
+            .ifPresent(quiz::setCreator);
 
     quizRepository.save(quiz);
     return convertToQuizDTO(quiz);
@@ -97,7 +102,8 @@ public class QuizService {
     quizDTO.setTitle(quiz.getTitle());
     quizDTO.setCategory(quiz.getCategory());
     quizDTO.setDifficulty(quiz.getDifficulty());
-    //creator
+    quizDTO.setCreatorId(quiz.getCreator().getId());
+
     return quizDTO;
   }
 

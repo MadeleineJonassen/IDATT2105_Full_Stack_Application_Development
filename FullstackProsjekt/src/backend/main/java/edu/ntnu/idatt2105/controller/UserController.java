@@ -2,6 +2,7 @@ package edu.ntnu.idatt2105.controller;
 
 
 import edu.ntnu.idatt2105.model.User;
+import edu.ntnu.idatt2105.service.TokenService;
 import edu.ntnu.idatt2105.service.UserService;
 import org.springframework.web.bind.annotation.*;
 
@@ -13,8 +14,10 @@ import java.util.List;
 public class UserController {
 
   private final UserService userService;
+  private final TokenService tokenService;
 
-  public UserController(UserService userService) {
+  public UserController(UserService userService, TokenService tokenService) {
+    this.tokenService = tokenService;
     this.userService = userService;
   }
 
@@ -22,5 +25,10 @@ public class UserController {
   @GetMapping("/")
   public List<User> getAppUsers() {
     return userService.findAllAppUsers();
+  }
+
+  @GetMapping("/id/")
+  public Integer getUserIdFromToken(@RequestHeader("Authorization") String token) {
+    return tokenService.getUserIdFromToken(token);
   }
 }

@@ -1,5 +1,6 @@
 package edu.ntnu.idatt2105.service;
 
+import edu.ntnu.idatt2105.repository.UserRepository;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.oauth2.jwt.*;
@@ -13,10 +14,12 @@ public class TokenService {
 
   private final JwtEncoder jwtEncoder;
   private final JwtDecoder jwtDecoder;
+  private final UserRepository userRepository;
 
-  public TokenService(JwtEncoder jwtEncoder, JwtDecoder jwtDecoder) {
+  public TokenService(JwtEncoder jwtEncoder, JwtDecoder jwtDecoder, UserRepository userRepository) {
     this.jwtEncoder = jwtEncoder;
     this.jwtDecoder = jwtDecoder;
+    this.userRepository = userRepository;
   }
 
   public String generateJwt(Authentication auth) {
@@ -49,6 +52,11 @@ public class TokenService {
   public String getUsernameFromToken(String token) {
     Jwt jwt = jwtDecoder.decode(token);
     return jwt.getSubject();
+  }
+
+  public Integer getUserIdFromToken(String token) {
+    Jwt jwt = jwtDecoder.decode(token);
+    return userRepository.findByUsername(jwt.getSubject()).get().getId();
   }
 }
 
