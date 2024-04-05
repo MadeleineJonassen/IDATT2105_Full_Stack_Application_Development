@@ -28,15 +28,6 @@ export default {
 
 <template>
 	<div class="sidebar" :style="{width: sidebarWidth}">
-		<h1>
-			<span v-if="collapsed">
-				<div> B </div>
-				<div> S </div>
-			</span>
-			<span v-else>
-				Brain Stormer
-			</span>
-		</h1>
 
 		<SidebarLink to="/" icon="home-icon">Home</SidebarLink>
 		<SidebarLink to="/dashboard" icon="dashboard-icon">Dashboard</SidebarLink>
@@ -48,6 +39,7 @@ export default {
 			<Svg name="sidebar-arrow.png" class="icon"/>
 			<button class="iconButton"> <img id="icon" src="../../icons/sidebar-arrow.png"/> </button>
 		</span>
+
 	</div>
 </template>
 
@@ -77,17 +69,19 @@ export default {
 
 	display: flex;
 	flex-direction: column;
+	margin-left: -38px;
 }
 
 .collapse-icon{
 	position: absolute;
 	bottom: 0;
-	padding: 4px;
+	right: 0px;
+	padding: 5px;
 	transition: 0.2s linear;
-
 }
 #icon{
 	height: 18px;
+	cursor: pointer;
 }
 .iconButton{
 	background-color: transparent;
