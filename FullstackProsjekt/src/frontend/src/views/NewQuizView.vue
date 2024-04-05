@@ -68,7 +68,7 @@ export default {
 		      <div>
 		        <h2>Category</h2>
 		        <form>
-		          <select v-model="selectedCategory">
+		          <select v-model="selectedCategory" >
 		            <option v-for="category in categories" :key="category.id" :value="category">{{categories.category}}</option>
 		          </select>
 		        </form>
@@ -103,14 +103,21 @@ input{
 }
 select{
 	min-width: 100%;
+	height: 25px;
+	background-color: #E5E5E5;
+	border-color: transparent;
+	border-radius: 5px;
 }
 
-.footer{
+.footer {
 	margin: 10vh;
 	display: flex;
 	justify-content: center;
 	align-items: center;
+}
 
+.delete-btn {
+	margin-right: 20px;
 }
 
 </style>

@@ -81,6 +81,10 @@ label {
     cursor: pointer;
     text-decoration: none;
 }
+.delete-btn:hover{
+    background-color: #d9563e;
+
+}
 .add-Btn {
     background-color: #242F40;
     color: white;
@@ -121,16 +125,17 @@ label {
 .submit-btn{
     background-color: #CCA43B;
     font-size: 20px;
-    padding: 20px;
+    padding: 10px;
     border-radius: 5px;
     border-color: transparent;
     min-width: 160px;
     font-family: monospace;
-    transition: 0.2s;
+    transition: 0.4s;
     cursor: pointer;
 }
 .submit-btn:hover{
     background-color: #a67d0e;
+    color: white;
 }
 .submit-btn:active{
     background-color: #2D333B;
