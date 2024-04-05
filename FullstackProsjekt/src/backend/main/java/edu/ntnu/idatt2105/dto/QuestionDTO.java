@@ -8,6 +8,7 @@ import java.util.stream.Collectors;
 
 public class QuestionDTO {
   private Integer id;
+  private Integer quizId;
   private String questionText;
   private QuestionType type;
   private String answer;
@@ -18,13 +19,14 @@ public class QuestionDTO {
   public QuestionDTO() {
   }
 
-  public QuestionDTO(Integer id, String questionText, QuestionType type, String answer, List<String> options, int score) {
+  public QuestionDTO(Integer id, String questionText, QuestionType type, String answer, List<String> options, int score, Integer quizId) {
     this.id = id;
     this.questionText = questionText;
     this.type = type;
     this.answer = answer;
     this.options = options;
     this.score = score;
+    this.quizId = quizId;
   }
 
   // Getters og setters
@@ -74,6 +76,14 @@ public class QuestionDTO {
 
   public void setScore(int score) {
     this.score = score;
+  }
+
+  public Integer getQuizId() {
+    return quizId;
+  }
+
+  public void setQuizId(Integer quizId) {
+    this.quizId = quizId;
   }
 
   public void setOptionsFromString(String optionsString) {

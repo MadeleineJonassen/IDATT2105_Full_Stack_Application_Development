@@ -33,7 +33,8 @@ public class QuestionController {
             question.getType(),
             question.getAnswer(),
             question.getOptionsList(),
-            question.getScore()
+            question.getScore(),
+            question.getQuiz().getId()
     );
   }
 

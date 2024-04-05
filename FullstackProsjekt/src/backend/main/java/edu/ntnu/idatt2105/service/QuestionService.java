@@ -4,6 +4,7 @@ import edu.ntnu.idatt2105.dto.QuestionDTO;
 import edu.ntnu.idatt2105.model.Question;
 import edu.ntnu.idatt2105.model.QuestionType;
 import edu.ntnu.idatt2105.repository.QuestionRepository;
+import edu.ntnu.idatt2105.repository.QuizRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -15,10 +16,12 @@ import java.util.Optional;
 public class QuestionService {
 
   private final QuestionRepository questionRepository;
+  private final QuizRepository quizRepository;
 
   @Autowired
-  public QuestionService(QuestionRepository questionRepository) {
+  public QuestionService(QuestionRepository questionRepository, QuizRepository quizRepository) {
     this.questionRepository = questionRepository;
+    this.quizRepository = quizRepository;
   }
 
   @Transactional
@@ -48,6 +51,7 @@ public class QuestionService {
       }
       question.setAnswer(questionDTO.getAnswer());
       question.setScore(questionDTO.getScore());
+      question.setQuiz(quizRepository.findById(questionDTO.getQuizId()).orElse(null));
 
       return questionRepository.save(question);
     }
