@@ -46,8 +46,8 @@ public class QuizController {
     quizService.deleteQuiz(payload.get("id"));
   }
 
-  @GetMapping("/quiz")
-  public QuizDTO getQuizById(@RequestParam Integer quizId) {
+  @GetMapping("/quiz/{quizId}")
+  public QuizDTO getQuizById(@PathVariable Integer quizId) {
     return convertToDTO(quizService.findQuizById(quizId));
   }
 
@@ -73,11 +73,11 @@ public class QuizController {
             .collect(Collectors.toList());
   }
 
-  @GetMapping("/creator")
-  public List<QuizDTO> getQuizzesByCreatorId(@RequestParam Integer creatorId) {
+  @GetMapping("/creator/{creatorId}")
+  public List<QuizDTO> getQuizzesByCreatorId(@PathVariable Integer creatorId) {
     return quizService.findAllQuizzesByCreatorId(creatorId).stream()
-            .map(this::convertToDTO)
-            .collect(Collectors.toList());
+        .map(this::convertToDTO)
+        .collect(Collectors.toList());
   }
 
   public QuizDTO convertToDTO(Quiz quiz) {

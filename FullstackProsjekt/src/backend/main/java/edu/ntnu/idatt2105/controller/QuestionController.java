@@ -38,8 +38,8 @@ public class QuestionController {
     );
   }
 
-  @PostMapping("/delete")
-  public void deleteQuestion(@RequestBody Map<String, Integer> payload) {
-    questionService.deleteQuestion(payload.get("id"));
+  @PostMapping("/delete{questionId}")
+  public void deleteQuestion(@PathVariable Integer questionId) {
+    questionService.deleteQuestion(questionId);
   }
 }
