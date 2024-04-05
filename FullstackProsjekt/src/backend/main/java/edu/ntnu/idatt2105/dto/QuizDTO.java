@@ -9,7 +9,6 @@ import java.util.List;
 public class QuizDTO {
   private Integer id;
   private String title;
-  private List<Integer> questionIds;
   private Integer creatorId;
   private QuizCategory category;
   private QuizDifficulty difficulty;
@@ -17,9 +16,8 @@ public class QuizDTO {
   public QuizDTO() {
   }
 
-  public QuizDTO(Integer id, String title, List<Integer> questionIds, Integer creatorId, QuizCategory category, QuizDifficulty difficulty) {
+  public QuizDTO(String title, Integer creatorId, QuizCategory category, QuizDifficulty difficulty) {
     this.title = title;
-    this.questionIds = questionIds;
     this.creatorId = creatorId;
     this.category = category;
     this.difficulty = difficulty;
@@ -40,14 +38,6 @@ public class QuizDTO {
 
   public void setTitle(String title) {
     this.title = title;
-  }
-
-  public Iterable<Integer> getQuestionIds() {
-    return questionIds;
-  }
-
-  public void setQuestionIds(List<Integer> questionIds) {
-    this.questionIds = questionIds;
   }
 
   public Integer getCreatorId() {

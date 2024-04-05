@@ -85,10 +85,6 @@ public class QuizController {
     quizDTO.setId(quiz.getId());
     quizDTO.setTitle(quiz.getTitle());
     quizDTO.setCategory(quiz.getCategory());
-    List<Integer> questionIds = quiz.getQuestions().stream()
-            .map(Question::getId)
-            .collect(Collectors.toList());
-    quizDTO.setQuestionIds(questionIds);
     return quizDTO;
   }
 

@@ -33,11 +33,8 @@ public class QuizService {
     quiz.setTitle(quizDTO.getTitle());
     quiz.setCategory(quizDTO.getCategory());
     quiz.setDifficulty(quizDTO.getDifficulty());
-    quizRepository.findById(quizDTO.getCreatorId())
-            .ifPresent(creator -> quiz.setCreator(creator.getCreator()));
 
-    List<Question> questions = questionRepository.findAllById(quizDTO.getQuestionIds());
-    quiz.setQuestions(questions);
+    //creator
 
     quizRepository.save(quiz);
     return convertToQuizDTO(quiz);
@@ -58,6 +55,8 @@ public class QuizService {
 
       Quiz updatedQuiz = quizRepository.save(quiz);
 
+
+
       return convertToQuizDTO(updatedQuiz);
     } else {
       throw new QuizNotFoundException("Quiz with ID " + quizDTO.getId() + " not found.");
@@ -68,7 +67,7 @@ public class QuizService {
     Quiz quiz = quizRepository.findById(id)
             .orElseThrow(() -> new QuizNotFoundException("Quiz not found with id " + id));
 
-    questionRepository.deleteAll(quiz.getQuestions());
+    questionRepository.deleteAll(questionRepository.findAllByQuizId(id));
 
     quizRepository.delete(quiz);
   }
@@ -98,13 +97,7 @@ public class QuizService {
     quizDTO.setTitle(quiz.getTitle());
     quizDTO.setCategory(quiz.getCategory());
     quizDTO.setDifficulty(quiz.getDifficulty());
-    quizDTO.setCreatorId(quiz.getCreator().getId());
-
-    List<Integer> questionIds = quiz.getQuestions().stream()
-            .map(Question::getId)
-            .collect(Collectors.toList());
-    quizDTO.setQuestionIds(questionIds);
-
+    //creator
     return quizDTO;
   }
 
