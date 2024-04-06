@@ -26,7 +26,7 @@
     const response = await apiClient.get('/quiz/');
     this.quizList = response.data;
 
-    console.log(this.quizList[0].title)
+    console.log(this.quizList[0])
   } catch (error) {
     // TODO: Proper error handling
     console.error('Error retrieving quiz:', error);
@@ -42,8 +42,9 @@
 	return categoryIcons.Default;
 }
 },
-	playQuiz() {
-	router.push({ name: 'playQuiz', params: { quizId: this.quizId } });
+	playQuiz(id) {
+    console.log(id)
+	router.push({ name: 'playQuiz', params: { quizId: id } });
 },
 },
 };
@@ -64,7 +65,7 @@
 	</div>
 		<div class="row">
       <div class="quiz-list">
-        <div class="quiz-col" v-for="quiz in quizList" :key="quiz.quizId">
+        <div class="quiz-col" v-for="quiz in quizList" :key="quiz.id">
           <div class="quiz-header">
             <h3>{{ quiz.title }}</h3>
           </div>
@@ -73,7 +74,7 @@
             <p>Category: {{ quiz.category }}</p>
           </div>
           <div class="quiz-footer">
-            <button @click="playQuiz(quiz.quizId)" class="play-btn">Play</button>
+            <button @click="playQuiz(quiz.id)" class="play-btn">Play</button>
           </div>
         </div>
       </div>
