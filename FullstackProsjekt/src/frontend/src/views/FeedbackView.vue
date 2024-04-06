@@ -72,9 +72,8 @@ export default {
 						<br>
 
 						<label>Title</label>
-
 						<input type="text" required v-model="title" ref="title"/> <br>
-						<textarea id="comment" required v-model="comment" placeholder="Tell us whats on your mind!" ref="commentInput"></textarea>
+						<textarea class="comment" required v-model="comment" placeholder="Tell us whats on your mind!" ref="commentInput"></textarea>
 					</div>
 				</div>
 				<div class="submit-section">
@@ -109,15 +108,15 @@ export default {
 }
 
 
-textarea {
-	margin: 5px;
+.comment {
 	padding: 8px;
 	border-radius: 5px;
 	border: none;
-	min-width: 400px;
+	min-width: 40vh;
 	height: 100px;
 	background-color: #E5E5E5;
 }
+
 
 .submit-section {
 	display: flex;
