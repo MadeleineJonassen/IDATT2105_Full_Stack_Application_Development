@@ -1,26 +1,44 @@
 package edu.ntnu.idatt2105.dto;
 
-import java.util.List;
-
+/**
+ * DTO class representing a user.
+ */
 public class UserDTO extends UserRegistrationDTO {
   private Integer id;
 
-  // Assuming you might need more fields here, such as role, etc.
-
+  /**
+   * Default constructor for UserDTO.
+   */
   public UserDTO() {
     super();
   }
 
+  /**
+   * Constructor for UserDTO.
+   *
+   * @param id       The ID of the user.
+   * @param username The username of the user.
+   * @param password The password of the user.
+   */
   public UserDTO(Integer id, String username, String password) {
     super(username, password);
     this.id = id;
   }
 
-  // Getters and setters for the 'id' field
+  /**
+   * Get the ID of the user.
+   *
+   * @return The ID of the user.
+   */
   public Integer getId() {
     return id;
   }
 
+  /**
+   * Set the ID of the user.
+   *
+   * @param id The ID to set.
+   */
   public void setId(Integer id) {
     this.id = id;
   }
