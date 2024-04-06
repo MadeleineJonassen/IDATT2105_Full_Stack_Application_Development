@@ -9,7 +9,6 @@ input {
     padding: 5px;
     border-radius: 5px;
     border: none;
-    min-width: 220px;
     background-color: #E5E5E5;
     margin-bottom: 10px;
     font-family: monospace;
@@ -23,10 +22,17 @@ label {
     font-weight: bold;
 }
 
+select{
+    font-family: monospace;
+}
+
+
+
 .space{
     margin: 90px;
 }
 
+/* Other */
 .row{
     margin-top: 5%;
     display: flex;
@@ -46,7 +52,13 @@ label {
 .course-col:hover{
     box-shadow: 0 0 20px 0px rgba(0,0,0,0.3);
 }
+.go-back-section{
+    padding-top: 5vh;
+    padding-left: 5vh;
+}
 
+
+/* ERROR HANDLE */
 .error-message{
     color: #e53a1c;
     padding: 10px;
@@ -54,6 +66,8 @@ label {
     margin-bottom: 20px;
 }
 
+
+/* BUTTONS */
 .play-btn{
     padding: 10px;
     text-decoration: none;
@@ -121,7 +135,6 @@ label {
     margin-left: 10px;
     cursor: pointer;
 }
-
 .submit-btn{
     background-color: #CCA43B;
     font-size: 20px;
@@ -141,6 +154,9 @@ label {
     background-color: #2D333B;
     color: white;
 }
+
+
+
 
 @media (max-width: 700px){
     .row{
