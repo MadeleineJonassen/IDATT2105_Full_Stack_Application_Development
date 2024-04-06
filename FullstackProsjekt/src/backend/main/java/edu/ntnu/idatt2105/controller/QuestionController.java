@@ -6,6 +6,9 @@ import edu.ntnu.idatt2105.service.QuestionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 
 /**
  * Controller class responsible for handling question-related endpoints.
@@ -77,4 +80,26 @@ public class QuestionController {
   public void deleteQuestion(@PathVariable Integer questionId) {
     questionService.deleteQuestion(questionId);
   }
+
+  /**
+   * Endpoint for retrieving all questions for a quiz.
+   *
+   * @param quizId The ID of the quiz.
+   * @return A list of question DTOs for the quiz.
+   */
+  @GetMapping("/allQuestionsToAQuiz/{quizId}")
+    public List<QuestionDTO> getAllQuestionsToAQuiz(@PathVariable Integer quizId) {
+        List<Question> questions = questionService.findAllQuestionsToAQuiz(quizId);
+        return questions.stream()
+                .map(question -> new QuestionDTO(
+                        question.getId(),
+                        question.getQuestionText(),
+                        question.getType(),
+                        question.getAnswer(),
+                        question.getOptionsList(),
+                        question.getScore(),
+                        question.getQuiz().getId()
+                ))
+                .collect(Collectors.toList());
+    }
 }

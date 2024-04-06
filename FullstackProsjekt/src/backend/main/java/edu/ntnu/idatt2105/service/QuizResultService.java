@@ -92,7 +92,7 @@ public class QuizResultService {
     quizResultDTO.setId(quizResult.getId());
     quizResultDTO.setQuizId(quizResult.getQuiz().getId());
     quizResultDTO.setUserId(quizResult.getUser().getId());
-    quizResultDTO.setTotalScore(quizResult.getScore());
+    quizResultDTO.setTotalScore(quizResult.getTotalScore());
     quizResultDTO.setStatus(quizResult.getStatus());
     quizResultDTO.setStartedAt(quizResult.getStartedAt());
     quizResultDTO.setCompletedAt(quizResult.getCompletedAt());

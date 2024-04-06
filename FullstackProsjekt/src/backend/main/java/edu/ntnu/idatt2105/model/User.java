@@ -30,14 +30,6 @@ public class User implements UserDetails {
   )
   private Set<Role> authorities;
 
-  // Quizzes created by the user
-  @OneToMany(mappedBy = "creator", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-  private List<Quiz> createdQuizzes = new ArrayList<>();
-
-  // Quiz attempts by the user
-  @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-  private List<QuizResult> quizResults = new ArrayList<>();
-
   /**
    * Default constructor.
    */
@@ -73,42 +65,6 @@ public class User implements UserDetails {
    */
   public void setId(Integer id) {
     this.id = id;
-  }
-
-  /**
-   * Gets the quizzes created by the user.
-   *
-   * @return The list of quizzes created by the user.
-   */
-  public List<Quiz> getCreatedQuizzes() {
-    return createdQuizzes;
-  }
-
-  /**
-   * Sets the quizzes created by the user.
-   *
-   * @param createdQuizzes The list of quizzes created by the user.
-   */
-  public void setCreatedQuizzes(List<Quiz> createdQuizzes) {
-    this.createdQuizzes = createdQuizzes;
-  }
-
-  /**
-   * Gets the quiz results of the user.
-   *
-   * @return The list of quiz results of the user.
-   */
-  public List<QuizResult> getQuizResults() {
-    return quizResults;
-  }
-
-  /**
-   * Sets the quiz results of the user.
-   *
-   * @param quizResults The list of quiz results of the user.
-   */
-  public void setQuizResults(List<QuizResult> quizResults) {
-    this.quizResults = quizResults;
   }
 
   /**
