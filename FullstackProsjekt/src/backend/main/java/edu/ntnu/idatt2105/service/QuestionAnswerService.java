@@ -42,7 +42,10 @@ public class QuestionAnswerService {
 
     return questionAnswerRepository.save(answer);
   }
-  public boolean isCorrect(QuestionAnswer questionAnswer) {
-    return questionAnswer.getQuestion().getAnswer().equalsIgnoreCase(questionAnswer.getGivenAnswer());
+  public boolean isCorrect(Integer questionAnswerId) {
+    QuestionAnswer questionAnswer = questionAnswerRepository.findById(questionAnswerId)
+            .orElseThrow(() -> new EntityNotFoundException("QuestionAnswer not found with id: " + questionAnswerId));
+    return questionAnswer.isCorrect();
+    //return questionAnswer.getQuestion().getAnswer().equalsIgnoreCase(questionAnswer.getGivenAnswer());
   }
 }

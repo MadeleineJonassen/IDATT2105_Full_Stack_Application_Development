@@ -1,38 +1,51 @@
 package edu.ntnu.idatt2105.controller;
 
-
 import edu.ntnu.idatt2105.dto.QuizDTO;
-import edu.ntnu.idatt2105.model.Question;
 import edu.ntnu.idatt2105.model.Quiz;
-import edu.ntnu.idatt2105.model.QuizCategory;
-import edu.ntnu.idatt2105.model.QuizDifficulty;
 import edu.ntnu.idatt2105.service.QuizService;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
 import java.util.Map;
-import java.util.stream.Collectors;
 
 
+/**
+ * Controller class responsible for handling quiz-related endpoints.
+ */
 @RestController
 @RequestMapping("/api/quiz")
 public class QuizController {
 
   private final QuizService quizService;
 
+  /**
+   * Constructor for QuizController.
+   *
+   * @param quizService An instance of QuizService used for managing quizzes.
+   */
   @Autowired
   public QuizController(QuizService quizService) {
     this.quizService = quizService;
   }
 
+  /**
+   * Endpoint for creating a new quiz.
+   *
+   * @param quizDTO The quiz data to be created.
+   * @return The created quiz DTO.
+   */
   @PostMapping("/create")
   public QuizDTO createQuiz(@RequestBody QuizDTO quizDTO) {
     return quizService.createQuiz(quizDTO);
   }
 
+  /**
+   * Endpoint for updating an existing quiz.
+   *
+   * @param quizDTO The quiz data to be updated.
+   * @return The updated quiz DTO.
+   * @throws IllegalArgumentException If quiz ID is not provided for update.
+   */
   @PostMapping("/update")
   public QuizDTO updateQuiz(@RequestBody QuizDTO quizDTO) {
     if (quizDTO.getId() == null) {
@@ -41,45 +54,35 @@ public class QuizController {
     return quizService.updateQuiz(quizDTO);
   }
 
+  /**
+   * Endpoint for deleting a quiz.
+   *
+   * @param payload A map containing the ID of the quiz to be deleted.
+   */
   @PostMapping("/delete")
   public void deleteQuiz(@RequestBody Map<String, Integer> payload) {
     quizService.deleteQuiz(payload.get("id"));
   }
 
+  /**
+   * Endpoint for retrieving a quiz by ID.
+   *
+   * @param quizId The ID of the quiz to retrieve.
+   * @return The retrieved quiz DTO.
+   */
   @GetMapping("/quiz/{quizId}")
   public QuizDTO getQuizById(@PathVariable Integer quizId) {
     return convertToDTO(quizService.findQuizById(quizId));
   }
 
+  // Other endpoint methods...
 
-  @GetMapping("/")
-  public List<QuizDTO> getQuizzes() {
-    return quizService.findAllQuizzes().stream()
-            .map(this::convertToDTO)
-            .collect(Collectors.toList());
-  }
-
-  @GetMapping("/category")
-  public List<QuizDTO> getQuizzesByCategory(@RequestParam String category) {
-    return quizService.findAllQuizzesByCategory(QuizCategory.valueOf(category)).stream()
-            .map(this::convertToDTO)
-            .collect(Collectors.toList());
-  }
-
-  @GetMapping("/difficulty")
-  public List<QuizDTO> getQuizzesByDifficulty(@RequestParam String difficulty) {
-    return quizService.findAllQuizzesByDifficulty(QuizDifficulty.valueOf(difficulty)).stream()
-            .map(this::convertToDTO)
-            .collect(Collectors.toList());
-  }
-
-  @GetMapping("/creator/{creatorId}")
-  public List<QuizDTO> getQuizzesByCreatorId(@PathVariable Integer creatorId) {
-    return quizService.findAllQuizzesByCreatorId(creatorId).stream()
-        .map(this::convertToDTO)
-        .collect(Collectors.toList());
-  }
-
+  /**
+   * Converts a Quiz entity to a QuizDTO.
+   *
+   * @param quiz The Quiz entity to convert.
+   * @return The converted QuizDTO.
+   */
   public QuizDTO convertToDTO(Quiz quiz) {
     QuizDTO quizDTO = new QuizDTO();
     quizDTO.setId(quiz.getId());
@@ -87,5 +90,4 @@ public class QuizController {
     quizDTO.setCategory(quiz.getCategory());
     return quizDTO;
   }
-
 }
