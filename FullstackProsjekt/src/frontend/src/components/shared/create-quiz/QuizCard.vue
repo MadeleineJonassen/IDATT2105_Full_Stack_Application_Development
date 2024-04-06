@@ -68,9 +68,7 @@ export default {
 </template>
 
 <style>
-.overViewQuestion-page{
-  padding: 50px;
-}
+
 
 .quiz-header{
   display: flex;
@@ -88,5 +86,9 @@ export default {
   align-items: center;
   padding-left: 25px;
   padding-right: 25px;
+}
+
+.play-btn {
+	margin-right: 10px;
 }
 </style>
