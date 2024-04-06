@@ -1,5 +1,58 @@
 <script >
+	import { apiClient } from "@/api.js";
+	import router from "@/router/index.js";
+	import Svg from "@/assets/Svg.vue";
+	import { categoryEnums } from "@/data/categories.js";
+
+	export default {
+	components: { Svg },
+	props: {
+	quizId: {
+	type: Number,
+	required: true,
+},
+},
+	data() {
+	return {
+	quizTitle: null,
+	quizDifficulty: null,
+	quizCategory: null,
+};
+},
+	mounted() {
+	this.getQuiz();
+},
+	methods: {
+	async getQuiz() {
+	console.log('Fetching data for quiz: ', this.quizId);
+
+	try {
+	const response = await apiClient.get('/quiz/quiz/' + this.quizId);
+	this.quizTitle = JSON.parse(response.data.title);
+	this.quizCategory = JSON.parse(response.data.category);
+	this.quizDifficulty = JSON.parse(response.data.difficulty);
+} catch (error) {
+	// TODO: Proper error handling
+	console.error('Error retrieving quiz:', error);
+}
+},
+	getIcon(category) {
+	// Check if the category exists in the enum
+	if (categoryEnums.includes(category)) {
+	// Retrieve the icon name from the mapping
+	return categoryIcons[category] || categoryIcons.Default;
+} else {
+	// If category not found, return the default icon
+	return categoryIcons.Default;
+}
+},
+	playQuiz() {
+	router.push({ name: 'playQuiz', params: { quizId: this.quizId } });
+},
+},
+};
 </script>
+
 
 <template>
 	<body class="dashboard">
@@ -14,32 +67,19 @@
 
 	</div>
 		<div class="row">
-			<div class="course-col">
-				<h3>Quiz 1</h3>
-				<p>Insert photo </p>
-			</div>
-			<div class="course-col">
-				<h3>Quiz 2</h3>
-				<p>Insert photo </p>
-			</div>
-			<div class="course-col">
-				<h3>Quiz 3</h3>
-				<p>Insert photo</p>
-			</div>
-		</div>
+			<div class="quiz-col">
+				<div class="quiz-header">
+					<h3>{{ quizTitle }} Fake quiz name</h3>
+					<Svg :name="quizCategory" />
 
-		<div class="row">
-			<div class="course-col">
-				<h3>Quiz 4</h3>
-				<p>Insert photo </p>
-			</div>
-			<div class="course-col">
-				<h3>Quiz 5</h3>
-				<p>Insert photo </p>
-			</div>
-			<div class="course-col">
-				<h3>Quiz 6</h3>
-				<p>Insert photo</p>
+				</div>
+				<div class="quiz-body">
+					<p>Difficulty level: {{ quizDifficulty }}</p>
+					<p>Category: {{ quizCategory }}</p>
+				</div>
+				<div class="quiz-footer">
+					<button @click="playQuiz" class="play-btn">Play</button>
+				</div>
 			</div>
 		</div>
 
@@ -72,6 +112,15 @@
 	display: block;
 	text-align: center;
 }
+
+.quiz-col{
+	flex-basis: 31%;
+	background: #d7d7d7;
+	border-radius: 10px;
+	margin-bottom: 5%;
+	padding: 20px;
+	box-sizing: border-box;
+	transition: 0.5s;}
 
 .create-btn{
 	text-decoration: none;

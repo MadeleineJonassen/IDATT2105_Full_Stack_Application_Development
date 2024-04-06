@@ -44,7 +44,7 @@ export default {
 	<div class="space"> </div>
 
 	<section class="cta">
-		<h1> Enroll For Our Various Online Quizzes Anywhere You Are </h1>
+		<h1> Enroll For Our Various Online Quizzes </h1>
 		<router-link to="/about" class="hero-btn"> About us</router-link>
 	</section>
 
