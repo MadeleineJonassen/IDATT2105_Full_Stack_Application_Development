@@ -20,8 +20,9 @@ public class QuizResult {
   @JoinColumn(name = "quiz_id", nullable = false)
   private Quiz quiz;
 
-  @Column(nullable = false)
-  private int score;
+  @Column()
+  @Nullable
+  private int totalScore;
 
   @ManyToOne(fetch = FetchType.LAZY)
   @JoinColumn(name = "user_id")
@@ -53,12 +54,13 @@ public class QuizResult {
    * @param startedAt  The time the quiz was started.
    * @param completedAt The time the quiz was completed.
    */
-  public QuizResult(Quiz quiz, User user, String status, LocalDateTime startedAt, LocalDateTime completedAt) {
+  public QuizResult(Quiz quiz, User user, String status, LocalDateTime startedAt, @Nullable LocalDateTime completedAt, @Nullable int totalScore) {
     this.quiz = quiz;
     this.user = user;
     this.status = status;
     this.startedAt = startedAt;
     this.completedAt = completedAt;
+    this.totalScore = totalScore;
   }
 
   /**
@@ -118,19 +120,19 @@ public class QuizResult {
   /**
    * Gets the score of the quiz result.
    *
-   * @return The score of the quiz result.
+   * @return The total score of the quiz result.
    */
-  public int getScore() {
-    return score;
+  public int getTotalScore() {
+    return totalScore;
   }
 
   /**
    * Sets the score of the quiz result.
    *
-   * @param score The score of the quiz result.
+   * @param totalScore The score of the quiz result.
    */
-  public void setScore(int score) {
-    this.score = score;
+  public void setTotalScore(int totalScore) {
+    this.totalScore = totalScore;
   }
 
   /**

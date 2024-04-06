@@ -98,4 +98,14 @@ public class QuestionService {
         Optional<Question> question = questionRepository.findById(id);
         return question.orElse(null);
     }
+
+    /**
+     * Finds all questions for a quiz.
+     *
+     * @param quizId The ID of the quiz.
+     * @return A list of questions for the quiz.
+     */
+    public List<Question> findAllQuestionsToAQuiz(Integer quizId) {
+        return questionRepository.findAllByQuizId(quizId);
+    }
 }
