@@ -14,27 +14,23 @@
 },
 	data() {
 	return {
-	quizTitle: null,
-	quizDifficulty: null,
-	quizCategory: null,
-};
+    quizList: []
+  };
 },
 	mounted() {
 	this.getQuiz();
 },
 	methods: {
 	async getQuiz() {
-	console.log('Fetching data for quiz: ', this.quizId);
-
 	try {
-	const response = await apiClient.get('/quiz/quiz/' + this.quizId);
-	this.quizTitle = JSON.parse(response.data.title);
-	this.quizCategory = JSON.parse(response.data.category);
-	this.quizDifficulty = JSON.parse(response.data.difficulty);
-} catch (error) {
-	// TODO: Proper error handling
-	console.error('Error retrieving quiz:', error);
-}
+    const response = await apiClient.get('/quiz/');
+    this.quizList = response.data;
+
+    console.log(this.quizList[0])
+  } catch (error) {
+    // TODO: Proper error handling
+    console.error('Error retrieving quiz:', error);
+  }
 },
 	getIcon(category) {
 	// Check if the category exists in the enum
@@ -46,8 +42,9 @@
 	return categoryIcons.Default;
 }
 },
-	playQuiz() {
-	router.push({ name: 'playQuiz', params: { quizId: this.quizId } });
+	playQuiz(id) {
+    console.log(id)
+	router.push({ name: 'playQuiz', params: { quizId: id } });
 },
 },
 };
@@ -67,20 +64,20 @@
 
 	</div>
 		<div class="row">
-			<div class="quiz-col">
-				<div class="quiz-header">
-					<h3>{{ quizTitle }} Fake quiz name</h3>
-					<Svg :name="quizCategory" />
-
-				</div>
-				<div class="quiz-body">
-					<p>Difficulty level: {{ quizDifficulty }}</p>
-					<p>Category: {{ quizCategory }}</p>
-				</div>
-				<div class="quiz-footer">
-					<button @click="playQuiz" class="play-btn">Play</button>
-				</div>
-			</div>
+      <div class="quiz-list">
+        <div class="quiz-col" v-for="quiz in quizList" :key="quiz.id">
+          <div class="quiz-header">
+            <h3>{{ quiz.title }}</h3>
+          </div>
+          <div class="quiz-body">
+            <p>Difficulty level: {{ quiz.difficulty }}</p>
+            <p>Category: {{ quiz.category }}</p>
+          </div>
+          <div class="quiz-footer">
+            <button @click="playQuiz(quiz.id)" class="play-btn">Play</button>
+          </div>
+        </div>
+      </div>
 		</div>
 
 	</body>
