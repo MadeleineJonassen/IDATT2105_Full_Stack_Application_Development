@@ -43,11 +43,12 @@ export default {
       console.log('Fetching data for quiz: ', quizId);
       try {
         apiClient.get('/quiz/quiz/' + this.quizId).then(response => {
+          console.log(response)
           this.quizTitle = JSON.parse(response.data.title);
-          this.questions = JSON.parse(JSON.stringify(response.data.questions));
+          this.questions = response.data.questions;
           this.creatorId = JSON.parse(response.data.creatorId);
-          this.category = JSON.parse(response.data.category);
-          this.difficulty = JSON.parse(response.data.difficulty);
+          this.category = response.data.category;
+          this.difficulty = response.data.difficulty;
         });
       } catch (error) {
         //TODO: proper error handling
