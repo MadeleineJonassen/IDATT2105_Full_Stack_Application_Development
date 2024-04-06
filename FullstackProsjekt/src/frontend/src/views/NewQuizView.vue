@@ -1,5 +1,4 @@
 <script>
-import NewQuestionModel from "@/components/shared/NewQuestionModel.vue";
 import { ref, onMounted } from 'vue';
 import { useRoute } from 'vue-router';
 import router from "@/router/index.js";
@@ -51,7 +50,6 @@ export default {
     async getUser() {
       this.creatorId = await getIdByToken();
     }
-
   },
 }
 </script>
@@ -103,96 +101,42 @@ export default {
 						</td>
 					</tr>
 
-					</tbody>
-				</table>
-				-->
-        <!--
-
-
-				<Teleport to="body">
-					<NewQuestionModel :show="showNewQuestionModal" @close="destroyModal">
-
-						<template #header>
-							<h5> Add New Question</h5>
-						</template>
-
-						<template #body>
-							<form>
-								<div class="mb-3">
-									<label for="question" class="form-label">Question</label> <br>
-									<input type="text" v-model="createdQuestion" class="form-control" id="questionInput">
-								</div>
-								<table class="table">
-									<thead>
-									<tr>
-										<th scope="col">#</th>
-										<th scope="col">Answer</th>
-										<th scope="col">Correct ?</th>
-									</tr>
-									</thead>
-									<tbody>
-									<tr v-for="(answer, index) in newAnswers">
-										<th scope="row">{{answer.id}}</th>
-										<td>
-											<input type="text" v-model="answer.answer" id="questionInput">
-										</td>
-										<td>
-											<input :checked="answer.correct_answer === 1" class="form-check-input" :value="answer.id" @change="handleRadioToggle(answer.id)"  type="radio">
-										</td>
-									</tr>
-									</tbody>
-								</table>
-							</form>
-						</template>
-
-						<template #footer>
-							<button @click="addNewAnswers" class="add-Btn" v-if="newAnswers.length<4" >+</button>
-							<button @click="destroyModal" class="close-btn"> Close</button>
-							<button v-if="newAnswers.length>=2" @click="submitQuestion" class="submit-btn">Submit</button>
-						</template>
-
-					</NewQuestionModel>
-				</Teleport>
-				</div>
-				-->
-      <div class="footer">
-        <router-link to="/overviewQuiz"> Cancel  </router-link>
-        <div class="submit-section">
-          <input id="submit" type="submit"/>
-        </div>
-      </div>
-    </div>
-  </form>
+		      <div class="footer">
+		        <router-link to="/overviewQuiz" class="delete-btn"> Cancel  </router-link>
+			      <button class="submit-btn" type="submit"> Submit</button>
+		      </div>
+		  </form>
+		</div>
 	</body>
 
 </template>
 
 <style>
-.newQuizDiv{
-	padding: 20px;
+.new-quiz-page{
+	margin:20vh;
 }
 
 input{
 	height: 25px;
 	width: 100%;
 }
-
-.submit-section {
-  display: flex;
-  justify-content: center;
-  align-items: center;
+select{
+	min-width: 100%;
+	height: 25px;
+	background-color: #E5E5E5;
+	border-color: transparent;
+	border-radius: 5px;
 }
 
-#submit {
-  min-width: 150px;
-  min-height: 60px;
-  font-size: 24px;
-  border-radius: 6px;
-  background-color: #242F40;
-  color: white;
-  border: none;
-  cursor: pointer;
-  margin-top: 20px;
+.footer {
+	margin: 10vh;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+.delete-btn {
+	margin-right: 20px;
 }
 
 </style>

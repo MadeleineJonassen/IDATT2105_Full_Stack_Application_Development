@@ -48,6 +48,16 @@ export default {
 		<router-link to="/about" class="hero-btn"> About us</router-link>
 	</section>
 
+	<footer class="footer">
+		<div class="footer-content">
+			<p>&copy; 2024 BrainStormer. All rights reserved.</p>
+			<ul>
+				<li><router-link to="/about">About us</router-link></li>
+				<li><router-link to="/feedback">Contact Us</router-link></li>
+			</ul>
+		</div>
+	</footer>
+
 	</body>
 </template>
 
@@ -64,6 +74,7 @@ export default {
 }
 #logo{
 	height: 150px;
+	width: 150px;
 	padding: 10px;
 }
 
@@ -103,6 +114,7 @@ export default {
 	color: #242F40;
 }
 
+/* Info section */
 .info{
 	width: 80%;
 	margin: auto;
@@ -127,6 +139,7 @@ h3{
 	margin: 10px 0;
 }
 
+/* CTA */
 .cta{
 	margin: 100px auto;
 	width: 80%;
@@ -143,6 +156,40 @@ h3{
 	padding: 0;
 }
 
+/* Footer */
+.footer {
+	background-color: #242F40;
+	padding: 10px 0;
+	text-align: center;
+}
+.footer-content {
+	max-width: 1200px;
+	margin: 0 auto;
+}
+.footer p {
+	margin-bottom: 10px;
+}
+.footer ul {
+	list-style: none;
+	padding: 0;
+}
+.footer ul li {
+	display: inline-block;
+	margin-right: 20px;
+}
+.footer ul li:last-child {
+	margin-right: 0;
+}
+.footer ul li a {
+	color: #fff;
+	text-decoration: none;
+}
+.footer ul li a:hover {
+	text-decoration: underline;
+}
+
+
+/* Media for other devices */
 @media (max-width: 700px){
 	.text-box h1{
 		font-size: 42px;

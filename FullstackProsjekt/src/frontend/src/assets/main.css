@@ -1,26 +1,27 @@
 body {
     font-family: monospace;
-    margin: 0 0 0 48px;
+    margin: 0 0 0 28px;
     background-color: #F2F2F2;
 }
+
+
 input {
     padding: 5px;
     border-radius: 5px;
     border: none;
     min-width: 220px;
     background-color: #E5E5E5;
-    margin: 10px;
+    margin-bottom: 10px;
     font-family: monospace;
 }
-
 input::placeholder {
     color: #b0b0b0;
 }
+
 label {
     display: inline-block;
     font-weight: bold;
 }
-
 
 .space{
     margin: 90px;
@@ -53,7 +54,6 @@ label {
     margin-bottom: 20px;
 }
 
-
 .play-btn{
     padding: 10px;
     text-decoration: none;
@@ -70,16 +70,19 @@ label {
     color: #242F40;
     border-radius: 10px;
     cursor: pointer;
-
 }
 .delete-btn{
-    padding: 8px;
+    padding: 10px;
     background-color: #cc513b;
     border-color: transparent;
     color: #242F40;
     border-radius: 10px;
     font-family: monospace;
     cursor: pointer;
+    text-decoration: none;
+}
+.delete-btn:hover{
+    background-color: #d9563e;
 
 }
 .add-Btn {
@@ -87,11 +90,10 @@ label {
     color: white;
     font-size: 16px;
     padding: 10px;
-    border-radius: 20px;
+    border-radius: 10px;
     border-color: transparent;
-    margin-top: 10px;
     cursor: pointer;
-
+    text-decoration: none;
 }
 .add-Btn:hover{
     cursor: pointer;
@@ -109,7 +111,6 @@ label {
     border-color: transparent;
     margin-top: 10px;
     cursor: pointer;
-
 }
 
 .close-btn{
@@ -119,22 +120,22 @@ label {
     border-color: transparent;
     margin-left: 10px;
     cursor: pointer;
-
 }
 
 .submit-btn{
     background-color: #CCA43B;
     font-size: 20px;
-    padding: 20px;
+    padding: 10px;
     border-radius: 5px;
     border-color: transparent;
     min-width: 160px;
     font-family: monospace;
-    transition: 0.2s;
+    transition: 0.4s;
     cursor: pointer;
 }
 .submit-btn:hover{
     background-color: #a67d0e;
+    color: white;
 }
 .submit-btn:active{
     background-color: #2D333B;
