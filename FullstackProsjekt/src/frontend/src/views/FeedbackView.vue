@@ -46,6 +46,7 @@ export default {
 		if (formData) {
 			this.name = formData.name;
 			this.email = formData.email;
+			this.title = formData.title;
 			this.comment = formData.comment;
 		}
 	}
@@ -61,24 +62,26 @@ export default {
 					<h1>Feedback</h1>
 					<p>Is there anything you would like to tell us? Comment below!</p>
 					<div class="contactBox">
-						<label>Name</label>
-						<input type="text" required v-model="name" ref="nameInput"/> <br>
-						<label>Email</label>
-						<input type="email" required v-model="email" ref="emailInput"/>
+						<label>Name</label> <br>
+						<input class="feedback-input" type="text" required v-model="name" ref="nameInput"/> <br>
+						<label>Email</label> <br>
+						<input class="feedback-input" type="email" required v-model="email" ref="emailInput"/>
 
 						<br>
 						<br>
 						<br>
 						<br>
 
-						<label>Title</label>
-						<input type="text" required v-model="title" ref="title"/> <br>
+						<label>Title</label> <br>
+						<input class="feedback-input" type="text" required v-model="title" ref="title"/> <br>
 						<textarea class="comment" required v-model="comment" placeholder="Tell us whats on your mind!" ref="commentInput"></textarea>
 					</div>
 				</div>
+
 				<div class="submit-section">
 					<input class="submit-btn" type="submit"/>
 				</div>
+
 			</form>
 		</div>
 	</body>
@@ -97,7 +100,6 @@ export default {
 	text-align: center;
 	color: #242F40;
 	border-color: transparent;
-	padding: 20px;
 	border-radius: 15px;
 	align-items: center;
 	border-style: solid;
@@ -106,22 +108,30 @@ export default {
 .contactBox {
 	padding: 30px;
 }
-
+.feedback-input{
+	width: 50vh;
+}
 
 .comment {
 	padding: 8px;
 	border-radius: 5px;
 	border: none;
-	min-width: 40vh;
-	height: 100px;
+	width: 50vh;
+	height: 15vh;
 	background-color: #E5E5E5;
 }
-
 
 .submit-section {
 	display: flex;
 	justify-content: center;
 	align-items: center;
 }
+
+	@media (max-width: 700px){
+		.feedback-input,
+		.comment {
+			width: 90%; /* Adjust the width to fit smaller screens */
+		}
+	}
 
 </style>
