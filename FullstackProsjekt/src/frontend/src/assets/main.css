@@ -141,10 +141,12 @@ select{
     padding: 10px;
     border-radius: 5px;
     border-color: transparent;
-    min-width: 160px;
     font-family: monospace;
     transition: 0.4s;
     cursor: pointer;
+    width: 120px;
+    height: 50px;
+
 }
 .submit-btn:hover{
     background-color: #a67d0e;

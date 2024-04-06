@@ -73,9 +73,11 @@
 
 				</div>
 			</div>
+
 			<div class="submit-section">
 				<input class="submit-btn" type="submit"/>
 			</div>
+
 		</form>
 	</div>
 	</body>
@@ -84,7 +86,7 @@
 
 <style>
 .signupPage {
-	padding-top: 85px;
+	padding-top: 10vh;
 	display: flex;
 	justify-content: center;
 	align-items: center;
@@ -96,33 +98,30 @@
 	border-radius: 15px;
 	align-items: center;
 	border-style: solid;
-	margin: 20px;
 }
 
 .signupBox {
-	padding: 40px;
-	min-width: 400px;
+	padding: 20px;
 }
 
 .password-input {
 	position: relative;
 	display: inline-block;
+	min-width: 300px;
 }
 
 .showPasswordIcon {
 	position: absolute;
 	top: 50%;
-	right: 5px; /* Adjust positioning as needed */
+	right: 0;
 	transform: translateY(-50%);
 	border: none;
 	background: none;
 	cursor: pointer;
 }
 
-.submit-section {
-	display: flex;
-	justify-content: center;
-	align-items: center;
+.submit-section{
+	margin-top: 5vh;
 }
 
 </style>
