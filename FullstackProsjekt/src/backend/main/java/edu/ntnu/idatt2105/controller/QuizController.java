@@ -85,6 +85,7 @@ public class QuizController {
     quizDTO.setId(quiz.getId());
     quizDTO.setTitle(quiz.getTitle());
     quizDTO.setCategory(quiz.getCategory());
+    quizDTO.setDifficulty(quiz.getDifficulty());
     return quizDTO;
   }
 
