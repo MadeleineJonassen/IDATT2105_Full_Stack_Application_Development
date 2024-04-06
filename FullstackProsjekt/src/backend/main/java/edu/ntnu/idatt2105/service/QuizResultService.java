@@ -87,18 +87,6 @@ public class QuizResultService {
     return convertToQuizResultDTO(updatedQuizResult);
   }
 
-  /**
-   * Finds the latest quiz result for a given user ID.
-   *
-   * @param userId The ID of the user.
-   * @return The latest quiz result for the user.
-   */
-  public QuizResultDTO findLatestQuizResultForUser(Integer userId) {
-    QuizResult latestQuizResult = quizResultRepository.findFirstByUserIdOrderByCompletedAtDesc(userId)
-            .orElseThrow(() -> new QuizNotFoundException("No quiz results found for user with id: " + userId));
-    return convertToQuizResultDTO(latestQuizResult);
-  }
-
   private QuizResultDTO convertToQuizResultDTO(QuizResult quizResult) {
     QuizResultDTO quizResultDTO = new QuizResultDTO();
     quizResultDTO.setId(quizResult.getId());
