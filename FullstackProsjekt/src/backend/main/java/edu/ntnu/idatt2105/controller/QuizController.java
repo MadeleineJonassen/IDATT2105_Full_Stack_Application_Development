@@ -30,12 +30,14 @@ public class QuizController {
 
   @PostMapping("/create")
   public QuizDTO createQuiz(@RequestBody QuizDTO quizDTO) {
-    Quiz quiz = quizService.createQuiz(quizDTO);
-    return convertToDTO(quiz);
+    return quizService.createQuiz(quizDTO);
   }
 
   @PostMapping("/update")
   public QuizDTO updateQuiz(@RequestBody QuizDTO quizDTO) {
+    if (quizDTO.getId() == null) {
+      throw new IllegalArgumentException("Quiz ID must be provided for update.");
+    }
     return quizService.updateQuiz(quizDTO);
   }
 
@@ -44,8 +46,8 @@ public class QuizController {
     quizService.deleteQuiz(payload.get("id"));
   }
 
-  @GetMapping("/quiz")
-  public QuizDTO getQuizById(@RequestParam Integer quizId) {
+  @GetMapping("/quiz/{quizId}")
+  public QuizDTO getQuizById(@PathVariable Integer quizId) {
     return convertToDTO(quizService.findQuizById(quizId));
   }
 
@@ -71,11 +73,11 @@ public class QuizController {
             .collect(Collectors.toList());
   }
 
-  @GetMapping("/creator")
-  public List<QuizDTO> getQuizzesByCreatorId(@RequestParam Integer creatorId) {
+  @GetMapping("/creator/{creatorId}")
+  public List<QuizDTO> getQuizzesByCreatorId(@PathVariable Integer creatorId) {
     return quizService.findAllQuizzesByCreatorId(creatorId).stream()
-            .map(this::convertToDTO)
-            .collect(Collectors.toList());
+        .map(this::convertToDTO)
+        .collect(Collectors.toList());
   }
 
   public QuizDTO convertToDTO(Quiz quiz) {
@@ -83,10 +85,6 @@ public class QuizController {
     quizDTO.setId(quiz.getId());
     quizDTO.setTitle(quiz.getTitle());
     quizDTO.setCategory(quiz.getCategory());
-    List<Integer> questionIds = quiz.getQuestions().stream()
-            .map(Question::getId)
-            .collect(Collectors.toList());
-    quizDTO.setQuestionIds(questionIds);
     return quizDTO;
   }
 

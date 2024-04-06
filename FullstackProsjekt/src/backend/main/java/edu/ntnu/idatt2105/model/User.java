@@ -2,10 +2,10 @@ package edu.ntnu.idatt2105.model;
 
 import jakarta.persistence.*;
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.*;
-
 
 @Entity
 @Table(name = "users")
@@ -38,17 +38,9 @@ public class User implements UserDetails {
 
 
   public User() {
-    this.authorities = new HashSet<>();
   }
 
   public User(String username, String password, Set<Role> authorities) {
-    this.username = username;
-    this.password = password;
-    this.authorities = authorities;
-  }
-
-  public User(Integer id, String username, String password, Set<Role> authorities) {
-    this.id = id;
     this.username = username;
     this.password = password;
     this.authorities = authorities;

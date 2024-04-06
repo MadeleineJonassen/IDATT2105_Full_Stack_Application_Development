@@ -1,25 +1,35 @@
 package edu.ntnu.idatt2105.dto;
 
+import edu.ntnu.idatt2105.model.QuestionType;
+
+import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class QuestionDTO {
   private Integer id;
+  private Integer quizId;
   private String questionText;
+  private QuestionType type;
+  private String answer;
+  private List<String> options;
   private int score;
-  private List<String> answerOptions;
-  private int correctAnswerIndex;
 
 
   public QuestionDTO() {
   }
 
-  public QuestionDTO(Integer id, String questionText, int score) {
+  public QuestionDTO(Integer id, String questionText, QuestionType type, String answer, List<String> options, int score, Integer quizId) {
     this.id = id;
     this.questionText = questionText;
+    this.type = type;
+    this.answer = answer;
+    this.options = options;
     this.score = score;
+    this.quizId = quizId;
   }
 
-  // Getters and setters
+  // Getters og setters
   public Integer getId() {
     return id;
   }
@@ -36,6 +46,30 @@ public class QuestionDTO {
     this.questionText = questionText;
   }
 
+  public QuestionType getType() {
+    return type;
+  }
+
+  public void setType(QuestionType type) {
+    this.type = type;
+  }
+
+  public String getAnswer() {
+    return answer;
+  }
+
+  public void setAnswer(String answer) {
+    this.answer = answer;
+  }
+
+  public List<String> getOptions() {
+    return options;
+  }
+
+  public void setOptions(List<String> options) {
+    this.options = options;
+  }
+
   public int getScore() {
     return score;
   }
@@ -44,21 +78,22 @@ public class QuestionDTO {
     this.score = score;
   }
 
-  public List<String> getAnswerOptions() {
-    return answerOptions;
+  public Integer getQuizId() {
+    return quizId;
   }
 
-  public void setAnswerOptions(List<String> answerOptions) {
-    this.answerOptions = answerOptions;
+  public void setQuizId(Integer quizId) {
+    this.quizId = quizId;
   }
 
-  public int getCorrectAnswerIndex() {
-    return correctAnswerIndex;
+  public void setOptionsFromString(String optionsString) {
+    if (optionsString != null && !optionsString.isEmpty()) {
+      this.options = Arrays.stream(optionsString.split("\\*"))
+              .collect(Collectors.toList());
+    }
   }
 
-  public void setCorrectAnswerIndex(int correctAnswerIndex) {
-    this.correctAnswerIndex = correctAnswerIndex;
+  public String getOptionsAsString() {
+    return String.join("*", this.options);
   }
-
-
 }

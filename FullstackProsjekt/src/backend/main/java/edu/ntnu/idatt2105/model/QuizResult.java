@@ -1,5 +1,6 @@
 package edu.ntnu.idatt2105.model;
 
+import jakarta.annotation.Nullable;
 import jakarta.persistence.*;
 
 import java.time.LocalDateTime;
@@ -18,16 +19,12 @@ public class QuizResult {
   @JoinColumn(name = "quiz_id", nullable = false)
   private Quiz quiz;
 
-  @OneToMany(mappedBy = "quizResult", cascade = CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval = true)
-  private List<QuestionAnswer> answers = new ArrayList<>();
-
   @Column(nullable = false)
   private int score;
 
   @ManyToOne(fetch = FetchType.LAZY)
   @JoinColumn(name = "user_id")
   private User user;
-
 
   @Column(nullable = false)
   private String status;
@@ -36,19 +33,16 @@ public class QuizResult {
   private LocalDateTime startedAt;
 
   @Column
+  @Nullable
   private LocalDateTime completedAt;
-
-
-
 
   public QuizResult() {
     // JPA requires a no-arg constructor
   }
 
   // Constructor for initializing with a quiz and optionally with answers.
-  public QuizResult(Quiz quiz, List<QuestionAnswer> answers, User user, String status, LocalDateTime startedAt, LocalDateTime completedAt) {
+  public QuizResult(Quiz quiz, User user, String status, LocalDateTime startedAt, LocalDateTime completedAt) {
     this.quiz = quiz;
-    this.setAnswers(answers);
     this.user = user;
     this.status = status;
     this.startedAt = startedAt;
@@ -80,17 +74,6 @@ public class QuizResult {
     this.user = user;
   }
 
-  public List<QuestionAnswer> getAnswers() {
-    return answers;
-  }
-
-  // When setting answers, also recalculate the score based on the correctness and question score.
-  public void setAnswers(List<QuestionAnswer> answers) {
-    this.answers = answers;
-    this.answers.forEach(answer -> answer.setQuizResult(this));
-    calculateScore(); // Recalculate the score based on the new set of answers
-  }
-
   public int getScore() {
     return score;
   }
@@ -115,24 +98,12 @@ public class QuizResult {
     this.startedAt = startedAt;
   }
 
+  @Nullable
   public LocalDateTime getCompletedAt() {
     return completedAt;
   }
 
-  public void setCompletedAt(LocalDateTime completedAt) {
+  public void setCompletedAt(@Nullable LocalDateTime completedAt) {
     this.completedAt = completedAt;
-  }
-
-  public void addQuestionAnswer(QuestionAnswer questionAnswer) {
-    this.answers.add(questionAnswer);
-    questionAnswer.setQuizResult(this);
-    calculateScore();
-  }
-
-  private void calculateScore() {
-    this.score = this.answers.stream()
-            .filter(QuestionAnswer::isCorrect)
-            .mapToInt(answer -> answer.getQuestion().getScore())
-            .sum();
   }
 }

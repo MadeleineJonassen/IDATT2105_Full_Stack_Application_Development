@@ -15,11 +15,6 @@ public class Quiz {
   @Column(nullable = false)
   private String title;
 
-  @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-  @JoinColumn(name = "quiz_id")
-  private List<Question> questions;
-
-
   @ManyToOne(fetch = FetchType.LAZY)
   @JoinColumn(name = "creator_id")
   private User creator;
@@ -33,9 +28,8 @@ public class Quiz {
   public Quiz() {
   }
 
-  public Quiz(String title, List<Question> questions, User creator, QuizCategory category, QuizDifficulty difficulty) {
+  public Quiz(String title, User creator, QuizCategory category, QuizDifficulty difficulty) {
     this.title = title;
-    this.questions = questions;
     this.creator = creator;
     this.category = category;
     this.difficulty = difficulty;
@@ -56,14 +50,6 @@ public class Quiz {
 
   public void setTitle(String title) {
     this.title = title;
-  }
-
-  public List<Question> getQuestions() {
-    return questions;
-  }
-
-  public void setQuestions(List<Question> questions) {
-    this.questions = questions;
   }
 
   public User getCreator() {

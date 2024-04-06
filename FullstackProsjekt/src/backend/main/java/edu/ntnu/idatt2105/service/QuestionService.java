@@ -1,39 +1,60 @@
 package edu.ntnu.idatt2105.service;
 
 import edu.ntnu.idatt2105.dto.QuestionDTO;
-import edu.ntnu.idatt2105.exception.QuestionNotFoundException;
-import edu.ntnu.idatt2105.model.MultipleChoiceQuestion;
 import edu.ntnu.idatt2105.model.Question;
+import edu.ntnu.idatt2105.model.QuestionType;
 import edu.ntnu.idatt2105.repository.QuestionRepository;
-import jakarta.transaction.Transactional;
+import edu.ntnu.idatt2105.repository.QuizRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class QuestionService {
 
   private final QuestionRepository questionRepository;
+  private final QuizRepository quizRepository;
 
   @Autowired
-  public QuestionService(QuestionRepository questionRepository) {
+  public QuestionService(QuestionRepository questionRepository, QuizRepository quizRepository) {
     this.questionRepository = questionRepository;
+    this.quizRepository = quizRepository;
   }
 
-  public QuestionDTO updateQuestion(QuestionDTO questionDTO) {
-    MultipleChoiceQuestion question = (MultipleChoiceQuestion) questionRepository.findById(questionDTO.getId())
-            .orElseThrow(() -> new QuestionNotFoundException("Question not found with id " + questionDTO.getId()));
+  @Transactional
+  public Question createOrUpdateQuestion(QuestionDTO questionDTO) {
+      Question question;
+      if (questionDTO.getId() != null) {
+        // Oppdaterer et eksisterende spørsmål
+        Optional<Question> optionalQuestion = questionRepository.findById(questionDTO.getId());
+        if (!optionalQuestion.isPresent()) {
+          return null; // Eller kaste en egendefinert unntak
+        }
+        question = optionalQuestion.get();
+      } else {
+        // Oppretter et nytt spørsmål
+        question = new Question();
+      }
 
-    question.setQuestionText(questionDTO.getQuestionText());
-    question.setScore(questionDTO.getScore());
-    question.setAnswerOptions(questionDTO.getAnswerOptions());
-    question.setCorrectAnswerIndex(questionDTO.getCorrectAnswerIndex());
+      question.setQuestionText(questionDTO.getQuestionText());
+      question.setType(questionDTO.getType());
 
-    MultipleChoiceQuestion updatedQuestion = questionRepository.save(question);
-    return convertToQuestionDTO(updatedQuestion);
-  }
+      if (questionDTO.getType().equals(QuestionType.MULTIPLE_CHOICE)) {
+        question.setOptions(questionDTO.getOptionsAsString());
+      } else if (questionDTO.getType().equals(QuestionType.TRUE_OR_FALSE)) {
+        question.setOptions("TRUE*FALSE");
+      } else {
+        question.setOptions(null);
+      }
+      question.setAnswer(questionDTO.getAnswer());
+      question.setScore(questionDTO.getScore());
+      question.setQuiz(quizRepository.findById(questionDTO.getQuizId()).orElse(null));
 
+      return questionRepository.save(question);
+    }
 
   public void deleteQuestion(Integer id) {
     questionRepository.deleteById(id);
@@ -43,26 +64,8 @@ public class QuestionService {
     return questionRepository.findAllByQuizId(quizId);
   }
 
-  @Transactional
-  public MultipleChoiceQuestion createMCQuestion(QuestionDTO questionDTO) {
-    MultipleChoiceQuestion question = new MultipleChoiceQuestion();
-    question.setQuestionText(questionDTO.getQuestionText());
-    question.setScore(questionDTO.getScore());
-    question.setAnswerOptions(questionDTO.getAnswerOptions());
-    question.setCorrectAnswerIndex(questionDTO.getCorrectAnswerIndex());
-    return questionRepository.save(question);
+  public Question findQuestionById(Integer id) {
+    Optional<Question> question = questionRepository.findById(id);
+    return question.orElse(null);
   }
-
-  private QuestionDTO convertToQuestionDTO(MultipleChoiceQuestion question) {
-    QuestionDTO questionDTO = new QuestionDTO();
-    questionDTO.setId(question.getId());
-    questionDTO.setQuestionText(question.getQuestionText());
-    questionDTO.setScore(question.getScore());
-    questionDTO.setAnswerOptions(question.getAnswerOptions());
-    questionDTO.setCorrectAnswerIndex(question.getCorrectAnswerIndex());
-
-    return questionDTO;
-  }
-
-
 }

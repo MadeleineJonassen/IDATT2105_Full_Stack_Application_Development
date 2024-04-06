@@ -2,17 +2,16 @@ package edu.ntnu.idatt2105.service;
 
 import edu.ntnu.idatt2105.dto.QuizDTO;
 import edu.ntnu.idatt2105.exception.QuizNotFoundException;
-import edu.ntnu.idatt2105.model.Question;
-import edu.ntnu.idatt2105.model.Quiz;
-import edu.ntnu.idatt2105.model.QuizCategory;
-import edu.ntnu.idatt2105.model.QuizDifficulty;
+import edu.ntnu.idatt2105.model.*;
 import edu.ntnu.idatt2105.repository.QuestionRepository;
 import edu.ntnu.idatt2105.repository.QuizRepository;
+import edu.ntnu.idatt2105.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -24,39 +23,56 @@ public class QuizService {
   private QuestionRepository questionRepository;
 
   @Autowired
-  public QuizService(QuizRepository quizRepository, QuestionRepository questionRepository) {
+  private UserRepository userRepository;
+
+  @Autowired
+  public QuizService(QuizRepository quizRepository, QuestionRepository questionRepository, UserRepository userRepository) {
     this.quizRepository = quizRepository;
     this.questionRepository = questionRepository;
+    this.userRepository = userRepository;
   }
 
   @Transactional
-  public Quiz createQuiz(QuizDTO quizDTO) {
+  public QuizDTO createQuiz(QuizDTO quizDTO) {
     Quiz quiz = new Quiz();
     quiz.setTitle(quizDTO.getTitle());
     quiz.setCategory(quizDTO.getCategory());
+    quiz.setDifficulty(quizDTO.getDifficulty());
+    userRepository.findById(quizDTO.getCreatorId())
+            .ifPresent(quiz::setCreator);
 
-    List<Question> questions = questionRepository.findAllById(quizDTO.getQuestionIds());
-    quiz.setQuestions(questions);
-
-    return quizRepository.save(quiz);
+    quizRepository.save(quiz);
+    return convertToQuizDTO(quiz);
   }
 
+  @Transactional
   public QuizDTO updateQuiz(QuizDTO quizDTO) {
-    Quiz quiz = quizRepository.findById(quizDTO.getId())
-            .orElseThrow(() -> new QuizNotFoundException("Quiz not found with id " + quizDTO.getId()));
+    if (quizDTO.getId() == null) {
+      throw new IllegalArgumentException("Quiz ID must be provided for update.");
+    }
 
-    quiz.setTitle(quizDTO.getTitle());
-    quiz.setCategory(quizDTO.getCategory());
+    Optional<Quiz> existingQuiz = quizRepository.findById(quizDTO.getId());
+    if (existingQuiz.isPresent()) {
+      Quiz quiz = existingQuiz.get();
+      quiz.setTitle(quizDTO.getTitle());
+      quiz.setCategory(quizDTO.getCategory());
+      quiz.setDifficulty(quizDTO.getDifficulty());
 
-    Quiz updatedQuiz = quizRepository.save(quiz);
-    return convertToQuizDTO(updatedQuiz);
+      Quiz updatedQuiz = quizRepository.save(quiz);
+
+
+
+      return convertToQuizDTO(updatedQuiz);
+    } else {
+      throw new QuizNotFoundException("Quiz with ID " + quizDTO.getId() + " not found.");
+    }
   }
 
   public void deleteQuiz(Integer id) {
     Quiz quiz = quizRepository.findById(id)
             .orElseThrow(() -> new QuizNotFoundException("Quiz not found with id " + id));
 
-    questionRepository.deleteAll(quiz.getQuestions());
+    questionRepository.deleteAll(questionRepository.findAllByQuizId(id));
 
     quizRepository.delete(quiz);
   }
@@ -85,11 +101,8 @@ public class QuizService {
     quizDTO.setId(quiz.getId());
     quizDTO.setTitle(quiz.getTitle());
     quizDTO.setCategory(quiz.getCategory());
-
-    List<Integer> questionIds = quiz.getQuestions().stream()
-            .map(Question::getId)
-            .collect(Collectors.toList());
-    quizDTO.setQuestionIds(questionIds);
+    quizDTO.setDifficulty(quiz.getDifficulty());
+    quizDTO.setCreatorId(quiz.getCreator().getId());
 
     return quizDTO;
   }

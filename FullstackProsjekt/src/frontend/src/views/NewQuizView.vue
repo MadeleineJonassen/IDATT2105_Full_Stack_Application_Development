@@ -17,7 +17,6 @@ export default {
       quiz: null,
       quizId: null,
       quizTitle: '',
-      questions: [],
       category: '',
       difficulty: '',
       errorMsg: '',
@@ -34,13 +33,13 @@ export default {
   methods: {
     async constructQuiz() {
       try {
-        await apiClient.post('quiz/create', {
+        const post = {
           title: this.quizTitle,
-          questionIds: this.questions,
           creatorId: this.creatorId,
           category: this.selectedCategory,
           difficulty: this.selectedDifficulty
-        }).then(response => {
+        }
+        await apiClient.post('quiz/create', post).then(response => {
           this.quizId = JSON.parse(response.data.id);
           router.push({name: 'editQuiz', params: {quizId: this.quizId}});
         })
@@ -48,8 +47,8 @@ export default {
         this.errorMsg = 'Cannot construct quiz';
       }
     },
-    getUser() {
-      this.creatorId = getIdByToken();
+    async getUser() {
+      this.creatorId = await getIdByToken();
     }
   },
 }
@@ -57,30 +56,50 @@ export default {
 
 <template>
 	<body>
-	<div class="new-quiz-page">
-		  <form @submit.prevent="constructQuiz">
-					<router-link to="/overviewQuiz"> <-  </router-link>
-					<h1>New quiz</h1>
-		      <div>
-		        <h2>Title</h2>
-		        <input>
-		      </div>
-		      <div>
-		        <h2>Category</h2>
-		        <form>
-		          <select v-model="selectedCategory" >
-		            <option v-for="category in categories" :key="category.id" :value="category">{{categories.category}}</option>
-		          </select>
-		        </form>
-		      </div>
-		      <div>
-		        <h2>Difficulty</h2>
-		        <form>
-		          <select v-model="selectedDifficulty">
-		            <option v-for="difficulty in difficulties" :key="difficulty.id" :value="difficulty">{{difficulties.difficulty}}</option>
-		          </select>
-		        </form>
-		      </div>
+  <form @submit.prevent="constructQuiz">
+		<div class="newQuizDiv">
+			<router-link to="/overviewQuiz"> <-  </router-link>
+			<h1>New quiz</h1>
+      <div>
+        <h2>Title</h2>
+        <input type="text" required v-model="quizTitle" placeholder="Insert title here..."/> <br>
+      </div>
+      <div>
+        <h2>Category</h2>
+        <form>
+          <select v-model="selectedCategory">
+            <option v-for="category in categories" :key="category" :value="category">{{ category }}</option>
+          </select>
+        </form>
+      </div>
+      <div>
+        <h2>Difficulty</h2>
+        <form>
+          <select v-model="selectedDifficulty">
+            <option v-for="difficulty in difficulties" :key="difficulty" :value="difficulty">{{ difficulty}}</option>
+          </select>
+        </form>
+      </div>
+      <!--
+			<div class="question-table">
+				<table class="table">
+					<thead>
+					<tr>
+						<th scope="col">#</th>
+						<th scope="col">Question</th>
+						<th scope="col">Action</th>
+					</tr>
+					</thead>
+					<tbody>
+					<tr>
+						<th scope="row">1</th>
+						<td>What is Vue?</td>
+						<td>
+							<button class="play-btn">View</button>
+							<button class="edit-btn">Edit</button>
+							<button class="delete-btn"> Delete</button>
+						</td>
+					</tr>
 
 		      <div class="footer">
 		        <router-link to="/overviewQuiz" class="delete-btn"> Cancel  </router-link>
