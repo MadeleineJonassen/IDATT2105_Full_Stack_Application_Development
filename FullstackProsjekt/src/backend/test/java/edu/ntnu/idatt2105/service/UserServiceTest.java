@@ -1,4 +1,4 @@
-package edu.ntnu.idatt2105;
+package edu.ntnu.idatt2105.service;
 
 import edu.ntnu.idatt2105.model.User;
 import edu.ntnu.idatt2105.repository.UserRepository;
@@ -24,7 +24,7 @@ class UserServiceTest {
   @BeforeEach
   void setUp() {
     userRepository = mock(UserRepository.class);
-    userService = new UserService(userRepository); // Assuming UserService is the class under test
+    userService = new UserService(userRepository);
   }
 
   @Test
@@ -100,8 +100,8 @@ class UserServiceTest {
     user.setPassword("password123");
 
     // Mocking UserRepository's behavior to return empty Optional when queried by username or password
-    when(userRepository.findByUsername(user.getUsername())).thenReturn(Optional.empty());
-    when(userRepository.findByPassword(user.getPassword())).thenReturn(Optional.empty());
+    lenient().when(userRepository.findByUsername(user.getUsername())).thenReturn(Optional.empty());
+    lenient().when(userRepository.findByPassword(user.getPassword())).thenReturn(Optional.empty());
 
     // Creating an instance of UserService
     UserService userService = new UserService(userRepository);

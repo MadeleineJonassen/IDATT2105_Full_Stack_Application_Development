@@ -1,5 +1,6 @@
 package edu.ntnu.idatt2105.repository;
 
+import edu.ntnu.idatt2105.dto.QuestionDTO;
 import edu.ntnu.idatt2105.model.Question;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
@@ -29,4 +30,6 @@ public interface QuestionRepository extends JpaRepository<Question, Integer> {
    * @return A list of {@link Question} entities associated with the given quiz ID.
    */
   List<Question> findAllByQuizId(Integer quizId);
+
 }
+
