@@ -96,6 +96,7 @@ export default {
 .password-input {
 	position: relative;
 	display: inline-block;
+	min-width: 300px;
 }
 
 
