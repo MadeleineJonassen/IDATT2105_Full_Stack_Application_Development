@@ -26,7 +26,7 @@ public class LoginResponseDTO {
    */
   public LoginResponseDTO(User user, String jwt) {
     this.username = user.getUsername();
-    this.password = user.getPassword(); // Password should not be included in the response for security reasons.
+    this.password = user.getPassword();
     this.jwt = jwt;
   }
 
