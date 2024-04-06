@@ -43,7 +43,7 @@ const router = createRouter({
     {
       path: '/create-quiz',
       name: 'create Quiz',
-      component: () => import('../components/shared/create-quiz/test-quizView.vue')
+      component: () => import('../components/shared/create-quiz/CreateQuizView.vue')
     },
     {
       path: '/play-quiz/:quizId',
