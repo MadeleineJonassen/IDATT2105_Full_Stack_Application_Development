@@ -3,6 +3,7 @@ package edu.ntnu.idatt2105.dto;
 public class QuestionAnswerDTO {
   private Integer id;
   private Integer questionId;
+  private Integer quizResultId;
   private String givenAnswer;
   private boolean correct;
 
