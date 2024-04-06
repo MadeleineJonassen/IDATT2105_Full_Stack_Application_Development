@@ -1,6 +1,7 @@
 package edu.ntnu.idatt2105.dto;
 
 import edu.ntnu.idatt2105.model.QuestionType;
+import jakarta.annotation.Nullable;
 
 import java.util.Arrays;
 import java.util.List;
@@ -15,6 +16,7 @@ public class QuestionDTO {
   private String questionText;
   private QuestionType type;
   private String answer;
+  @Nullable
   private List<String> options;
   private int score;
 
@@ -188,6 +190,7 @@ public class QuestionDTO {
    *
    * @return The options as a string.
    */
+  @Nullable
   public String getOptionsAsString() {
     return String.join("*", this.options);
   }
