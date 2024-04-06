@@ -1,9 +1,166 @@
-<script >
+<script>
+import QuizResult from "@/components/shared/PlayQuiz/QuizResult.vue";
+import {getIdByToken} from "@/tokenController.js";
+import {apiClient} from "@/api.js";
+
+export default {
+  data() {
+    return {
+      currentQuestion: null,
+      quizResult: null,
+      currentQuestionIndex: 0,//set to null
+      userId: 0, //set to null
+      quizId: 0,  //set to null
+      quizTitle: 'Quiz title',
+      selectedOption: '',
+      questions: [],
+      currentQuestionText: '',
+      currentQuestionId: null,
+      currentAnswers: [],
+      quizResultId: 0,
+      errorMsg: '',
+    }
+  },
+  beforeMount() {
+    this.setup();
+    this.getQuestions();
+    this.getSampleQuestions();
+    this.getQuiz();
+    this.getUser();
+  },
+  mounted() {
+    this.setCurrentQuestion();
+
+  },
+  methods: {
+    async setup(){
+      //TODO: QuizResultService
+      try {
+        await apiClient.post('/results/create', {
+          id: this.quizId,
+          userId: this.userId
+        })//TODO: set QuizResultServiceId
+      } catch (error) {
+        this.errorMsg = 'Error starting quiz';
+      }
+    },
+    getUser() {
+      this.userId = getIdByToken();
+    },
+    getQuiz() {
+      try {
+        apiClient.get('/quiz/quiz/' + this.quizId).then(response => {
+          this.quizTitle = JSON.parse(response.data.questions);
+        });
+      } catch (error) {
+        this.errorMsg = 'Error retrieving quiz';
+      }
+    },
+    getQuestions(quizId) {
+      //TODO: use method to fetch questions
+      try {
+        apiClient.get('/question/' + this.quizId).then(response => {
+          this.questionIds = JSON.parse(response.data.questions);
+        });
+      } catch (error) {
+        this.errorMsg = 'Error retrieving questions';
+      }
+    },
+    getSampleQuestions() {
+      const quest = {
+        id: 0,
+        questionText: "question " + -1,
+        options: ["ans1","ans2", "ansThree"],
+      }
+      this.questions.push(quest);
+      for(let i=0; i<4; i++){
+        const question = {
+          id: i,
+          questionText: "question " + i,
+          options: ["ans1","ans2"]
+        }
+        this.questions.push(question);
+        console.log(question.id);
+        console.log(this.questions.length);
+      }
+    },
+    async nextQuestion() {
+      if(!this.selectedOption) {
+        this.errorMsg = 'You must select an answer';
+      } else {
+        this.errorMsg = '';
+      }
+      console.log(this.selectedOption);
+
+
+      console.log(this.selectedOption);
+      try {
+        await apiClient.post('/save', {
+          id: this.quizId,
+          questionId: this.currentQuestionId,
+          givenAnswer: this.selectedOption,
+        })
+      } catch (error) {
+        this.errorMsg = 'Cannot submit question';
+      }
+      this.currentQuestionIndex++
+      this.setCurrentQuestion();
+
+    },
+    //setting current question, updating info
+    setCurrentQuestion() {
+      /*if(!this.questions.empty()){
+        this.currentQuestion = this.questions[this.currentQuestionIndex];
+      }*/ //for some reason this check messes up the app???
+      this.currentQuestion = this.questions[this.currentQuestionIndex];
+      this.currentQuestionId = this.currentQuestion.id;
+      this.currentQuestionText = this.currentQuestion.questionText;
+      this.currentAnswers = this.currentQuestion.options;
+    },
+    setupMCQuestion(question) {
+      this.questionTitle = question.questionText;
+      this.currentAnswers = question.options;
+      this.currentCorrectAnswer = question.answer;
+    },
+    selectOption(option) {
+      this.selectedOption = option;
+      console.log(this.selectedOption);
+    }
+  }
+}
 </script>
 
 
 <template>
+  <div class="quiz">
+    <div id="quiz-info">
+      <h1 id="title">Play quiz</h1>
+    </div>
 
+    <div id="current-q" class="question">
+
+      <h3 v-if="currentQuestion">{{currentQuestionText}}</h3>
+      <ul>
+        <li v-for="(option, index) in currentAnswers" :key="index">
+          <label>{{ option }}</label>
+          <input type="radio" :id="option" :value="option" :checked="option === selectedOption" @change="selectOption(option)">
+        </li>
+        <!--
+        <li v-for="option in answersList">
+          <label>test label</label>-->
+        <!--
+        <input type="radio" :id="'option'" :value="option"
+               :checked="option === selectedOption">-->
+        <!--<label :for="'option'">option</label>-->
+
+      </ul>
+
+
+      <button @click="nextQuestion">Next Question</button>
+    </div>
+  </div>
+
+<!--
 	<body>
 
 	<div class="quiz">
@@ -43,7 +200,7 @@
 	</div>
 
 	</body>
-
+-->
 </template>
 
 <style>
