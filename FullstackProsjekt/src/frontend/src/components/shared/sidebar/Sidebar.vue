@@ -34,9 +34,10 @@ export default {
 		<SidebarLink to="/about" icon="about-us-icon">About</SidebarLink>
 		<SidebarLink to="/feedback" icon="feedback-icon">Feedback</SidebarLink>
 		<SidebarLink to="/login" icon="login-icon">Login</SidebarLink>
+		<SidebarLink to="/profile" icon="profile-icon">Profile</SidebarLink>
 
 		<span class="collapse-icon" :class="{'rotate-180': collapsed}" @click="toggleSideBar">
-			<Svg name="double-arrow" class="sidebar-c-icon"></Svg>
+			<Svg name="double-arrow" class="sidebar-c-icon"/>
 		</span>
 
 	</div>
