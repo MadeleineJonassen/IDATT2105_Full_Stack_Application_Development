@@ -4,7 +4,6 @@ body {
     background-color: #F2F2F2;
 }
 
-
 input {
     padding: 5px;
     border-radius: 5px;
@@ -75,6 +74,14 @@ select{
     border-color: transparent;
     color: #FFFFFF;
     border-radius: 10px;
+}
+.play-btn:hover {
+    background-color: #425575;
+    transition: 0.4s ;
+}
+.play-btn:active{
+    background-color: #425575;
+    transition: 0.2s ;
 }
 .edit-btn{
     padding: 10px;

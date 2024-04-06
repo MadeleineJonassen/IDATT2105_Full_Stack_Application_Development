@@ -79,8 +79,5 @@ export default {
   justify-content: space-between;
 }
 
-#quizCard {
-  width: calc(50% - 10px);
-}
 
 </style>
