@@ -51,17 +51,6 @@ public class QuizResultController {
   }
 
   /**
-   * Endpoint for retrieving the latest quiz result for a user.
-   *
-   * @param userId The ID of the user.
-   * @return The latest quiz result DTO for the user.
-   */
-  @GetMapping("/latest-result")
-  public QuizResultDTO getLatestQuizResultForUser(@RequestParam Integer userId) {
-    return quizResultService.findLatestQuizResultForUser(userId);
-  }
-
-  /**
    * Endpoint for retrieving all quiz results for a user.
    *
    * @param userId The ID of the user.
