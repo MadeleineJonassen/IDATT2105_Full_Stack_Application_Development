@@ -36,8 +36,7 @@ export default {
 		<SidebarLink to="/login" icon="login-icon">Login</SidebarLink>
 
 		<span class="collapse-icon" :class="{'rotate-180': collapsed}" @click="toggleSideBar">
-			<Svg name="sidebar-arrow.png" class="icon"/>
-			<button class="iconButton"> <img id="icon" src="../../icons/sidebar-arrow.png"/> </button>
+			<Svg name="double-arrow" class="sidebar-c-icon"></Svg>
 		</span>
 
 	</div>
@@ -75,17 +74,12 @@ export default {
 .collapse-icon{
 	position: absolute;
 	bottom: 0;
-	right: 0px;
-	padding: 5px;
+	margin-left: 50px;
 	transition: 0.2s linear;
 }
-#icon{
-	height: 18px;
-	cursor: pointer;
-}
-.iconButton{
-	background-color: transparent;
-	border-color: transparent;
+.sidebar-c-icon{
+	height: 30px;
+	width: 30px;
 }
 
 .rotate-180{
