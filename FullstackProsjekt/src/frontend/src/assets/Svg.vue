@@ -18,8 +18,8 @@ const icon = defineAsyncComponent(()=>
 
 <style>
 .icon{
-	height: 20px;
-	width: 20px;
+	height: 25px;
+	width: 25px;
 	display: inline-block;
 	background-size: contain;
 	background-repeat: no-repeat;
