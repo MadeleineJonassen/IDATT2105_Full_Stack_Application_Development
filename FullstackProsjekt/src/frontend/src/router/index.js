@@ -37,19 +37,19 @@ const router = createRouter({
     component: () => import('../views/SignupView.vue')
     },
     {
-      path: '/createQuiz',
-      name: 'create Quiz',
-      component: () => import('../views/NewQuizView.vue')
-    },
-    {
       path: '/overviewQuiz',
       name: 'overview Quiz',
       component: () => import('../views/OverviewQuizView.vue')
     },
     {
+      path: '/create-quiz',
+      name: 'create Quiz',
+      component: () => import('../components/shared/create-quiz/CreateQuizView.vue')
+    },
+    {
       path: '/play-quiz/:quizId',
       name: 'playQuiz',
-      component: PlayQuizView,
+      component: () => import('../views/PlayQuizView.vue'),
       params: true
     },
     {
