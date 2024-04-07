@@ -118,21 +118,21 @@ li{
 }
 .card {
 	box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
-	margin: 8px auto; /* Center the cards horizontally */
+	margin: 8px auto;
 	padding: 10px;
-	max-width: 400px; /* Adjust the maximum width of the card */
+	max-width: 400px;
 }
 .about-section {
 	padding: 10vh 10vh 10vh 10vh;
 	text-align: center;
-	color: #ffffff;
+	color: var(--text-light-color);
 }
 .our-team{
-	color: #242F40;
+	color: var(--sidebar-bd-color);
 }
 .container {
 	padding: 0 16px;
-	color: #242F40;
+	color: var(--sidebar-bd-color);
 }
 .title {
 	color: grey;

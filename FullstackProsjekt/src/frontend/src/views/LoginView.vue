@@ -109,13 +109,13 @@ export default {
 	cursor: pointer;
 }
 #signUpLink {
-	color: #CCA43B;
+	color: var(--option-color);
 	padding: 10px;
 	font-size: 16px;
 	text-decoration: none;
 }
 #signUpLink:hover{
-	color: #242F40;
+	color: var(--option-hover);
 	transition: 0.3s;
 }
 .submit-section {

@@ -80,7 +80,7 @@ export default {
 }
 .text-box{
 	width: 90%;
-	color: #fff;
+	color: var(--text-light-color);
 	position: absolute;
 	top: 50%;
 	left: 50%;
@@ -93,12 +93,12 @@ export default {
 .text-box p{
 	margin: 10px 0 40px;
 	font-size: 20px;
-	color: #fff;
+	color: var(--text-light-color);
 }
 .hero-btn{
 	display: inline-block;
 	text-decoration: none;
-	color: #fff;
+	color: var(--text-light-color);
 	border: 1px solid #fff;
 	padding: 12px 34px;
 	font-size: 16px;
@@ -108,7 +108,7 @@ export default {
 }
 .hero-btn:hover{
 	border: 1px solid #CCA43B;
-	background: #CCA43B;
+	background: var(--option-hover);
 	transition: 1s;
 	color: #242F40;
 }
@@ -123,7 +123,7 @@ h1{
 	font-weight: 600;
 }
 p{
-	color: #0f1412;
+	color: var(--text-dark-color);
 	font-size: 16px;
 	font-weight: 300;
 	line-height: 22px;
@@ -145,12 +145,12 @@ h3{
 	padding: 100px 0;
 }
 .cta h1{
-	color: #F2F2F2;
+	color: var(--text-light-color);
 	margin-bottom: 40px;
 	padding: 0;
 }
 .footer {
-	background-color: #242F40;
+	background-color: var(--sidebar-bd-color);
 	padding: 10px 0;
 	text-align: center;
 }
@@ -173,7 +173,7 @@ h3{
 	margin-right: 0;
 }
 .footer ul li a {
-	color: #fff;
+	color: var(--text-light-color);
 	text-decoration: none;
 }
 .footer ul li a:hover {
