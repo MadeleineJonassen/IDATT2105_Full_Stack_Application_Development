@@ -2,11 +2,14 @@
 import { collapsed, toggleSideBar, sidebarWidth } from "@/components/shared/sidebar/state.js";
 import SidebarLink from "@/components/shared/sidebar/SidebarLink.vue";
 import Svg from "@/assets/Svg.vue";
+import {ref} from "vue";
 
 export default {
 	components: {Svg, SidebarLink},
 	props: {},
 	setup() {
+		const isLoggedIn = ref(false);
+
 		const handleClickOutside = (event) => {
 			const sidebar = document.querySelector('.sidebar');
 			if (sidebar && !sidebar.contains(event.target)) {
@@ -20,7 +23,7 @@ export default {
 			document.removeEventListener('click', handleClickOutside);
 		};
 
-		return { collapsed, toggleSideBar, sidebarWidth, beforeUnmount };
+		return { collapsed, toggleSideBar, sidebarWidth, beforeUnmount, isLoggedIn };
 	}
 }
 </script>
@@ -34,7 +37,7 @@ export default {
 		<SidebarLink to="/about" icon="about-us-icon">About</SidebarLink>
 		<SidebarLink to="/feedback" icon="feedback-icon">Feedback</SidebarLink>
 		<SidebarLink to="/login" icon="login-icon">Login</SidebarLink>
-		<SidebarLink to="/profile" icon="profile-icon">Profile</SidebarLink>
+		<SidebarLink v-if="isLoggedIn" to="/profile" icon="profile-icon">Profile</SidebarLink>
 
 		<span class="collapse-icon" :class="{'rotate-180': collapsed}" @click="toggleSideBar">
 			<Svg name="double-arrow" class="sidebar-c-icon"/>

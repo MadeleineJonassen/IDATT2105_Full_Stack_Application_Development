@@ -1,87 +1,70 @@
-<script >
-	import { apiClient } from "@/api.js";
-	import router from "@/router/index.js";
-	import Svg from "@/assets/Svg.vue";
-	import { categoryEnums } from "@/data/categories.js";
+<template>
+	<div class="dashboard">
+		<div class="top-bar">
+			<router-link to="/" ><Svg name="go-back-icon"/></router-link>
 
-	export default {
-	components: { Svg },
-	props: {
-	quizId: {
-	type: Number,
-	required: true,
-},
-},
+			<div class="search-container">
+				<input class="searchBox" v-model="searchTerm" placeholder="Search for category...">
+			</div>
+			<div class="create-container">
+				<router-link to="/overviewQuiz" class="add-Btn">YOUR QUIZZES</router-link>
+			</div>
+		</div>
+		<div class="row">
+			<div class="quiz-list">
+				<div class="quiz-col" v-for="quiz in filteredQuizList" :key="quiz.id">
+					<div class="quiz-header">
+						<h3>{{ quiz.title }}</h3>
+					</div>
+					<div class="quiz-body">
+						<p>Difficulty level: {{ quiz.difficulty }}</p>
+						<p>Category: {{ quiz.category }}</p>
+					</div>
+					<div class="quiz-footer">
+						<button @click="playQuiz(quiz.id)" class="play-btn">Play</button>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</template>
+
+<script>
+import { apiClient } from "@/api.js";
+import router from "@/router/index.js";
+import Svg from "@/assets/Svg.vue";
+
+export default {
+	components: {Svg},
 	data() {
-	return {
-    quizList: []
-  };
-},
+		return {
+			quizList: [],
+			searchTerm: ''
+		};
+	},
 	mounted() {
-	this.getQuiz();
-},
+		this.getQuiz();
+	},
 	methods: {
-	async getQuiz() {
-	try {
-    const response = await apiClient.get('/quiz/');
-    this.quizList = response.data;
-
-    console.log(this.quizList[0])
-  } catch (error) {
-    // TODO: Proper error handling
-    console.error('Error retrieving quiz:', error);
-  }
-},
-	getIcon(category) {
-	// Check if the category exists in the enum
-	if (categoryEnums.includes(category)) {
-	// Retrieve the icon name from the mapping
-	return categoryIcons[category] || categoryIcons.Default;
-} else {
-	// If category not found, return the default icon
-	return categoryIcons.Default;
-}
-},
-	playQuiz(id) {
-    console.log(id)
-	router.push({ name: 'playQuiz', params: { quizId: id } });
-},
-},
+		async getQuiz() {
+			try {
+				const response = await apiClient.get('/quiz/');
+				this.quizList = response.data;
+			} catch (error) {
+				console.error('Error retrieving quiz:', error);
+			}
+		},
+		playQuiz(id) {
+			router.push({ name: 'playQuiz', params: { quizId: id } });
+		}
+	},
+	computed: {
+		filteredQuizList() {
+			return this.quizList.filter(quiz => quiz.category.toLowerCase().includes(this.searchTerm.toLowerCase()));
+		}
+	}
 };
 </script>
-
-
-<template>
-	<body class="dashboard">
-	<div class="top-bar">
-
-		<div class="search-container">
-			<input class="searchBox" placeholder="Search for category...">
-		</div> <br>
-		<div class="create-container">
-			<router-link to="/overviewQuiz" class="create-btn">YOUR QUIZES</router-link>
-		</div>
-
-	</div>
-		<div class="row">
-      <div class="quiz-list">
-        <div class="quiz-col" v-for="quiz in quizList" :key="quiz.id">
-          <div class="quiz-header">
-            <h3>{{ quiz.title }}</h3>
-          </div>
-          <div class="quiz-body">
-            <p>Difficulty level: {{ quiz.difficulty }}</p>
-            <p>Category: {{ quiz.category }}</p>
-          </div>
-          <div class="quiz-footer">
-            <button @click="playQuiz(quiz.id)" class="play-btn">Play</button>
-          </div>
-        </div>
-      </div>
-		</div>
-
-	</body>
-</template>
 
 
 <style>
@@ -92,47 +75,32 @@
 	display: flex;
 	justify-content: space-between;
 	align-items: center;
-	margin-bottom: 20px;
+	margin-bottom: 10vh;
+	margin-top: 2vh;
 }
 .search-container {
-	flex-grow: 1; /* Grow to take available space */
-	margin-right: 10px; /* Adjust margin between search box and button */
+	flex-grow: 1;
 }
 
 .create-container {
-	flex-shrink: 0; /* Do not shrink */
+	flex-shrink: 0;
 }
-.searchBox{
+
+.searchBox {
 	width: 250px;
 	padding: 10px;
-	margin: 0 auto; /* Center horizontally */
+	margin: 0 auto;
 	display: block;
 	text-align: center;
 }
 
-.quiz-col{
+.quiz-col {
 	flex-basis: 31%;
 	background: #d7d7d7;
 	border-radius: 10px;
 	margin-bottom: 5%;
 	padding: 20px;
 	box-sizing: border-box;
-	transition: 0.5s;}
-
-.create-btn{
-	text-decoration: none;
-	color: #E5E5E5;
-	padding: 12px 34px;
-	font-size: 16px;
-	cursor: pointer;
-	margin-bottom: 60px;
-	background-color: #242F40;
+	transition: 0.5s;
 }
-.create-btn:hover{
-	border: 1px solid #CCA43B;
-	color: #242F40;
-	background: #CCA43B;
-	transition: 1s;
-}
-
 </style>

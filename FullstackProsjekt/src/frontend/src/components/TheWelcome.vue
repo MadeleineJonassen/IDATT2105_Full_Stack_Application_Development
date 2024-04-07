@@ -16,35 +16,35 @@ export default {
 		<div class="text-box">
 			<img id="logo" src="../components/icons/brain.png"/>
 			<h1 class="heading">BrainStormer</h1>
-			<p> An easy way to learn and share quizzes. <br> Make your own quiz now! </p>
+			<p> Get ready to challenge your knowledge and have fun! <br> Experience a new way of learning </p>
 			<router-link to="/dashboard" class="hero-btn">LOOK AT QUIZZES</router-link>
 		</div>
 	</section>
 
 	<!----- Info ----->
 	<section class="info">
-		<h1>How does it work</h1>
-		<p>Set a difficulty to your quizzes ..... [Add more text here]</p>
+		<h1>Ace your classes with our new learning platform</h1>
+		<p>Explore our various difficulties and challenge yourself</p>
 
 		<div class="row">
 			<div class="course-col">
 				<h3>Easy</h3>
-				<p>The simplest of quizzes </p>
+				<p>Suitable for beginners or those with basic knowledge on the topic.</p>
 			</div>
 			<div class="course-col">
 				<h3>Medium</h3>
-				<p>A more challenging quiz for those who want a challenge </p>
+				<p>Suitable for intermediate users with some experience on the topic.</p>
 			</div>
 			<div class="course-col">
 				<h3>Hard</h3>
-				<p>Quizzes that challenge the mind to new limits... </p>
+				<p>Suitable for advanced users or experts on the topic. </p>
 			</div>
 		</div>
 	</section>
 	<div class="space"> </div>
 
 	<section class="cta">
-		<h1> Enroll For Our Various Online Quizzes </h1>
+		<h1> Include and engage every student </h1>
 		<router-link to="/about" class="hero-btn"> About us</router-link>
 	</section>
 
@@ -67,15 +67,15 @@ export default {
 .header{
 	min-height: 100vh;
 	width: 100%;
-	background-image: linear-gradient(rgba(4,9,30,0.7), rgba(4,9,30,0.7)),url(photos/lightning.gif);
+	background-image: linear-gradient(rgba(4,9,30,0.7), rgba(4,9,30,0.7)),url(photos/mountain-backdrop.png);
 	background-position: center;
 	background-size: cover;
 	position: relative;
 }
 #logo{
-	height: 150px;
-	width: 150px;
-	padding: 10px;
+	height: 170px;
+	width: 170px;
+	padding: 5vh;
 }
 
 .text-box{
@@ -88,11 +88,11 @@ export default {
 	text-align: center;
 }
 .text-box h1{
-	font-size: 62px;
+	font-size: 60px;
 }
 .text-box p{
 	margin: 10px 0 40px;
-	font-size: 18px;
+	font-size: 20px;
 	color: #fff;
 }
 
@@ -143,7 +143,7 @@ h3{
 .cta{
 	margin: 100px auto;
 	width: 80%;
-	background-image: linear-gradient(rgba(4,9,30,0.7), rgba(4,9,30,0.7)),url(photos/background.png);
+	background-image: linear-gradient(rgba(4,9,30,0.7), rgba(4,9,30,0.7)),url(photos/office-backdrop.png);
 	background-position: center;
 	background-size: cover;
 	border-radius: 10px;
