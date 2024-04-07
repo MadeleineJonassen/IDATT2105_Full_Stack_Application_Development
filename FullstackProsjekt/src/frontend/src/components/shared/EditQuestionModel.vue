@@ -38,8 +38,7 @@ export default {
           this.score = response.data.score;
         });
       } catch (error) {
-        //TODO: proper error handling
-        this.errorMsg = 'Error retrieving quizzes';
+        this.errorMsg = 'Question not found';
       }
     },
     async handleSubmit() {
