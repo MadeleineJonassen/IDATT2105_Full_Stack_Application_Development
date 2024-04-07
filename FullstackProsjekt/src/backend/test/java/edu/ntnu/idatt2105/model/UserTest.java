@@ -7,8 +7,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import java.util.HashSet;
 import java.util.Set;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest
 public class UserTest {
@@ -41,5 +40,43 @@ public class UserTest {
         newRoles.add(new Role("ROLE_ADMIN"));
         user.setAuthorities(newRoles);
         assertEquals(newRoles, user.getAuthorities());
+    }
+
+    @Test
+    public void testGetId() {
+        // Test getId method
+        assertNull(user.getId());
+    }
+
+    @Test
+    public void testIsAccountNonExpired() {
+        // Test isAccountNonExpired method
+        assertTrue(user.isAccountNonExpired());
+    }
+
+    @Test
+    public void testIsAccountNonLocked() {
+        // Test isAccountNonLocked method
+        assertTrue(user.isAccountNonLocked());
+    }
+
+    @Test
+    public void testIsCredentialsNonExpired() {
+        // Test isCredentialsNonExpired method
+        assertTrue(user.isCredentialsNonExpired());
+    }
+
+    @Test
+    public void testIsEnabled() {
+        // Test isEnabled method
+        assertTrue(user.isEnabled());
+    }
+
+    @Test
+    public void testGetAuthorities() {
+        // Test getAuthorities method
+        assertNotNull(user.getAuthorities());
+        assertEquals(1, user.getAuthorities().size());
+        assertEquals("ROLE_USER", user.getAuthorities().iterator().next().getAuthority());
     }
 }

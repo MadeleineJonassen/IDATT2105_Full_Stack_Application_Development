@@ -6,16 +6,22 @@ import org.springframework.boot.test.context.SpringBootTest;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNull;
 
 @SpringBootTest
 public class QuestionTest {
 
     private Question question;
+    private Quiz quiz;
 
     @BeforeEach
     public void setUp() {
         // Create a sample question
+
+        quiz = new Quiz("Test quiz", new User() , QuizCategory.CULTURE_AND_TRADITIONS, QuizDifficulty.EASY);
         question = new Question("What is the capital of Norway?", QuestionType.MULTIPLE_CHOICE, 10, "Oslo", "Oslo*Bergen*Trondheim*Stavanger");
+        question.setId(1);
+        question.setQuiz(quiz);
     }
 
     @Test
@@ -53,5 +59,17 @@ public class QuestionTest {
         assertEquals("Bergen", question.getOptionsList().get(1));
         assertEquals("Trondheim", question.getOptionsList().get(2));
         assertEquals("Stavanger", question.getOptionsList().get(3));
+    }
+
+    @Test
+    public void testGetId() {
+        // Test getId method
+        assertEquals(1, question.getId());
+    }
+
+    @Test
+    public void testGetQuiz() {
+        // Test getQuiz method
+        assertEquals(quiz, question.getQuiz());
     }
 }
