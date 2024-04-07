@@ -21,6 +21,7 @@ export default {
     }
   },
   beforeMount() {
+    //console.log("before mount:" + this.questionId);
     this.getQuestion(this.questionId);
     this.findCorrectAnswerIndex();
   },
@@ -28,11 +29,11 @@ export default {
     getQuestion(questionId) {
       console.log('Fetching question: ', questionId);
       try {
-        apiClient.get('/questions/get/' + this.questionId).then(response => {
+        apiClient.get('/questions/get/' + questionId).then(response => {
           this.question = response.data;
           this.quizId = response.data.quizId;
-          this.questionText = response.data.id;
-          this.answers = JSON.parse(response.data.options);
+          this.questionText = response.data.questionText;
+          this.answers = response.data.options;
           this.correctAnswer = response.data.answer;
           this.type = response.data.type;
           this.score = response.data.score;
