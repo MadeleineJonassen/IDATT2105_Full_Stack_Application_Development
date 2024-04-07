@@ -42,11 +42,13 @@ export default {
 <template>
   <div class="modal-overlay" @click="closeModal">
     <div @click.stop class="modal-mask">
+
       <div class="modal-container">
         <div class="question-title">
           <h3>Question: </h3>
           <input v-model="questionText" placeholder="Type your question here">
         </div>
+
         <div class="modal-body">
           <table class="table">
             <thead>

@@ -22,6 +22,7 @@ export default {
           username: this.username,
           password: this.password
         }).then(response => {
+					alert(this.username + " is now logged in!")
           setToken(response.data.jwt); //TODO: check token name
         });
       } catch (error) {
@@ -95,6 +96,7 @@ export default {
 .password-input {
 	position: relative;
 	display: inline-block;
+	min-width: 300px;
 }
 
 

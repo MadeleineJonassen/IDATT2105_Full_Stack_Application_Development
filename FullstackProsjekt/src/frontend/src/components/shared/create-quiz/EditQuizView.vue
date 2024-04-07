@@ -43,11 +43,12 @@ export default {
       console.log('Fetching data for quiz: ', quizId);
       try {
         apiClient.get('/quiz/quiz/' + this.quizId).then(response => {
+          console.log(response)
           this.quizTitle = JSON.parse(response.data.title);
-          this.questions = JSON.parse(JSON.stringify(response.data.questions));
+          this.questions = response.data.questions;
           this.creatorId = JSON.parse(response.data.creatorId);
-          this.category = JSON.parse(response.data.category);
-          this.difficulty = JSON.parse(response.data.difficulty);
+          this.category = response.data.category;
+          this.difficulty = response.data.difficulty;
         });
       } catch (error) {
         //TODO: proper error handling
@@ -162,79 +163,7 @@ async function submitQuestion() {
                       :key="question.id"/>
       </div>
       <NewQuestionModel v-if="showNewQuestion" @close="hideNewQuestion" quiz-id="this.quizId"/>
-      <!--
-			<div class="question-table">
-				<table class="table">
-					<thead>
-					<tr>
-						<th scope="col">#</th>
-						<th scope="col">Question</th>
-						<th scope="col">Action</th>
-					</tr>
-					</thead>
-					<tbody>
-					<tr>
-						<th scope="row">1</th>
-						<td>What is Vue?</td>
-						<td>
-							<button class="play-btn">View</button>
-							<button class="edit-btn">Edit</button>
-							<button class="delete-btn"> Delete</button>
-						</td>
-					</tr>
 
-					</tbody>
-				</table>
-				-->
-        <!--
-
-
-				<Teleport to="body">
-					<NewQuestionModel :show="showNewQuestionModal" @close="destroyModal">
-
-						<template #header>
-							<h5> Add New Question</h5>
-						</template>
-
-						<template #body>
-							<form>
-								<div class="mb-3">
-									<label for="question" class="form-label">Question</label> <br>
-									<input type="text" v-model="createdQuestion" class="form-control" id="questionInput">
-								</div>
-								<table class="table">
-									<thead>
-									<tr>
-										<th scope="col">#</th>
-										<th scope="col">Answer</th>
-										<th scope="col">Correct ?</th>
-									</tr>
-									</thead>
-									<tbody>
-									<tr v-for="(answer, index) in newAnswers">
-										<th scope="row">{{answer.id}}</th>
-										<td>
-											<input type="text" v-model="answer.answer" id="questionInput">
-										</td>
-										<td>
-											<input :checked="answer.correct_answer === 1" class="form-check-input" :value="answer.id" @change="handleRadioToggle(answer.id)"  type="radio">
-										</td>
-									</tr>
-									</tbody>
-								</table>
-							</form>
-						</template>
-
-						<template #footer>
-							<button @click="addNewAnswers" class="add-Btn" v-if="newAnswers.length<4" >+</button>
-							<button @click="destroyModal" class="close-btn"> Close</button>
-							<button v-if="newAnswers.length>=2" @click="submitQuestion" class="submit-btn">Submit</button>
-						</template>
-
-					</NewQuestionModel>
-				</Teleport>
-				</div>
-				-->
 			<div class="footer">
 				<button @click="newQuestion" class="add-Btn"> Add Question </button>
         <button class="delete-btn"> DELETE QUIZ </button>
