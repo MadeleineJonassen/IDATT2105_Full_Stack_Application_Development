@@ -2,11 +2,14 @@
 import { RouterLink, RouterView } from 'vue-router';
 import { onMounted, onUnmounted, watch } from 'vue';
 import { getToken, setToken, removeToken, refreshAndStoreToken } from '@/tokenController.js';
+import Sidebar from "@/components/shared/sidebar/Sidebar.vue"
+import { sidebarWidth}  from "@/components/shared/sidebar/state.js";
 
 export default {
-  components: { RouterLink, RouterView },
+  components: { RouterLink, RouterView, Sidebar },
   setup() {
     let intervalId = null;
+    return {sidebarWidth}
 
     // Start interval for token refresh
     const startInterval = () => {
@@ -64,3 +67,10 @@ export default {
   }
 };
 </script>
+
+<template>
+  <Sidebar/>
+  <div style="{'margin-left': sidebarWidth}">
+    <RouterView />
+  </div>
+</template>
