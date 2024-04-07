@@ -150,7 +150,7 @@ export default {
 }
 .user-quizzes .quiz {
 	border: 1px solid #ccc;
-	background-color: #d7d7d7 ;
+	background-color: var(--field-placeholder) ;
 	border-radius: 5px;
 	padding: 10px;
 	margin-bottom: 10px;
@@ -165,10 +165,10 @@ export default {
 }
 .profile-options ul li a {
 	text-decoration: none;
-	color: #CCA43B;
+	color: var(--option-color);
 }
 .profile-options ul li a:hover{
-	color: #a2822e;
+	color: var(--option-hover);
 	text-decoration: underline;
 }
 .progress-tracking {

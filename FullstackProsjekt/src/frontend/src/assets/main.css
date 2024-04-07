@@ -6,6 +6,7 @@
     --sidebar-item-active: #CCA43B;
 
     --field-placeholder: #b0b0b0;
+    --field-background: #E5E5E5;
     --card-background: #d7d7d7;
 
     --text-light-color: #d7d7d7;
@@ -19,7 +20,7 @@
     --safe-active: #425575;
 
     --option-color: #CCA43B;
-    --option-hover: #b2891b;
+    --option-hover: #eebf42;
     --option-active: #D9C590;
 }
 
@@ -179,7 +180,6 @@ select{
 }
 .submit-btn:hover{
     background-color: var(--option-hover);
-    color: var(--text-light-color);
 }
 .submit-btn:active{
     background-color: var(--option-active);

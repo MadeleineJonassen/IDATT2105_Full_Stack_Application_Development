@@ -95,7 +95,7 @@ export default {
 }
 .feedback {
 	text-align: center;
-	color: #242F40;
+	color: var(--text-dark-color);
 	border-color: transparent;
 	border-radius: 15px;
 	align-items: center;
@@ -113,7 +113,7 @@ export default {
 	border: none;
 	width: 50vh;
 	height: 15vh;
-	background-color: #E5E5E5;
+	background-color: var(--field-background);
 }
 .submit-section {
 	display: flex;

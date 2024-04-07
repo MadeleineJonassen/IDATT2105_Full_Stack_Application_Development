@@ -49,7 +49,7 @@ export default {
 </style>
 <style scoped>
 .sidebar{
-	color: white;
+	color: var(--text-light-color);
 	background-color: var(--sidebar-bd-color);
 	float: left;
 	position: fixed;
