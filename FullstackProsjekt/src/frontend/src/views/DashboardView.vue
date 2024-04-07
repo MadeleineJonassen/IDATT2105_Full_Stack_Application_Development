@@ -6,10 +6,12 @@
 			<div class="search-container">
 				<input class="searchBox" v-model="searchTerm" placeholder="Search for category...">
 			</div>
+
 			<div class="create-container">
 				<router-link to="/overviewQuiz" class="add-Btn">YOUR QUIZZES</router-link>
 			</div>
 		</div>
+
 		<div class="row">
 			<div class="quiz-list">
 				<div class="quiz-col" v-for="quiz in filteredQuizList" :key="quiz.id">
@@ -69,7 +71,7 @@ export default {
 
 <style>
 .dashboard{
-	padding: 20px;
+	padding: 40px;
 }
 .top-bar {
 	display: flex;

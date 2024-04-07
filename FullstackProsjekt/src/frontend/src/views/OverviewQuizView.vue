@@ -1,9 +1,8 @@
 <template>
 	<body>
 	<div class="overViewQuestion-page">
-
     <div class="headerDiv">
-	    <router-link to="/" ><Svg name="go-back-icon"/></router-link>
+	    <router-link to="/dashboard" ><Svg name="go-back-icon"/></router-link>
 	    <h1>Your quizzes</h1>
 	    <router-link to="/create-quiz" class="add-Btn">Create new quiz</router-link>
     </div>
@@ -62,15 +61,12 @@ export default {
 .overViewQuestion-page{
 	padding: 40px;
 }
-.headerDiv{
+.headerDiv {
 	display: flex;
 	justify-content: space-between;
 	align-items: center;
-	margin-bottom: 10vh;
-	margin-top: 2vh;
+	margin-bottom: 8vh;
 }
-
-
 .quiz-div {
   display: flex;
   flex-wrap: wrap;
@@ -79,9 +75,4 @@ export default {
   box-sizing: border-box;
 }
 
-.headerDiv {
-  display: flex;
-  width: 100%;
-  justify-content: space-between;
-}
 </style>
