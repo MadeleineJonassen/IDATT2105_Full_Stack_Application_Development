@@ -51,10 +51,7 @@ select{
 .course-col:hover{
     box-shadow: 0 0 20px 0px rgba(0,0,0,0.3);
 }
-.go-back-section{
-    padding-top: 5vh;
-    padding-left: 5vh;
-}
+
 
 
 /* ERROR HANDLE */

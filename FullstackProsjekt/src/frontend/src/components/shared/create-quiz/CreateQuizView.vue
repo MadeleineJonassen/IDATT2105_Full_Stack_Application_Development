@@ -103,6 +103,11 @@ export default {
 	padding: 0 20px;
 }
 
+.go-back-section{
+	padding-top: 5vh;
+	padding-left: 5vh;
+}
+
 input,
 select {
 	width: 100%;
