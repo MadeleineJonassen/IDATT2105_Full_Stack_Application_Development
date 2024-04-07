@@ -10,24 +10,19 @@ export default {
 	components: {Modal, Svg},
 	data() {
 		return {
+			username: '',
+			userId: null,
+			quizList:[],
 			showModal: ref(false),
 			user: {
 				username: this.username,
-				avatar: '@/components/photos/developers/MadJon.png',
+				avatar: '',
 			},
-			userQuizzes: [
-				{
-					id: 1,
-					title: 'Math Quiz',
-					description: 'Test your math skills with this quiz'
-				},
-				{
-					id: 2,
-					title: 'Science Quiz',
-					description: 'Explore various science topics in this quiz'
-				}
-			]
 		}
+	},
+	mounted() {
+		this.username = localStorage.getItem('username');
+		this.populateQuizzes();
 	},
 	computed: {
 		quizAttempts() {
@@ -45,6 +40,18 @@ export default {
 		},
 		closeModal(){
 			this.showModal=false;
+		},
+		async populateQuizzes() {
+			try {
+				await this.setUserId();
+				const response = await apiClient.get('/quiz/creator/' + this.userId);
+				this.quizList = response.data;
+			} catch (error) {
+				console.error('Error retrieving quizzes:', error);
+			}
+		},
+		async setUserId() {
+			this.userId = await getIdByToken();
 		}
 	}
 };
@@ -58,9 +65,8 @@ export default {
 			<h2>User Profile</h2>
 			<div class="user-details">
 				<Svg  class="profile-pic"  name="default-avatar"/>
-				<!-- <img :src="user.avatar" alt="User Avatar">  -->
 				<div>
-					<h3>{{ user.username }}</h3>
+					<h3>{{ username }}</h3>
 				</div>
 			</div>
 		</section>
@@ -68,15 +74,16 @@ export default {
 		<!-- Quizzes created by the user -->
 		<section class="user-quizzes">
 			<h2>My Quizzes</h2>
-			<div v-if="userQuizzes.length === 0">
-				<p>No quizzes created yet.</p>
+			<div v-if="quizList.length > 0">
+				<div v-for="quiz in quizList" :key="quiz.id">
+					<!-- Display quiz details here -->
+					<p>{{ quiz.name }}</p>
+					<!-- Add more details as needed -->
+				</div>
 			</div>
 			<div v-else>
-				<div class="quiz" v-for="quiz in userQuizzes" :key="quiz.id">
-					<h3>{{ quiz.title }}</h3>
-					<p>{{ quiz.description }}</p>
-					<!-- Add more details about each quiz as needed -->
-				</div>
+				<p>No quizzes found.</p>
+				<button class="add-Btn"> Create quiz now!</button>
 			</div>
 		</section>
 
@@ -102,7 +109,6 @@ export default {
 			<ul>
 				<li><router-link to="/edit-profile">Edit Profile</router-link></li>
 				<li><router-link to="/change-password">Change Password</router-link></li>
-				<li><router-link to="/overviewQuiz">Create quiz</router-link></li>
 				<li> <button class="delete-btn" @click="showModal = true">Logout</button>
 					<Teleport to="body">
 					<Modal :show="showModal">
@@ -113,8 +119,8 @@ export default {
 							<p> Are you sure?</p>
 						</template>
 						<template #footer>
-							<button @click="logout"> Yes </button>
-							<button @click="closeModal"> No </button>
+							<button @click="logout" class="add-Btn"> Yes </button>
+							<button @click="closeModal" class="close-btn"> No </button>
 						</template>
 					</Modal>
 				</Teleport></li>
@@ -184,6 +190,11 @@ export default {
 	text-decoration: none;
 	color: #CCA43B;
 }
+.profile-options ul li a:hover{
+	color: #a2822e;
+	text-decoration: underline;
+}
+
 
 .progress-tracking {
 	margin-bottom: 40px;

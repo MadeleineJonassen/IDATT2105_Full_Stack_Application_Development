@@ -24,6 +24,8 @@ export default {
         }).then(response => {
 					alert(this.username + " is now logged in!")
           setToken(response.data.jwt); //TODO: check token name
+	        localStorage.setItem('username', this.username);
+	        this.$router.push('/profile');
         });
       } catch (error) {
         //TODO: proper error handling
