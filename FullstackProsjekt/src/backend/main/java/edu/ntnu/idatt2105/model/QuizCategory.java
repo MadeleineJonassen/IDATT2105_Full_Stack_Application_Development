@@ -1,5 +1,8 @@
 package edu.ntnu.idatt2105.model;
 
+/**
+ * Enum representing categories for quizzes.
+ */
 public enum QuizCategory {
   BUSINESS,
   ART,

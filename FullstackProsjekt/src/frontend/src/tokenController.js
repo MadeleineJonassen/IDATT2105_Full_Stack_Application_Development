@@ -1,4 +1,4 @@
-import {apiClient} from "@/api.js";
+import { apiClient } from "@/api.js";
 
 export const getToken = () => {
     return localStorage.getItem('token');
@@ -22,4 +22,15 @@ export const getIdByToken = async () => {
                 reject(error);
             });
     });
+};
+
+export const refreshAndStoreToken = async (existingToken) => {
+    try {
+        const response = await apiClient.post('/auth/refresh', { token: existingToken });
+        const newToken = response.data.token;
+        setToken(newToken); // Lagre det nye tokenet i localStorage
+        return newToken;
+    } catch (error) {
+        throw new Error('Failed to refresh token');
+    }
 };

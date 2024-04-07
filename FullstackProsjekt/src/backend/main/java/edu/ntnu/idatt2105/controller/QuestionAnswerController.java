@@ -13,19 +13,35 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.Optional;
 
+/**
+ * Controller class responsible for handling question-answer related endpoints.
+ */
 @RestController
 @RequestMapping("/question-answers")
 public class QuestionAnswerController {
 
   private final QuestionAnswerService questionAnswerService;
-  private QuestionService questionService;
+  private final QuestionService questionService;
 
+  /**
+   * Constructor for QuestionAnswerController.
+   *
+   * @param questionAnswerService An instance of QuestionAnswerService used for managing question answers.
+   * @param questionService      An instance of QuestionService used for managing questions.
+   */
   @Autowired
   public QuestionAnswerController(QuestionAnswerService questionAnswerService, QuestionService questionService) {
     this.questionAnswerService = questionAnswerService;
     this.questionService = questionService;
   }
 
+  /**
+   * Endpoint for saving a user's answer to a question.
+   *
+   * @param quizResultId The ID of the quiz result.
+   * @param answerDTO    The answer provided by the user.
+   * @return The saved question answer DTO.
+   */
   @PostMapping("/save")
   public QuestionAnswerDTO saveAnswer(@RequestParam Integer quizResultId,
                                       @RequestBody QuestionAnswerDTO answerDTO) {
@@ -33,12 +49,24 @@ public class QuestionAnswerController {
     return convertToQuestionAnswerDTO(savedAnswer);
   }
 
-  @GetMapping("/is-correct")
-public ResponseEntity<Boolean> isCorrect(@RequestBody QuestionAnswerDTO answerDTO) {
-    boolean correct = questionAnswerService.isCorrect(convertToQuestionAnswer(answerDTO));
+  /**
+   * Endpoint for checking if a question answer is correct.
+   *
+   * @param questionAnswerId The ID of the question answer.
+   * @return A ResponseEntity containing a boolean indicating whether the answer is correct or not.
+   */
+  @GetMapping("/is-correct/{questionAnswerId}")
+  public ResponseEntity<Boolean> isCorrect(@PathVariable Integer questionAnswerId) {
+    boolean correct = questionAnswerService.isCorrect(questionAnswerId);
     return new ResponseEntity<>(correct, HttpStatus.OK);
   }
 
+  /**
+   * Converts a QuestionAnswer entity to a QuestionAnswerDTO.
+   *
+   * @param questionAnswer The QuestionAnswer entity to convert.
+   * @return The converted QuestionAnswerDTO.
+   */
   private QuestionAnswerDTO convertToQuestionAnswerDTO(QuestionAnswer questionAnswer) {
     QuestionAnswerDTO dto = new QuestionAnswerDTO();
     dto.setId(questionAnswer.getId());
@@ -48,6 +76,13 @@ public ResponseEntity<Boolean> isCorrect(@RequestBody QuestionAnswerDTO answerDT
     return dto;
   }
 
+  /**
+   * Converts a QuestionAnswerDTO to a QuestionAnswer entity.
+   *
+   * @param questionAnswerDTO The QuestionAnswerDTO to convert.
+   * @return The converted QuestionAnswer entity.
+   * @throws QuestionNotFoundException If the associated question is not found.
+   */
   private QuestionAnswer convertToQuestionAnswer(QuestionAnswerDTO questionAnswerDTO) {
     Optional<Question> questionOptional = Optional.ofNullable(questionService.findQuestionById(questionAnswerDTO.getQuestionId()));
     Question question = questionOptional.orElseThrow(() ->

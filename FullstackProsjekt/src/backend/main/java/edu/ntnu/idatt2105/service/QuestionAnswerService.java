@@ -12,6 +12,9 @@ import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+/**
+ * Service class for managing question answers.
+ */
 @Service
 public class QuestionAnswerService {
 
@@ -19,6 +22,13 @@ public class QuestionAnswerService {
   private final QuizResultRepository quizResultRepository;
   private final QuestionRepository questionRepository;
 
+  /**
+   * Constructs a QuestionAnswerService.
+   *
+   * @param questionAnswerRepository The repository for question answer operations.
+   * @param quizResultRepository     The repository for quiz result operations.
+   * @param questionRepository       The repository for question operations.
+   */
   @Autowired
   public QuestionAnswerService(QuestionAnswerRepository questionAnswerRepository,
                                QuizResultRepository quizResultRepository,
@@ -28,6 +38,14 @@ public class QuestionAnswerService {
     this.questionRepository = questionRepository;
   }
 
+  /**
+   * Saves an answer to a question.
+   *
+   * @param quizResultId The ID of the quiz result.
+   * @param answerDTO    The DTO containing the answer details.
+   * @return The saved question answer.
+   * @throws EntityNotFoundException if the quiz result or question is not found.
+   */
   public QuestionAnswer saveAnswer(Integer quizResultId, QuestionAnswerDTO answerDTO) {
     QuizResult quizResult = quizResultRepository.findById(quizResultId)
             .orElseThrow(() -> new EntityNotFoundException("QuizResult not found with id: " + quizResultId));
@@ -42,7 +60,17 @@ public class QuestionAnswerService {
 
     return questionAnswerRepository.save(answer);
   }
-  public boolean isCorrect(QuestionAnswer questionAnswer) {
-    return questionAnswer.getQuestion().getAnswer().equalsIgnoreCase(questionAnswer.getGivenAnswer());
+
+  /**
+   * Checks if a question answer is correct.
+   *
+   * @param questionAnswerId The ID of the question answer.
+   * @return true if the answer is correct, false otherwise.
+   * @throws EntityNotFoundException if the question answer is not found.
+   */
+  public boolean isCorrect(Integer questionAnswerId) {
+    QuestionAnswer questionAnswer = questionAnswerRepository.findById(questionAnswerId)
+            .orElseThrow(() -> new EntityNotFoundException("QuestionAnswer not found with id: " + questionAnswerId));
+    return questionAnswer.isCorrect();
   }
 }

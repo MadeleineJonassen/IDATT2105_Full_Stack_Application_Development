@@ -26,16 +26,28 @@ import org.springframework.security.oauth2.server.resource.authentication.JwtAut
 import org.springframework.security.oauth2.server.resource.authentication.JwtGrantedAuthoritiesConverter;
 import org.springframework.security.web.SecurityFilterChain;
 
-
+/**
+ * Configuration class for Security.
+ */
 @Configuration
 public class SecurityConfiguration {
 
   private final RSAKeyProperties keys;
 
+  /**
+   * Constructor for SecurityConfiguration.
+   * @param keys RSAKeyProperties instance for handling RSA keys.
+   */
   public SecurityConfiguration(RSAKeyProperties keys) {
     this.keys = keys;
   }
 
+  /**
+   * Configures the AuthenticationManager bean.
+   * @param userDetailsService UserDetailsService instance for managing user details.
+   * @param encoder PasswordEncoder instance for encoding passwords.
+   * @return AuthenticationManager instance.
+   */
   @Bean
   public AuthenticationManager authenticationManager(UserDetailsService userDetailsService, PasswordEncoder encoder) {
     DaoAuthenticationProvider daoAuthenticationProvider = new DaoAuthenticationProvider();
@@ -43,17 +55,30 @@ public class SecurityConfiguration {
     daoAuthenticationProvider.setPasswordEncoder(encoder);
     return new ProviderManager(daoAuthenticationProvider);
   }
+
+  /**
+   * Configures the PasswordEncoder bean.
+   * @return PasswordEncoder instance.
+   */
   @Bean
   public PasswordEncoder passwordEncoder() {
     return new BCryptPasswordEncoder();
   }
 
+  /**
+   * Configures the SecurityFilterChain bean.
+   * @param httpSecurity HttpSecurity instance for configuring security settings.
+   * @return SecurityFilterChain instance.
+   * @throws Exception Exception thrown for configuration errors.
+   */
   @Bean
   public SecurityFilterChain filterChain(HttpSecurity httpSecurity) throws Exception {
     return httpSecurity
             .csrf(AbstractHttpConfigurer::disable)
             .authorizeHttpRequests(auth -> {
-              auth.requestMatchers("/api/**").permitAll();
+              auth.requestMatchers("/api/**",
+                      "/v3/api-docs/",
+                      "/swagger-ui/").permitAll();
               auth.anyRequest().authenticated();
 
             })
@@ -66,11 +91,19 @@ public class SecurityConfiguration {
             .build();
   }
 
+  /**
+   * Configures the JwtDecoder bean.
+   * @return JwtDecoder instance.
+   */
   @Bean
   public JwtDecoder jwtDecoder() {
     return NimbusJwtDecoder.withPublicKey(keys.getPublicKey()).build();
   }
 
+  /**
+   * Configures the JwtEncoder bean.
+   * @return JwtEncoder instance.
+   */
   @Bean
   public JwtEncoder jwtEncoder() {
     JWK jwk = new RSAKey.Builder(keys.getPublicKey()).privateKey(keys.getPrivateKey()).build();
@@ -78,6 +111,10 @@ public class SecurityConfiguration {
     return new NimbusJwtEncoder(jwkSource);
   }
 
+  /**
+   * Configures the JwtAuthenticationConverter bean.
+   * @return JwtAuthenticationConverter instance.
+   */
   @Bean
   public JwtAuthenticationConverter jwtAuthenticationConverter() {
     JwtGrantedAuthoritiesConverter jwtGrantedAuthoritiesConverter = new JwtGrantedAuthoritiesConverter();
@@ -90,6 +127,3 @@ public class SecurityConfiguration {
     return jwtAuthenticationConverter;
   }
 }
-
-
-
