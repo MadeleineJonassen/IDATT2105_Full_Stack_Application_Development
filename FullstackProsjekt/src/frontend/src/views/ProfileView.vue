@@ -10,18 +10,17 @@ export default {
 	components: {Modal, Svg},
 	data() {
 		return {
-			username: '',
 			userId: null,
 			quizList:[],
 			showModal: ref(false),
+			isLoggedIn: true,
 			user: {
-				username: this.username,
-				avatar: '',
-			},
-		}
+				username: '',
+			}
+		};
 	},
 	mounted() {
-		this.username = localStorage.getItem('username');
+		this.user.username = localStorage.getItem('username');
 		this.populateQuizzes();
 	},
 	computed: {
@@ -30,12 +29,12 @@ export default {
 			return [
 				{ id: 1, quizTitle: 'Math Quiz', score: '80%', date: '2024-04-05' },
 				{ id: 2, quizTitle: 'Science Quiz', score: '90%', date: '2024-04-04' }
-				// Add more quiz attempt objects as needed
 			];
 		}
 	},
 	methods:{
 		logout(){
+			this.isLoggedIn = false;
 			this.$router.push('/login');
 		},
 		closeModal(){
@@ -63,12 +62,14 @@ export default {
 		<!-- User information section -->
 		<section class="user-info">
 			<h2>User Profile</h2>
-			<div class="user-details">
-				<Svg  class="profile-pic"  name="default-avatar"/>
+			<div class="user-details" v-if="!loading">
+				<Svg class="profile-pic" name="default-avatar"/>
 				<div>
-					<h3>{{ username }}</h3>
+					<h3> Username: </h3>
+					<h4>{{ user.username }} </h4>
 				</div>
 			</div>
+
 		</section>
 
 		<!-- Quizzes created by the user -->
@@ -76,14 +77,12 @@ export default {
 			<h2>My Quizzes</h2>
 			<div v-if="quizList.length > 0">
 				<div v-for="quiz in quizList" :key="quiz.id">
-					<!-- Display quiz details here -->
 					<p>{{ quiz.name }}</p>
-					<!-- Add more details as needed -->
 				</div>
 			</div>
 			<div v-else>
 				<p>No quizzes found.</p>
-				<button class="add-Btn"> Create quiz now!</button>
+				<router-link to="/create-quiz" class="add-Btn"> Create quiz now!</router-link>
 			</div>
 		</section>
 
@@ -113,10 +112,10 @@ export default {
 					<Teleport to="body">
 					<Modal :show="showModal">
 						<template #header>
-							<h1> You are about to logout!</h1>
+							<h1> You are about to sign out!</h1>
 						</template>
 						<template #body>
-							<p> Are you sure?</p>
+							<p>Are you sure?</p>
 						</template>
 						<template #footer>
 							<button @click="logout" class="add-Btn"> Yes </button>
@@ -129,11 +128,8 @@ export default {
 
 	</div>
 	</body>
-
-
-
-
 </template>
+
 
 <style scoped>
 .profile {
@@ -155,13 +151,6 @@ export default {
 .user-details {
 	display: flex;
 	align-items: center;
-}
-
-.user-details img {
-	width: 100px;
-	height: 100px;
-	border-radius: 50%;
-	margin-right: 20px;
 }
 
 .user-details div {
