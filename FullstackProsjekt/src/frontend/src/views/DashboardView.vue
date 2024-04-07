@@ -1,15 +1,18 @@
 <template>
+	<body>
 	<div class="dashboard">
 		<div class="top-bar">
-			<router-link to="/" ><Svg name="go-back-icon"/></router-link>
+			<router-link to="/" ><Svg name="go-back-icon" class="go-back-icon"/></router-link>
 
 			<div class="search-container">
 				<input class="searchBox" v-model="searchTerm" placeholder="Search for category...">
 			</div>
+
 			<div class="create-container">
 				<router-link to="/overviewQuiz" class="add-Btn">YOUR QUIZZES</router-link>
 			</div>
 		</div>
+
 		<div class="row">
 			<div class="quiz-list">
 				<div class="quiz-col" v-for="quiz in filteredQuizList" :key="quiz.id">
@@ -27,7 +30,9 @@
 			</div>
 		</div>
 	</div>
+	</body>
 </template>
+
 
 <script>
 import { apiClient } from "@/api.js";
@@ -76,16 +81,17 @@ export default {
 	justify-content: space-between;
 	align-items: center;
 	margin-bottom: 10vh;
-	margin-top: 2vh;
+	margin-top: 4vh;
+}
+.go-back-icon{
+	margin-left: 1px;
 }
 .search-container {
 	flex-grow: 1;
 }
-
 .create-container {
 	flex-shrink: 0;
 }
-
 .searchBox {
 	width: 250px;
 	padding: 10px;
@@ -93,7 +99,6 @@ export default {
 	display: block;
 	text-align: center;
 }
-
 .quiz-col {
 	flex-basis: 31%;
 	background: #d7d7d7;

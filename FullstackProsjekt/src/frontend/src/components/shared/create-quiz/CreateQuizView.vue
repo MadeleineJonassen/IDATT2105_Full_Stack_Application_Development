@@ -6,7 +6,6 @@ import {categoryEnums} from "@/data/categories.js"
 import {difficultyEnums} from "@/data/difficulties.js";
 import Svg from "@/assets/Svg.vue";
 
-//like editquiz, but w/o questions, redirect to edit when quiz is constructed
 
 export default {
 	components: {Svg},
@@ -24,7 +23,6 @@ export default {
 			categories: categoryEnums,
 			selectedDifficulty: null,
 			difficulties: difficultyEnums,
-			//TODO: make quiz object
 		};
 	},
 	mounted() {
@@ -57,7 +55,6 @@ export default {
 <template>
 	<body>
 	<router-link to="/overviewQuiz" ><Svg name="go-back-icon" class="go-back-section"/></router-link>
-
 	<div class="new-quiz-page">
 		<form @submit.prevent="constructQuiz">
 			<div class="newQuizDiv">

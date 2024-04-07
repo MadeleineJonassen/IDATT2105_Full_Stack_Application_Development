@@ -1,3 +1,17 @@
+<template>
+	<router-link :to="to" class="link" :class="{ active: isActive }">
+		<div class="icon-wrapper" v-if="collapsed">
+			<Svg :name="icon" class="icon" />
+		</div>
+		<Transition name="fade">
+      <span v-if="!collapsed" class="link-content">
+        <Svg :name="icon" class="icon" />
+        <slot />
+      </span>
+		</Transition>
+	</router-link>
+</template>
+
 <script>
 import { computed } from 'vue'
 import { useRoute } from 'vue-router'
@@ -18,32 +32,16 @@ export default {
 }
 </script>
 
-<template>
-	<router-link :to="to" class="link" :class="{ active: isActive }">
-		<div class="icon-wrapper" v-if="collapsed">
-			<Svg :name="icon" class="icon" />
-		</div>
-		<Transition name="fade">
-      <span v-if="!collapsed" class="link-content">
-        <Svg :name="icon" class="icon" />
-        <slot />
-      </span>
-		</Transition>
-	</router-link>
-</template>
-
 <style scoped>
 .fade-enter-active,
 .fade-leave-active {
 	transition: opacity 0.1ms ease;
 }
-
 .fade-enter,
 .fade-leave-to {
 	transform: translateX(20px);
 	opacity: 0;
 }
-
 .link {
 	font-weight: 400;
 	padding: 0.2em;
@@ -53,22 +51,18 @@ export default {
 	text-decoration: none;
 	margin: 1px;
 }
-
 .link:hover {
 	background-color: var(--sidebar-item-hover);
 }
-
 .link.active {
 	background-color: var(--sidebar-item-active);
 	color: #242f40;
 }
-
 .icon {
 	width: 2.2em;
 	height: 2.2em;
 	margin-right: 1vh;
 }
-
 .link-content {
 	display: flex;
 	align-items: center;

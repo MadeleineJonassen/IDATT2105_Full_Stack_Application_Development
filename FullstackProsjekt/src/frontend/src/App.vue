@@ -1,7 +1,15 @@
+<template>
+	<Sidebar/>
+	<div style="{'margin-left': sidebarWidth}">
+		<RouterView />
+	</div>
+</template>
+
+
 <script>
 import { RouterLink, RouterView } from 'vue-router';
 import { onMounted, onUnmounted, watch } from 'vue';
-import { getToken, setToken, removeToken, refreshAndStoreToken } from '@/tokenController.js';
+import { getToken, refreshAndStoreToken } from '@/tokenController.js';
 import Sidebar from "@/components/shared/sidebar/Sidebar.vue"
 import { sidebarWidth}  from "@/components/shared/sidebar/state.js";
 
@@ -10,7 +18,6 @@ export default {
   setup() {
     let intervalId = null;
 
-    // Start interval for token refresh
     const startInterval = () => {
       if (!intervalId && getToken()) {
         intervalId = setInterval(async () => {
@@ -20,7 +27,6 @@ export default {
       }
     };
 
-    // Stop interval for token refresh
     const stopInterval = () => {
       if (intervalId) {
         clearInterval(intervalId);
@@ -28,7 +34,6 @@ export default {
       }
     };
 
-    // Refresh token
     const refreshToken = async () => {
       try {
         const existingToken = getToken();
@@ -67,10 +72,3 @@ export default {
   }
 };
 </script>
-
-<template>
-  <Sidebar/>
-  <div style="{'margin-left': sidebarWidth}">
-    <RouterView />
-  </div>
-</template>

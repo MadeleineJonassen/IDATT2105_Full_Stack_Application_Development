@@ -11,7 +11,6 @@ const icon = defineAsyncComponent(()=>
 )
 </script>
 
-
 <template>
 	<component class="icon" :is="icon"/>
 </template>
