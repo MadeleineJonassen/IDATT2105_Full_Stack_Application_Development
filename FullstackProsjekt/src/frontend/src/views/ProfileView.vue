@@ -41,7 +41,10 @@ export default {
 	},
 	methods:{
 		logout(){
-			alert("Clicked")
+			this.$router.push('/login');
+		},
+		closeModal(){
+			this.showModal=false;
 		}
 	}
 };
@@ -102,8 +105,17 @@ export default {
 				<li><router-link to="/overviewQuiz">Create quiz</router-link></li>
 				<li> <button class="delete-btn" @click="showModal = true">Logout</button>
 					<Teleport to="body">
-					<Modal :show="showModal" @close="destroyModal">
-
+					<Modal :show="showModal">
+						<template #header>
+							<h1> You are about to logout!</h1>
+						</template>
+						<template #body>
+							<p> Are you sure?</p>
+						</template>
+						<template #footer>
+							<button @click="logout"> Yes </button>
+							<button @click="closeModal"> No </button>
+						</template>
 					</Modal>
 				</Teleport></li>
 			</ul>
