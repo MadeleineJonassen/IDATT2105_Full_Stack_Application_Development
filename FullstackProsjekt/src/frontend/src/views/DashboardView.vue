@@ -1,4 +1,5 @@
 <template>
+	<body>
 	<div class="dashboard">
 		<div class="top-bar">
 			<router-link to="/" ><Svg name="go-back-icon"/></router-link>
@@ -29,7 +30,9 @@
 			</div>
 		</div>
 	</div>
+	</body>
 </template>
+
 
 <script>
 import { apiClient } from "@/api.js";
@@ -83,11 +86,9 @@ export default {
 .search-container {
 	flex-grow: 1;
 }
-
 .create-container {
 	flex-shrink: 0;
 }
-
 .searchBox {
 	width: 250px;
 	padding: 10px;
@@ -95,7 +96,6 @@ export default {
 	display: block;
 	text-align: center;
 }
-
 .quiz-col {
 	flex-basis: 31%;
 	background: #d7d7d7;

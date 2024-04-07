@@ -82,33 +82,31 @@
 	</body>
 </template>
 
+
 <script>
 export default {
 	name: 'About',
 };
 </script>
 
+
 <style>
 .about-section {
 	background-image: linear-gradient(rgba(4,9,30,0.7), rgba(4,9,30,0.7)),url("@/components/photos/wheel-backdrop.png");
 	padding: 20px;
 }
-
 .columns {
 	display: flex;
 	justify-content: space-between;
 	margin: 10vh;
 }
-
 .column ul li {
 	margin-bottom: 20px;
 }
-
 .column {
 	flex: 1;
 	margin-right: 20px;
 }
-
 .column p{
 	font-size: 14px;
 }
@@ -118,35 +116,27 @@ p {
 li{
 	font-size: 16px;
 }
-
 .card {
 	box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
 	margin: 8px auto; /* Center the cards horizontally */
 	padding: 10px;
 	max-width: 400px; /* Adjust the maximum width of the card */
 }
-
-
 .about-section {
 	padding: 10vh 10vh 10vh 10vh;
 	text-align: center;
 	color: #ffffff;
-
 }
 .our-team{
 	color: #242F40;
 }
-
 .container {
 	padding: 0 16px;
 	color: #242F40;
 }
-
 .title {
 	color: grey;
 }
-
-
 #logo{
 	width: 100%;
 }
