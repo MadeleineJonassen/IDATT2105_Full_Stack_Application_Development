@@ -34,16 +34,20 @@ export default {
       //TODO: make quiz object
     };
   },
-  mounted() {
+  beforeMount() {
     this.quizId = this.$route.params.quizId;
     this.getQuiz(this.quizId);
+  },
+  mounted() {
+    //this.quizId = this.$route.params.quizId;
+    //this.getQuiz(this.quizId);
   },
   methods: {
     getQuiz(quizId) {
       console.log('Fetching data for quiz: ', quizId);
       try {
-        apiClient.get('/quiz/quiz/' + this.quizId).then(response => {
-          console.log(response)
+        apiClient.get('/questions/allQuestionsToAQuiz/' + this.quizId).then(response => {
+          console.log(response);
           this.quizTitle = JSON.parse(response.data.title);
           this.questions = response.data.questions;
           this.creatorId = JSON.parse(response.data.creatorId);
@@ -52,6 +56,7 @@ export default {
         });
       } catch (error) {
         //TODO: proper error handling
+        console.log(error);
         this.errorMsg = 'Error retrieving quizzes';
       }
     },
@@ -157,10 +162,10 @@ async function submitQuestion() {
 	<body>
 		<div class="newQuizDiv">
 			<router-link to="/overviewQuiz"> <-  </router-link>
-			<h1>Edit quiz {{quizId}}</h1>
+			<h1>Edit quiz: {{quizTitle}}</h1>
       <div class="question-div">
-        <QuestionCard  v-for="question in questions" :question-id=question.id
-                      :key="question.id"/>
+        <QuestionCard id="questionCard" v-for="question in questions" :key="question.id" :question-id=question.id
+                      />
       </div>
       <NewQuestionModel v-if="showNewQuestion" @close="hideNewQuestion" quiz-id="this.quizId"/>
 
