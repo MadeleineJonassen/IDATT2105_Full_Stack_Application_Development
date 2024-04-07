@@ -59,6 +59,11 @@ const router = createRouter({
       component: EditQuizView,
       params: true
     },
+    {
+      path: '/profile',
+      name: 'profile',
+      component: () => import('../views/ProfileView.vue')
+    }
   ]
 })
 
