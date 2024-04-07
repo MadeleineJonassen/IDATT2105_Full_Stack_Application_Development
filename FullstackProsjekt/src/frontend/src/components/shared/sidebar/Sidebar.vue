@@ -45,11 +45,7 @@ export default {
 
 
 <style>
-:root{
-	--sidebar-bd-color: #242F40;
-	--sidebar-item-hover: #CCA43B;
-	--sidebar-item-active: #CCA43B;
-}
+
 </style>
 <style scoped>
 .sidebar{
