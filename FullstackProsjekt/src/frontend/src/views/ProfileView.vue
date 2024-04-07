@@ -1,32 +1,88 @@
+
+
+<script>
+import Svg from "@/assets/Svg.vue";
+import Modal from "@/components/shared/modal/Modal.vue"
+import {ref} from 'vue'
+
+
+export default {
+	components: {Modal, Svg},
+	data() {
+		return {
+			userId: null,
+			quizList:[],
+			showModal: ref(false),
+			isLoggedIn: true,
+			user: {
+				username: '',
+			}
+		};
+	},
+	mounted() {
+		this.user.username = localStorage.getItem('username');
+		this.populateQuizzes();
+	},
+	computed: {
+		quizAttempts() {
+			// Mock data for quiz attempts (replace with actual data)
+			return [
+				{ id: 1, quizTitle: 'Math Quiz', score: '80%', date: '2024-04-05' },
+				{ id: 2, quizTitle: 'Science Quiz', score: '90%', date: '2024-04-04' }
+			];
+		}
+	},
+	methods:{
+		logout(){
+			this.isLoggedIn = false;
+			this.$router.push('/login');
+		},
+		closeModal(){
+			this.showModal=false;
+		},
+		async populateQuizzes() {
+			try {
+				await this.setUserId();
+				const response = await apiClient.get('/quiz/creator/' + this.userId);
+				this.quizList = response.data;
+			} catch (error) {
+				console.error('Error retrieving quizzes:', error);
+			}
+		},
+		async setUserId() {
+			this.userId = await getIdByToken();
+		}
+	}
+};
+</script>
+
 <template>
 	<body>
 	<div class="profile">
 		<!-- User information section -->
 		<section class="user-info">
 			<h2>User Profile</h2>
-			<div class="user-details">
-				<Svg  class="profile-pic"  name="default-avatar"/>
-				<!-- <img :src="user.avatar" alt="User Avatar">  -->
+			<div class="user-details" v-if="!loading">
+				<Svg class="profile-pic" name="default-avatar"/>
 				<div>
-					<h3>{{ user.username }}</h3>
-					<p>{{ user.email }}</p>
-					<p>Member since {{ user.memberSince }}</p>
+					<h3> Username: </h3>
+					<h4>{{ user.username }} </h4>
 				</div>
 			</div>
+
 		</section>
 
 		<!-- Quizzes created by the user -->
 		<section class="user-quizzes">
 			<h2>My Quizzes</h2>
-			<div v-if="userQuizzes.length === 0">
-				<p>No quizzes created yet.</p>
+			<div v-if="quizList.length > 0">
+				<div v-for="quiz in quizList" :key="quiz.id">
+					<p>{{ quiz.name }}</p>
+				</div>
 			</div>
 			<div v-else>
-				<div class="quiz" v-for="quiz in userQuizzes" :key="quiz.id">
-					<h3>{{ quiz.title }}</h3>
-					<p>{{ quiz.description }}</p>
-					<!-- Add more details about each quiz as needed -->
-				</div>
+				<p>No quizzes found.</p>
+				<router-link to="/create-quiz" class="add-Btn"> Create quiz now!</router-link>
 			</div>
 		</section>
 
@@ -52,52 +108,28 @@
 			<ul>
 				<li><router-link to="/edit-profile">Edit Profile</router-link></li>
 				<li><router-link to="/change-password">Change Password</router-link></li>
-				<li><router-link to="/overviewQuiz">Create quiz</router-link></li>
+				<li> <button class="delete-btn" @click="showModal = true">Logout</button>
+					<Teleport to="body">
+					<Modal :show="showModal">
+						<template #header>
+							<h1> You are about to sign out!</h1>
+						</template>
+						<template #body>
+							<p>Are you sure?</p>
+						</template>
+						<template #footer>
+							<button @click="logout" class="add-Btn"> Yes </button>
+							<button @click="closeModal" class="close-btn"> No </button>
+						</template>
+					</Modal>
+				</Teleport></li>
 			</ul>
 		</section>
+
 	</div>
 	</body>
 </template>
 
-<script>
-import Svg from "@/assets/Svg.vue";
-
-export default {
-	components: {Svg},
-	data() {
-		return {
-			user: {
-				username: 'JohnDoe',
-				email: 'johndoe@example.com',
-				avatar: '@/components/photos/developers/MadJon.png',
-				memberSince: 'May 2024'
-			},
-			userQuizzes: [
-				{
-					id: 1,
-					title: 'Math Quiz',
-					description: 'Test your math skills with this quiz'
-				},
-				{
-					id: 2,
-					title: 'Science Quiz',
-					description: 'Explore various science topics in this quiz'
-				}
-			]
-		}
-	},
-	computed: {
-		quizAttempts() {
-			// Mock data for quiz attempts (replace with actual data)
-			return [
-				{ id: 1, quizTitle: 'Math Quiz', score: '80%', date: '2024-04-05' },
-				{ id: 2, quizTitle: 'Science Quiz', score: '90%', date: '2024-04-04' }
-				// Add more quiz attempt objects as needed
-			];
-		}
-	}
-};
-</script>
 
 <style scoped>
 .profile {
@@ -119,13 +151,6 @@ export default {
 .user-details {
 	display: flex;
 	align-items: center;
-}
-
-.user-details img {
-	width: 100px;
-	height: 100px;
-	border-radius: 50%;
-	margin-right: 20px;
 }
 
 .user-details div {
@@ -154,6 +179,11 @@ export default {
 	text-decoration: none;
 	color: #CCA43B;
 }
+.profile-options ul li a:hover{
+	color: #a2822e;
+	text-decoration: underline;
+}
+
 
 .progress-tracking {
 	margin-bottom: 40px;
