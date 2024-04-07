@@ -2,7 +2,7 @@
 	<body>
 	<div class="overViewQuestion-page">
     <div class="headerDiv">
-	    <router-link to="/dashboard" ><Svg name="go-back-icon"/></router-link>
+	    <router-link to="/dashboard" ><Svg name="go-back-icon" class="go-back-icon"/></router-link>
 	    <h1>Your quizzes</h1>
 	    <router-link to="/create-quiz" class="add-Btn">Create new quiz</router-link>
     </div>
@@ -67,6 +67,9 @@ export default {
 	align-items: center;
 	margin-bottom: 8vh;
 }
+.go-back-icon{
+	margin-left: 1px;
+}
 .quiz-div {
   display: flex;
   flex-wrap: wrap;
@@ -74,5 +77,4 @@ export default {
   float: left;
   box-sizing: border-box;
 }
-
 </style>

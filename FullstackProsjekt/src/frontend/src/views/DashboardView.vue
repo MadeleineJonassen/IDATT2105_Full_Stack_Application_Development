@@ -2,7 +2,7 @@
 	<body>
 	<div class="dashboard">
 		<div class="top-bar">
-			<router-link to="/" ><Svg name="go-back-icon"/></router-link>
+			<router-link to="/" ><Svg name="go-back-icon" class="go-back-icon"/></router-link>
 
 			<div class="search-container">
 				<input class="searchBox" v-model="searchTerm" placeholder="Search for category...">
@@ -74,14 +74,17 @@ export default {
 
 <style>
 .dashboard{
-	padding: 40px;
+	padding: 20px;
 }
 .top-bar {
 	display: flex;
 	justify-content: space-between;
 	align-items: center;
 	margin-bottom: 10vh;
-	margin-top: 2vh;
+	margin-top: 4vh;
+}
+.go-back-icon{
+	margin-left: 1px;
 }
 .search-container {
 	flex-grow: 1;
