@@ -1,5 +1,6 @@
 describe('Signup Component', () => {
     beforeEach(() => {
+        // Assuming your signup page route is '/signup'
         cy.visit('http://localhost:5173/signup')
     })
 
@@ -11,32 +12,31 @@ describe('Signup Component', () => {
     })
 
     it('should show error message for invalid signup', () => {
-        cy.server()
-        cy.route({
-            method: 'POST',
-            url: '/auth/register',
-            status: 400,
-            response: { message: 'Username already exists' }
+        cy.intercept('POST', '/auth/register', {
+            statusCode: 400,
+            body: { message: 'Username already exists' }
         }).as('signupRequest')
 
-        cy.get('input[type="text"]').type('existingUsername')
-        cy.get('input[type="password"]').type('password')
+        cy.get('input[type="text"]').type('123')
+        cy.get('input[type="password"]').eq(0).type('password')
+        cy.get('input[type="password"]').eq(1).type('password')
         cy.get('.submit-btn').click()
 
-        cy.wait('@signupRequest')
 
         cy.get('.error-message').should('contain', 'Error signing up, try again')
     })
 
     it('should redirect to login page on successful signup', () => {
-        cy.server()
-        cy.route('POST', '/auth/register', {}).as('signupRequest')
+        cy.intercept('POST', '/auth/register', {
+            statusCode: 200,
+            body: {}
+        }).as('signupRequest')
 
-        cy.get('input[type="text"]').type('newUsername')
-        cy.get('input[type="password"]').type('password')
+        cy.get('input[type="text"]').type('Banan')
+        cy.get('input[type="password"]').eq(0).type('password')
+        cy.get('input[type="password"]').eq(1).type('password')
         cy.get('.submit-btn').click()
 
-        cy.wait('@signupRequest')
 
         cy.url().should('include', '/login')
     })

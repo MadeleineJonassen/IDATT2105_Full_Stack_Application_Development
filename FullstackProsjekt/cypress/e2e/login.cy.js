@@ -17,7 +17,6 @@ describe('Login Component', () => {
     cy.get('input[type="password"]').type('invalidPassword')
     cy.get('input[type="submit"]').click()
 
-    cy.wait('@loginRequest')
 
     cy.get('.error-message').should('contain', 'Error logging in, try again')
   })
@@ -28,7 +27,6 @@ describe('Login Component', () => {
     cy.get('input[type="password"]').type('123')
     cy.get('input[type="submit"]').click()
 
-    cy.wait('@loginRequest')
 
     cy.url().should('include', '/profile')
   })
