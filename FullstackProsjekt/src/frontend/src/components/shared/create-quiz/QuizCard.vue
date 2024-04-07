@@ -41,6 +41,7 @@ export default {
       router.push({name: 'playQuiz', params: {quizId: this.quizId}});
     },
     editQuiz() {
+      console.log("edit quiz " + this.quizTitle);
       //create new router-method to editQuiz, using quizId
       router.push({name: 'editQuiz', params: {quizId: this.quizId}});
     },
@@ -61,7 +62,7 @@ export default {
       <p>{{ quizCategory }}</p>
     </div>
     <div class="quiz-footer">
-      <button @click="playQuiz" class="play-btn">Play</button>
+      <!--<button @click="playQuiz" class="play-btn">Play</button>-->
       <button @click="editQuiz" class="edit-btn">Edit</button>
     </div>
   </div>
