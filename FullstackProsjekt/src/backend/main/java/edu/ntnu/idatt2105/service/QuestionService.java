@@ -5,6 +5,7 @@ import edu.ntnu.idatt2105.model.Question;
 import edu.ntnu.idatt2105.model.QuestionType;
 import edu.ntnu.idatt2105.repository.QuestionRepository;
 import edu.ntnu.idatt2105.repository.QuizRepository;
+import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -34,40 +35,50 @@ public class QuestionService {
     }
 
     /**
-     * Creates or updates a question.
+     * Creates a question.
      *
      * @param questionDTO The DTO containing the question details.
-     * @return The created or updated question.
+     * @return The created question.
      */
-    @Transactional
-    public Question createOrUpdateQuestion(QuestionDTO questionDTO) {
-        Question question;
-        if (questionDTO.getId() != null) {
-            Optional<Question> optionalQuestion = questionRepository.findById(questionDTO.getId());
-            if (!optionalQuestion.isPresent()) {
-                return null;
-            }
-            question = optionalQuestion.get();
-        } else {
-            question = new Question();
-        }
-
+    public Question createQuestion(QuestionDTO questionDTO) {
+        Question question = new Question();
         question.setQuestionText(questionDTO.getQuestionText());
         question.setType(questionDTO.getType());
-
-        if (questionDTO.getType().equals(QuestionType.MULTIPLE_CHOICE)) {
-            question.setOptions(questionDTO.getOptionsAsString());
-        } else if (questionDTO.getType().equals(QuestionType.TRUE_OR_FALSE)) {
+        if (questionDTO.getType() == QuestionType.TRUE_OR_FALSE) {
             question.setOptions("TRUE*FALSE");
-        } else {
-            question.setOptions(null);
+        } else if (questionDTO.getOptions() != null) {
+            question.setOptions(questionDTO.getOptionsAsString());
         }
         question.setAnswer(questionDTO.getAnswer());
         question.setScore(questionDTO.getScore());
-        question.setQuiz(quizRepository.findById(questionDTO.getQuizId()).orElse(null));
+        question.setQuiz(quizRepository.findById(questionDTO.getQuizId())
+                .orElseThrow(() -> new EntityNotFoundException("Quiz not found for ID: " + questionDTO.getQuizId())));
 
         return questionRepository.save(question);
     }
+
+
+    /**
+     * Updates a question
+     *
+     * @param questionDTO The DTO containing the question details.
+     * @return The updated question.
+     */
+    public Question updateQuestion(QuestionDTO questionDTO) {
+        Question question = questionRepository.findById(questionDTO.getId())
+                .orElseThrow(() -> new EntityNotFoundException("Question not found for ID: " + questionDTO.getId()));
+
+        question.setQuestionText(questionDTO.getQuestionText());
+        question.setType(questionDTO.getType());
+        if (questionDTO.getOptions() != null) {
+            question.setOptions(questionDTO.getOptionsAsString());
+        }
+        question.setAnswer(questionDTO.getAnswer());
+        question.setScore(questionDTO.getScore());
+
+        return questionRepository.save(question);
+    }
+
 
     /**
      * Deletes a question by its ID.
