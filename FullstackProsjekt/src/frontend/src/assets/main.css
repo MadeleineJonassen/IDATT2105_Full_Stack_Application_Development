@@ -29,7 +29,6 @@ select{
     margin: 90px;
 }
 
-/* Other */
 .row{
     margin-top: 5%;
     display: flex;
@@ -49,19 +48,12 @@ select{
 .course-col:hover{
     box-shadow: 0 0 20px 0px rgba(0,0,0,0.3);
 }
-
-
-
-/* ERROR HANDLE */
 .error-message{
     color: #e53a1c;
     padding: 10px;
     font-size: 16px;
     margin-bottom: 20px;
 }
-
-
-/* BUTTONS */
 .play-btn{
     padding: 10px;
     text-decoration: none;
@@ -128,7 +120,6 @@ select{
     margin-top: 10px;
     cursor: pointer;
 }
-
 .close-btn{
     background-color: #d2442b;
     padding: 10px;
@@ -154,7 +145,6 @@ select{
     cursor: pointer;
     width: 120px;
     height: 50px;
-
 }
 .submit-btn:hover{
     background-color: #a67d0e;
@@ -164,10 +154,6 @@ select{
     background-color: #2D333B;
     color: white;
 }
-
-
-
-
 @media (max-width: 700px){
     .row{
         flex-direction: column;
