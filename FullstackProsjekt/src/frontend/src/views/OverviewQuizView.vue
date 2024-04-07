@@ -8,7 +8,7 @@
         <h1>Your quizzes</h1>
         <p>Select a quiz for your creation to either play, edit or delete</p>
       </div>
-	      <router-link to="/create-quiz" class="add-Btn">New quiz</router-link>
+	      <router-link to="/createQuiz" class="add-Btn">New quiz</router-link>
       </div>
 
 		<div class="row">
