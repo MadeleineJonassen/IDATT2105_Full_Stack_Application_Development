@@ -24,7 +24,7 @@ export default {
 	<!----- Info ----->
 	<section class="info">
 		<h1>Ace your classes with our new learning platform</h1>
-		<p>Discover deeper learning with harder difficulties</p>
+		<p>Explore our various difficulties and challenge yourself</p>
 
 		<div class="row">
 			<div class="course-col">

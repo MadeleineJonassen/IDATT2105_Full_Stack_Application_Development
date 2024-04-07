@@ -4,28 +4,27 @@
 		<h1>About</h1>
 		<p>Welcome to our quiz web application! We provide a comprehensive and user-friendly platform for creating, managing, and taking quizzes for educational, training, or entertainment purposes.</p>
 		<div class="space"> </div>
-		<h2>Our Features</h2>
+	</div>
+
+	<div>
 		<div class="columns">
+			<h2>Our Features</h2>
+
 			<div class="column">
 				<ul>
-					<li>Quiz Creation: Create quizzes with various question types, difficulty levels, and multimedia elements.</li>
-					<li>Tagging and Categorization: Organize your questions with difficulty level and categories.</li>
-					<li>Search and Filter: Quickly find relevant questions based on categories and difficulty levels.</li>
-					<li>Question Management: Add, edit, delete, and organize questions within quizzes.</li>
-				</ul>
-			</div>
-			<div class="column">
-				<ul>
-					<li>Quiz Templates: Use pre-designed or customizable templates for easy quiz creation.</li>
-					<li>Import and Export: Import questions from external sources and export quizzes in various formats.</li>
-					<li>Scoring and Feedback: Automatically score quizzes and provide immediate feedback.</li>
-					<li>Progress Tracking: Track your progress, view past quiz attempts, and monitor performance statistics.</li>
-					<li>Feedback and Support: Provide feedback, report issues, and access customer support.</li>
+					<li><strong>Quiz Creation:</strong> Create quizzes with various question types, difficulty levels, and multimedia elements.</li>
+					<li><strong>Tagging and Categorization:</strong> Organize your questions with difficulty level and categories.</li>
+					<li><strong>Search and Filter:</strong> Quickly find relevant questions based on categories and difficulty levels.</li>
+					<li><strong>Question Management:</strong> Add, edit, delete, and organize questions within quizzes.</li>
+					<li><strong>Quiz Templates:</strong> Use pre-designed or customizable templates for easy quiz creation.</li>
+					<li><strong>Import and Export:</strong> Import questions from external sources and export quizzes in various formats.</li>
+					<li><strong>Scoring and Feedback:</strong> Automatically score quizzes and provide immediate feedback.</li>
+					<li><strong>Progress Tracking:</strong> Track your progress, view past quiz attempts, and monitor performance statistics.</li>
+					<li><strong>Feedback and Support:</strong> Provide feedback, report issues, and access customer support.</li>
 				</ul>
 			</div>
 		</div>
 	</div>
-
 
 
 	<h1 class ="our-team" style="text-align:center">Our Team</h1>
@@ -38,7 +37,6 @@
 					<p class="title">Developer</p>
 					<p>2 year Bachelor in Computer Science at NTNU Trondheim </p>
 					<p>torbjorn@ntnu.no</p>
-					<p><button class="button">Contact</button></p>
 				</div>
 			</div>
 		</div>
@@ -51,7 +49,6 @@
 					<p class="title">Developer</p>
 					<p>2 year Bachelor in Computer Science at NTNU Trondheim</p>
 					<p>heine@ntnu.no</p>
-					<p><button class="button">Contact</button></p>
 				</div>
 			</div>
 		</div>
@@ -65,7 +62,6 @@
 					<p class="title">Developer</p>
 					<p>2 year Bachelor in Computer Science at NTNU Trondheim</p>
 					<p>kristiane@ntnu.no</p>
-					<p><button class="button">Contact</button></p>
 				</div>
 			</div>
 		</div>
@@ -78,7 +74,6 @@
 					<p class="title">Developer</p>
 					<p>2 year Bachelor in Computer Science at NTNU Trondheim</p>
 					<p>madelesj@ntnu.no</p>
-					<p><button class="button">Contact</button></p>
 				</div>
 			</div>
 		</div>
@@ -94,9 +89,19 @@ export default {
 </script>
 
 <style>
+.about-section {
+	background-image: linear-gradient(rgba(4,9,30,0.7), rgba(4,9,30,0.7)),url("@/components/photos/wheel-backdrop.png");
+
+}
+
 .columns {
 	display: flex;
 	justify-content: space-between;
+	margin: 10vh;
+}
+
+.column ul li {
+	margin-bottom: 20px;
 }
 
 .column {
@@ -117,13 +122,13 @@ li{
 .card {
 	box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
 	margin: 8px;
+	padding: 2vh;
 }
 
 .about-section {
 	padding: 10vh 10vh 10vh 10vh;
 	text-align: center;
-	background-color: #858A93;
-	color: #242F40;
+	color: #ffffff;
 }
 .our-team{
 	color: #242F40;
@@ -138,22 +143,6 @@ li{
 	color: grey;
 }
 
-.button {
-	border: none;
-	outline: 0;
-	display: inline-block;
-	padding: 8px;
-	color: white;
-	background-color: #363636;
-	text-align: center;
-	cursor: pointer;
-	width: 100%;
-	font-family: monospace;
-}
-
-.button:hover {
-	background-color: #555;
-}
 
 #logo{
 	width: 100%;
