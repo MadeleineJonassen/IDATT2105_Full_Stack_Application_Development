@@ -1,45 +1,3 @@
-
-<script>
-	import Svg from '../assets/Svg.vue'
-  import {apiClient} from "@/api.js";
-	export default {
-		name: 'Register',
-		components: {Svg},
-		data(){
-			return{
-        username: '',
-				password:'',
-				password_confirm:'',
-        errorMsg: '', //TODO: display error to user
-				showPassword: false,
-			}
-		},
-		methods:{
-			async handleSubmit() {
-        //TODO: use interceptor to check matching password, send one password
-        try {
-          await apiClient.post('/auth/register', {
-            username: this.username,
-            password: this.password,
-          }).then(response => {
-            //TODO: display successful registration to user
-	          alert("User: " + this.username + " created!")
-            this.$router.push('/login')
-          });
-        } catch (error) {
-          //TODO: proper error handling
-          this.errorMsg = 'Error signing up, try again';
-        }
-			},
-			togglePasswordVisibility() {
-				this.showPassword = !this.showPassword;
-			},
-		}
-	}
-</script>
-
-
-
 <template>
 	<body>
 	<div class="signupPage">
@@ -84,6 +42,43 @@
 </template>
 
 
+<script>
+import Svg from '../assets/Svg.vue'
+import {apiClient} from "@/api.js";
+export default {
+	name: 'Register',
+	components: {Svg},
+	data(){
+		return{
+			username: '',
+			password:'',
+			password_confirm:'',
+			errorMsg: '',
+			showPassword: false,
+		}
+	},
+	methods:{
+		async handleSubmit() {
+			try {
+				await apiClient.post('/auth/register', {
+					username: this.username,
+					password: this.password,
+				}).then(response => {
+					alert("User: " + this.username + " created!")
+					this.$router.push('/login')
+				});
+			} catch (error) {
+				this.errorMsg = 'Error signing up, try again';
+			}
+		},
+		togglePasswordVisibility() {
+			this.showPassword = !this.showPassword;
+		},
+	}
+}
+</script>
+
+
 <style>
 .signupPage {
 	padding-top: 10vh;
@@ -91,7 +86,6 @@
 	justify-content: center;
 	align-items: center;
 }
-
 .signup {
 	text-align: center;
 	padding: 20px;
@@ -99,17 +93,14 @@
 	align-items: center;
 	border-style: solid;
 }
-
 .signupBox {
 	padding: 20px;
 }
-
 .password-input {
 	position: relative;
 	display: inline-block;
 	min-width: 300px;
 }
-
 .showPasswordIcon {
 	position: absolute;
 	top: 50%;
@@ -119,9 +110,7 @@
 	background: none;
 	cursor: pointer;
 }
-
 .submit-section{
 	margin-top: 5vh;
 }
-
 </style>
