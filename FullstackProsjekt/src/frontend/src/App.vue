@@ -16,7 +16,7 @@ export default {
         intervalId = setInterval(async () => {
           console.log("Attempting to refresh token...");
           await refreshToken();
-        }, 10000); // Refresh token every 5 minutes (300000 ms)
+        }, 300000); // Refresh token every 5 minutes (300000 ms)
       }
     };
 

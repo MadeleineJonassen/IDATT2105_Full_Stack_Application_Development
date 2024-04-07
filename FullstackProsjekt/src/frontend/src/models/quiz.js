@@ -1,15 +1,11 @@
 export default class Quiz {
-    constructor(quizId, title, creatorId, questions, category, difficulty) {
+    constructor(quizId, title, creatorId, category, difficulty) {
         this.quizId = quizId;
         this.title = title;
         this.creatorId = creatorId;
-        this.questions = questions;
         this.category = category;
         this.difficulty = difficulty;
     }
-
-
-
 
 }
 
