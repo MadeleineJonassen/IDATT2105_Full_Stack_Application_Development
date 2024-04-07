@@ -30,11 +30,9 @@ export default {
           answer: this.correctAnswer,
           options: this.answers.map(answer => answer.text), //just the strings!
           score: this.score
-          //add questionId to questions in editQuiz!
-
         })
       } catch (error) {
-        this.errorMsg = 'Error signing up';
+        this.errorMsg = 'Error submitting question';
       }
     },
     closeModal() {
@@ -66,10 +64,6 @@ export default {
             <input type="number" id="scoreInput" v-model="score">
           </div>
           <div class="modal-body">
-            <!--
-            <AnswerCard answer-id="answerCard" v-for="answer in answers"
-                        :key="answer.id" :answerId="answer.id" :answer="answer.answer" :correct="answer.correct"/>
-            -->
             <table class="table">
               <thead>
               <tr>

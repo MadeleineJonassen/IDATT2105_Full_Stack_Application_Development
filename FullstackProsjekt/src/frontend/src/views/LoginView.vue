@@ -61,7 +61,7 @@ export default {
 					</div> <br>
 
           <label class="error-message">{{errorMsg}}</label><br>
-					<p1> Don't have a account?</p1><router-link to="/signup" id="signUpLink">SIGNUP!</router-link>
+          <p> Don't have a account?</p><router-link to="/signup" id="signUpLink">SIGNUP!</router-link>
 				</div>
 			</div>
 

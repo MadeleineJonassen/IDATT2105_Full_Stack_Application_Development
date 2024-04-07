@@ -3,6 +3,7 @@ import { RouterLink, RouterView } from 'vue-router';
 import router from "@/router/index.js";
 import { useRouter } from 'vue-router';
 import EditQuestionModel from "@/components/shared/EditQuestionModel.vue";
+import {apiClient} from "@/api.js";
 export default {
   components: {EditQuestionModel},
   props: {
@@ -23,7 +24,11 @@ export default {
   },
   methods: {
     deleteQuestion() {
-      //API req, delete question
+      try {
+        apiClient.post('/questions/delete/' + this.questionId, )
+      } catch (error) {
+        this.errorMsg = 'Error deleting question';
+      }
     },
     editQuestion() {
       this.showEditQuestion = true;
@@ -31,7 +36,7 @@ export default {
     },
     hideEditQuestion() {
       this.showEditQuestion = false;
-      //TODO: update answers, +answer count
+      //TODO: update answer count
     }
   }
 }

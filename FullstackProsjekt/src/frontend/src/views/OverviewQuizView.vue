@@ -40,7 +40,6 @@ export default {
   mounted() {
     this.populateQuizzes(); // Call populateQuizzes directly
   },
-
   methods: {
     async populateQuizzes() {
       try {
