@@ -91,7 +91,7 @@ export default {
 <style>
 .about-section {
 	background-image: linear-gradient(rgba(4,9,30,0.7), rgba(4,9,30,0.7)),url("@/components/photos/wheel-backdrop.png");
-
+	padding: 20px;
 }
 
 .columns {
@@ -121,14 +121,17 @@ li{
 
 .card {
 	box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
-	margin: 8px;
-	padding: 2vh;
+	margin: 8px auto; /* Center the cards horizontally */
+	padding: 10px;
+	max-width: 400px; /* Adjust the maximum width of the card */
 }
+
 
 .about-section {
 	padding: 10vh 10vh 10vh 10vh;
 	text-align: center;
 	color: #ffffff;
+
 }
 .our-team{
 	color: #242F40;
@@ -152,6 +155,7 @@ li{
 	.column {
 		width: 100%;
 		display: block;
+		max-width: 100%;
 	}
 }
 </style>
