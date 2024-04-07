@@ -48,32 +48,26 @@ const props = defineProps({
 	margin: auto;
 	padding: 20px 30px;
 	background-color: #fff;
-	border-radius: 2px;
+	border-radius: 10px;
 	box-shadow: 0 2px 8px rgba(0, 0, 0, 0.33);
 	transition: all 0.3s ease;
 }
-
 .modal-header h3 {
 	margin-top: 0;
-	color: #42b983;
+	color: #242f40;
 }
-
 .modal-body {
 	margin: 20px 0;
 }
-
 .modal-default-button {
 	float: right;
 }
-
 .modal-enter-from {
 	opacity: 0;
 }
-
 .modal-leave-to {
 	opacity: 0;
 }
-
 .modal-enter-from .modal-container,
 .modal-leave-to .modal-container {
 	-webkit-transform: scale(1.1);
