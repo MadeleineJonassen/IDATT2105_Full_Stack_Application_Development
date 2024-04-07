@@ -4,9 +4,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest
 public class QuestionAnswerTest {
@@ -40,11 +38,22 @@ public class QuestionAnswerTest {
 
     @Test
     public void testIsCorrect() {
-        // Test isCorrect method
+        // Test isCorrect method with correct answer
         assertTrue(questionAnswer.isCorrect());
 
         // Change the given answer and test again
         questionAnswer.setGivenAnswer("Bergen");
         assertFalse(questionAnswer.isCorrect());
+    }
+
+    @Test
+    public void testGetQuizResult() {
+        // Test getQuizResult method
+        assertNull(questionAnswer.getQuizResult());
+
+        // Set a quiz result and test again
+        QuizResult quizResult = new QuizResult();
+        questionAnswer.setQuizResult(quizResult);
+        assertEquals(quizResult, questionAnswer.getQuizResult());
     }
 }

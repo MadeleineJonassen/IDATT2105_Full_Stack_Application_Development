@@ -37,4 +37,10 @@ public class RoleTest {
         // Test toString method
         assertEquals("Role{roleId=1, authority='ROLE_USER'}", role.toString());
     }
+
+    @Test
+    public void testGetAuthority() {
+        // Test getAuthority method
+        assertEquals("ROLE_USER", role.getAuthority());
+    }
 }
