@@ -46,13 +46,18 @@ export default {
     getQuiz(quizId) {
       console.log('Fetching data for quiz: ', quizId);
       try {
-        apiClient.get('/questions/allQuestionsToAQuiz/' + this.quizId).then(response => {
+        apiClient.get('/questions/quiz/' + this.quizId).then(response => {
           console.log(response);
           this.quizTitle = JSON.parse(response.data.title);
-          this.questions = response.data.questions;
+          //this.questions = response.data.questions;
           this.creatorId = JSON.parse(response.data.creatorId);
           this.category = response.data.category;
           this.difficulty = response.data.difficulty;
+        });
+        //get questions separately
+        apiClient.get('/questions/allQuestionsToAQuiz/' + this.quizId).then(response => {
+          console.log(response);
+          this.questions = JSON.parse(response.data);
         });
       } catch (error) {
         //TODO: proper error handling
@@ -167,7 +172,7 @@ async function submitQuestion() {
         <QuestionCard id="questionCard" v-for="question in questions" :key="question.id" :question-id=question.id
                       />
       </div>
-      <NewQuestionModel v-if="showNewQuestion" @close="hideNewQuestion" quiz-id="this.quizId"/>
+      <NewQuestionModel v-if="showNewQuestion" @close="hideNewQuestion" :quiz-id="quizId"/>
 
 			<div class="footer">
 				<button @click="newQuestion" class="add-Btn"> Add Question </button>
