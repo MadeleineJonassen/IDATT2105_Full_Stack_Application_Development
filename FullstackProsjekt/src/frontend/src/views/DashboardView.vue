@@ -66,6 +66,7 @@ export default {
 };
 </script>
 
+
 <style>
 .dashboard{
 	padding: 20px;
@@ -79,30 +80,27 @@ export default {
 }
 .search-container {
 	flex-grow: 1;
-	margin-right: 10px;
 }
 
-	.create-container {
-		flex-shrink: 0;
-	}
+.create-container {
+	flex-shrink: 0;
+}
 
-	.searchBox {
-		width: 250px;
-		padding: 10px;
-		margin: 0 auto;
-		display: block;
-		text-align: center;
-	}
+.searchBox {
+	width: 250px;
+	padding: 10px;
+	margin: 0 auto;
+	display: block;
+	text-align: center;
+}
 
-	.quiz-col {
-		flex-basis: 31%;
-		background: #d7d7d7;
-		border-radius: 10px;
-		margin-bottom: 5%;
-		padding: 20px;
-		box-sizing: border-box;
-		transition: 0.5s;
-	}
-
-
+.quiz-col {
+	flex-basis: 31%;
+	background: #d7d7d7;
+	border-radius: 10px;
+	margin-bottom: 5%;
+	padding: 20px;
+	box-sizing: border-box;
+	transition: 0.5s;
+}
 </style>
