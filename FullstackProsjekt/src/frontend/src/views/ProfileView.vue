@@ -1,3 +1,52 @@
+
+
+<script>
+import Svg from "@/assets/Svg.vue";
+import Modal from "@/components/shared/modal/Modal.vue"
+import {ref} from 'vue'
+
+
+export default {
+	components: {Modal, Svg},
+	data() {
+		return {
+			showModal: ref(false),
+			user: {
+				username: this.username,
+				avatar: '@/components/photos/developers/MadJon.png',
+			},
+			userQuizzes: [
+				{
+					id: 1,
+					title: 'Math Quiz',
+					description: 'Test your math skills with this quiz'
+				},
+				{
+					id: 2,
+					title: 'Science Quiz',
+					description: 'Explore various science topics in this quiz'
+				}
+			]
+		}
+	},
+	computed: {
+		quizAttempts() {
+			// Mock data for quiz attempts (replace with actual data)
+			return [
+				{ id: 1, quizTitle: 'Math Quiz', score: '80%', date: '2024-04-05' },
+				{ id: 2, quizTitle: 'Science Quiz', score: '90%', date: '2024-04-04' }
+				// Add more quiz attempt objects as needed
+			];
+		}
+	},
+	methods:{
+		logout(){
+			alert("Clicked")
+		}
+	}
+};
+</script>
+
 <template>
 	<body>
 	<div class="profile">
@@ -9,8 +58,6 @@
 				<!-- <img :src="user.avatar" alt="User Avatar">  -->
 				<div>
 					<h3>{{ user.username }}</h3>
-					<p>{{ user.email }}</p>
-					<p>Member since {{ user.memberSince }}</p>
 				</div>
 			</div>
 		</section>
@@ -53,51 +100,22 @@
 				<li><router-link to="/edit-profile">Edit Profile</router-link></li>
 				<li><router-link to="/change-password">Change Password</router-link></li>
 				<li><router-link to="/overviewQuiz">Create quiz</router-link></li>
+				<li> <button class="delete-btn" @click="showModal = true">Logout</button>
+					<Teleport to="body">
+					<Modal :show="showModal" @close="destroyModal">
+
+					</Modal>
+				</Teleport></li>
 			</ul>
 		</section>
+
 	</div>
 	</body>
+
+
+
+
 </template>
-
-<script>
-import Svg from "@/assets/Svg.vue";
-
-export default {
-	components: {Svg},
-	data() {
-		return {
-			user: {
-				username: 'JohnDoe',
-				email: 'johndoe@example.com',
-				avatar: '@/components/photos/developers/MadJon.png',
-				memberSince: 'May 2024'
-			},
-			userQuizzes: [
-				{
-					id: 1,
-					title: 'Math Quiz',
-					description: 'Test your math skills with this quiz'
-				},
-				{
-					id: 2,
-					title: 'Science Quiz',
-					description: 'Explore various science topics in this quiz'
-				}
-			]
-		}
-	},
-	computed: {
-		quizAttempts() {
-			// Mock data for quiz attempts (replace with actual data)
-			return [
-				{ id: 1, quizTitle: 'Math Quiz', score: '80%', date: '2024-04-05' },
-				{ id: 2, quizTitle: 'Science Quiz', score: '90%', date: '2024-04-04' }
-				// Add more quiz attempt objects as needed
-			];
-		}
-	}
-};
-</script>
 
 <style scoped>
 .profile {
