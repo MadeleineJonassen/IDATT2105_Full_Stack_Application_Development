@@ -46,9 +46,9 @@ export default {
     getQuiz(quizId) {
       console.log('Fetching data for quiz: ', quizId);
       try {
-        apiClient.get('/questions/allQuestionsToAQuiz/' + this.quizId).then(response => {
+        apiClient.get('/quiz/quiz/' + this.quizId).then(response => {
           console.log(response);
-          this.quizTitle = JSON.parse(response.data.title);
+          this.quizTitle = response.data.title;
           this.questions = response.data.questions;
           this.creatorId = JSON.parse(response.data.creatorId);
           this.category = response.data.category;
