@@ -34,7 +34,7 @@ export default {
 
         })
       } catch (error) {
-        this.errorMsg = 'Error signing up';
+        this.errorMsg = 'Error submitting question';
       }
     },
     closeModal() {
