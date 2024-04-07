@@ -9,7 +9,6 @@ export default {
   components: { RouterLink, RouterView, Sidebar },
   setup() {
     let intervalId = null;
-    return {sidebarWidth}
 
     // Start interval for token refresh
     const startInterval = () => {
@@ -46,6 +45,7 @@ export default {
       } catch (error) {
         console.error("Error refreshing token: ", error);
       }
+      return {sidebarWidth}
     };
 
     // Lifecycle hooks
