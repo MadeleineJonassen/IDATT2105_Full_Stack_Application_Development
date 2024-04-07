@@ -22,35 +22,38 @@ export default {
     }
   },
   beforeMount() {
-    this.setup();
-    this.getQuestions();
-    this.getSampleQuestions();
-    this.getQuiz();
     this.getUser();
   },
-  mounted() {
+  async mounted() {
+    await this.getUser();
+    await this.setup();
+    this.getQuestions();
+    this.getQuiz();
     this.setCurrentQuestion();
 
   },
   methods: {
     async setup(){
       //TODO: QuizResultService
+      this.quizId = this.$route.params.quizId;
+      const data = {
+        quizId: this.quizId,
+        userId: this.userId
+      }
+      console.log(data)
       try {
-        await apiClient.post('/results/create', {
-          id: this.quizId,
-          userId: this.userId
-        })//TODO: set QuizResultServiceId
+        await apiClient.post('/results/create', data)//TODO: set QuizResultServiceId
       } catch (error) {
         this.errorMsg = 'Error starting quiz';
       }
     },
-    getUser() {
-      this.userId = getIdByToken();
+    async getUser() {
+      this.userId = await getIdByToken();
     },
     getQuiz() {
       try {
         apiClient.get('/quiz/quiz/' + this.quizId).then(response => {
-          this.quizTitle = JSON.parse(response.data.questions);
+          this.quizTitle = response.data.questions;
         });
       } catch (error) {
         this.errorMsg = 'Error retrieving quiz';
@@ -59,9 +62,10 @@ export default {
     getQuestions(quizId) {
       //TODO: use method to fetch questions
       try {
-        apiClient.get('/question/' + this.quizId).then(response => {
-          this.questionIds = JSON.parse(response.data.questions);
+        apiClient.get('/questions/allQuestionsToAQuiz/' + this.quizId).then(response => {
+          this.questionIds = response.data;
         });
+        console.log(this.questionIds[0])
       } catch (error) {
         this.errorMsg = 'Error retrieving questions';
       }
@@ -95,11 +99,13 @@ export default {
 
       console.log(this.selectedOption);
       try {
-        await apiClient.post('/save', {
+        const data = {
           id: this.quizId,
           questionId: this.currentQuestionId,
           givenAnswer: this.selectedOption,
-        })
+        }
+        console.log(data)
+        await apiClient.post('/questions/save', data)
       } catch (error) {
         this.errorMsg = 'Cannot submit question';
       }
@@ -113,9 +119,9 @@ export default {
         this.currentQuestion = this.questions[this.currentQuestionIndex];
       }*/ //for some reason this check messes up the app???
       this.currentQuestion = this.questions[this.currentQuestionIndex];
-      this.currentQuestionId = this.currentQuestion.id;
-      this.currentQuestionText = this.currentQuestion.questionText;
-      this.currentAnswers = this.currentQuestion.options;
+      //this.currentQuestionId = this.currentQuestion.id;
+      //this.currentQuestionText = this.currentQuestion.questionText;
+      //this.currentAnswers = this.currentQuestion.options;
     },
     setupMCQuestion(question) {
       this.questionTitle = question.questionText;

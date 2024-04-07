@@ -9,7 +9,6 @@ export default {
   components: { RouterLink, RouterView, Sidebar },
   setup() {
     let intervalId = null;
-    return {sidebarWidth}
 
     // Start interval for token refresh
     const startInterval = () => {
@@ -17,7 +16,7 @@ export default {
         intervalId = setInterval(async () => {
           console.log("Attempting to refresh token...");
           await refreshToken();
-        }, 10000); // Refresh token every 5 minutes (300000 ms)
+        }, 300000); // Refresh token every 5 minutes (300000 ms)
       }
     };
 
@@ -46,6 +45,7 @@ export default {
       } catch (error) {
         console.error("Error refreshing token: ", error);
       }
+      return {sidebarWidth}
     };
 
     // Lifecycle hooks
