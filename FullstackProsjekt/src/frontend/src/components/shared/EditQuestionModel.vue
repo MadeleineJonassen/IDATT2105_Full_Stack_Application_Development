@@ -79,7 +79,6 @@ export default {
       }
     }
   }
-
 }
 */
 
@@ -340,9 +339,6 @@ export default {
   justify-content: space-between;
 }
 
-
-
-
 .modal-header h5 {
 	margin-top: 0;
 	color: #363636;
@@ -355,7 +351,6 @@ export default {
 .modal-default-button {
 	float: right;
 }
-
 
 .modal-enter-from .modal-container,
 .modal-leave-to .modal-container {

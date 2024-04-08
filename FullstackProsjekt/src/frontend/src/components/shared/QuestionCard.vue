@@ -1,7 +1,5 @@
 <script>
-import { RouterLink, RouterView } from 'vue-router';
-import router from "@/router/index.js";
-import { useRouter } from 'vue-router';
+
 import EditQuestionModel from "@/components/shared/EditQuestionModel.vue";
 import {apiClient} from "@/api.js";
 export default {
@@ -59,20 +57,6 @@ export default {
 </template>
 
 <style>
-.overViewQuestion-page{
-  padding: 50px;
-}
-
-.quiz-header{
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 20px;
-}
-.quiz-body{
-  margin-bottom: 40px;
-}
-
 .question-wrapper {
   display: flex;
   width: 80%;

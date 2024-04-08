@@ -76,8 +76,6 @@ export default {
 </template>
 
 <style>
-
-
 .quiz-header{
   display: flex;
   justify-content: space-between;
