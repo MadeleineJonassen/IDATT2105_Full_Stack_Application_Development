@@ -1,3 +1,62 @@
+
+<script>
+import Svg from "@/assets/Svg.vue";
+import Modal from "@/components/shared/modal/Modal.vue"
+import {ref} from 'vue'
+import {getIdByToken} from "@/tokenController.js";
+import {apiClient} from "@/api.js";
+
+
+export default {
+	components: {Modal, Svg},
+	data() {
+		return {
+			userId: null,
+			quizList:[],
+			showModal: ref(false),
+			isLoggedIn: true,
+			user: {
+				username: '',
+			}
+		};
+	},
+	mounted() {
+		this.user.username = localStorage.getItem('username');
+		this.populateQuizzes();
+	},
+	computed: {
+		quizAttempts() {
+			// Mock data for quiz attempts (replace with actual data)
+			return [
+				{ id: 1, quizTitle: 'Math Quiz', score: '80%', date: '2024-04-05' },
+				{ id: 2, quizTitle: 'Science Quiz', score: '90%', date: '2024-04-04' }
+			];
+		}
+	},
+	methods:{
+		logout(){
+			this.isLoggedIn = false;
+			this.$router.push('/login');
+		},
+		closeModal(){
+			this.showModal=false;
+		},
+		async populateQuizzes() {
+			try {
+				await this.setUserId();
+				const response = await apiClient.get('/quiz/creator/' + this.userId);
+				this.quizList = response.data;
+			} catch (error) {
+				console.error('Error retrieving quizzes:', error);
+			}
+		},
+		async setUserId() {
+			this.userId = await getIdByToken();
+		}
+	}
+};
+</script>
+
 <template>
 	<body>
 	<div class="profile">
@@ -71,7 +130,7 @@
 	</body>
 </template>
 
-
+<!--
 <script>
 import Svg from "@/assets/Svg.vue";
 import Modal from "@/components/shared/modal/Modal.vue"
@@ -124,7 +183,7 @@ export default {
 		}
 	}
 };
-</script>
+</script>-->
 
 
 <style scoped>

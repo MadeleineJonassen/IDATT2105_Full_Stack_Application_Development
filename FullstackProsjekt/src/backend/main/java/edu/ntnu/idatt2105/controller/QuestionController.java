@@ -4,7 +4,9 @@ import edu.ntnu.idatt2105.dto.QuestionDTO;
 import edu.ntnu.idatt2105.model.Question;
 import edu.ntnu.idatt2105.service.QuestionService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -71,6 +73,7 @@ public class QuestionController {
     );
   }
 
+
   /**
    * Endpoint for deleting a question by ID.
    *
@@ -88,18 +91,18 @@ public class QuestionController {
    * @return A list of question DTOs for the quiz.
    */
   @GetMapping("/allQuestionsToAQuiz/{quizId}")
-    public List<QuestionDTO> getAllQuestionsToAQuiz(@PathVariable Integer quizId) {
-        List<Question> questions = questionService.findAllQuestionsToAQuiz(quizId);
-        return questions.stream()
-                .map(question -> new QuestionDTO(
-                        question.getId(),
-                        question.getQuestionText(),
-                        question.getType(),
-                        question.getAnswer(),
-                        question.getOptionsList(),
-                        question.getScore(),
-                        question.getQuiz().getId()
-                ))
-                .collect(Collectors.toList());
-    }
+  public List<QuestionDTO> getAllQuestionsToAQuiz(@PathVariable Integer quizId) {
+    List<Question> questions = questionService.findAllQuestionsToAQuiz(quizId);
+    return questions.stream()
+            .map(question -> new QuestionDTO(
+                    question.getId(),
+                    question.getQuestionText(),
+                    question.getType(),
+                    question.getAnswer(),
+                    question.getOptionsList(),
+                    question.getScore(),
+                    question.getQuiz().getId()
+            ))
+            .collect(Collectors.toList());
+  }
 }

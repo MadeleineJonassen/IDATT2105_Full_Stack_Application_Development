@@ -30,12 +30,13 @@ export default {
       questions: [], //question list is just a list of q-ids!!
       category: '',
       difficulty: '',
-      errorMsg: ''
+      errorMsg: '',
       //TODO: make quiz object
     };
   },
   beforeMount() {
     this.quizId = this.$route.params.quizId;
+    console.log(this.quizId);
     this.getQuiz(this.quizId);
   },
   mounted() {
@@ -43,20 +44,29 @@ export default {
     //this.getQuiz(this.quizId);
   },
   methods: {
-    getQuiz(quizId) {
+    async getQuiz(quizId) {
       console.log('Fetching data for quiz: ', quizId);
       try {
-        apiClient.get('/quiz/quiz/' + this.quizId).then(response => {
+        await apiClient.get('/quiz/quiz/' + quizId).then(response => {
           console.log(response);
           this.quizTitle = response.data.title;
-          this.questions = response.data.questions;
-          this.creatorId = JSON.parse(response.data.creatorId);
+          //this.questions = response.data.questions;
+          this.creatorId = response.data.creatorId;
           this.category = response.data.category;
           this.difficulty = response.data.difficulty;
         });
+        //console.log("fetching questions");
+        //get questions separately
+        await apiClient.get('/questions/allQuestionsToAQuiz/' + quizId).then(response => {
+          //console.log("fetched questions");
+          //console.log(response.data);
+
+          this.questions = response.data;
+          console.log(this.questions[1]);
+        });
       } catch (error) {
         //TODO: proper error handling
-        console.log(error);
+        console.log("Edit quiz error: " + error);
         this.errorMsg = 'Error retrieving quizzes';
       }
     },
@@ -66,13 +76,17 @@ export default {
     },
     hideNewQuestion() {
       this.showNewQuestion = false;
-      //TODO: questions answers, +question count
     },
     deleteQuiz() {
-      //API req, quizId
+      try {
+        apiClient.post('/quiz/delete/' + this.questionId, )
+      } catch (error) {
+        this.errorMsg = 'Error deleting quiz';
+      }
     }
   },
 };
+
 
 /**
 function createQuestion() {
@@ -164,14 +178,16 @@ async function submitQuestion() {
 			<router-link to="/overviewQuiz"> <-  </router-link>
 			<h1>Edit quiz: {{quizTitle}}</h1>
       <div class="question-div">
-        <QuestionCard id="questionCard" v-for="question in questions" :key="question.id" :question-id=question.id
-                      />
+
+        <QuestionCard id="questionCard" v-for="question in questions" :key="question.id"
+                      :question-id=question.id :question-text=question.questionText />
+
       </div>
-      <NewQuestionModel v-if="showNewQuestion" @close="hideNewQuestion" quiz-id="this.quizId"/>
+      <NewQuestionModel v-if="showNewQuestion" @close="hideNewQuestion" :quiz-id="Number(quizId)"/>
 
 			<div class="footer">
 				<button @click="newQuestion" class="add-Btn"> Add Question </button>
-        <button class="delete-btn"> DELETE QUIZ </button>
+        <button class="delete-btn" @click="deleteQuiz"> DELETE QUIZ </button>
 				<button class="save-Btn"> SAVE QUIZ </button>
 			</div>
 		</div>

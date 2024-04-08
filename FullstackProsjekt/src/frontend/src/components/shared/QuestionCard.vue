@@ -10,16 +10,21 @@ export default {
     questionId: {
       type: Number,
       required: true,
+    },
+    questionText: {
+      type: String,
+      required: true,
     }
   },
-  mounted() {
-    //API req, get question from id
+  beforeMount() {
+    this.quizId = Number(this.$route.params.quizId);
   },
   data() {
     return {
       showEditQuestion: false,
       questionNum: 0,
-      question: 'question text'
+      question: 'question text',
+      quizId: null,
     }
   },
   methods: {
@@ -36,7 +41,6 @@ export default {
     },
     hideEditQuestion() {
       this.showEditQuestion = false;
-      //TODO: update answer count
     }
   }
 }
@@ -45,12 +49,12 @@ export default {
 <template>
   <div class="question-wrapper">
     <h4>{{questionId}}</h4>
-    <h3>{{question}}</h3>
+    <h3>{{questionText}}</h3>
     <div class="quiz-footer">
       <button @click="editQuestion" class="edit-btn">Edit</button>
       <button @click="deleteQuestion" class="delete-btn">Delete</button>
     </div>
-    <EditQuestionModel :question-id=questionId v-if="this.showEditQuestion" @close="hideEditQuestion"/>
+    <EditQuestionModel :question-id=questionId :quiz-id=quizId v-if="this.showEditQuestion" @close="hideEditQuestion"/>
   </div>
 </template>
 
