@@ -29,8 +29,9 @@ export default {
     }
   },
   async mounted() {
-    await this.getUser();
-    await this.setup();
+    // await this.getUser();
+    // await this.setup();
+    this.quizId = this.$route.params.quizId;
     this.getQuiz();
     await this.getQuestions();
   },
@@ -84,7 +85,6 @@ export default {
         alert("You must select an option")
         return;
       }
-
       if (this.currentQuestionIndex < this.questions.length - 1) {
         this.hasAnswered = true;
         if (this.selectedOption === this.currentQuestion.answer) {
@@ -105,6 +105,7 @@ export default {
         }
         this.showPopup = true;
         this.buttonText = "Finish";
+        this.popupMessage += "\nYour final score is: " + this.currentScore + " / " + this.totalScore
       }
     },
 
@@ -144,13 +145,12 @@ export default {
     <div id="current-q" class="question">
 
       <h3 v-if="currentQuestion">{{currentQuestionText}}</h3>
-      <ul>
-        <li v-for="(option, index) in currentAnswers" :key="index">
-          <label>{{ option }}</label>
-          <input type="radio" :id="option" :value="option" :checked="option === selectedOption" @change="selectOption(option)">
-        </li>
 
-      </ul>
+      <div class="options">
+        <div class="option" :class="{ 'selected': selectedOption === option }" @click="selectOption(option)" v-for="(option, index) in currentAnswers" :key="index">
+          <label>{{ option }}</label>
+        </div>
+      </div>
       <div v-if="showPopup" class="popup">
         <p>{{ popupMessage }}</p>
       </div>
@@ -202,6 +202,28 @@ export default {
 </template>
 
 <style>
+
+.option {
+  font-size: 13px;
+  font-weight: bolder;
+  width: 100px;
+  height: 100px;
+  border: 1px solid #ccc;
+  margin: 5px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+}
+
+.option:hover {
+  background-color: #f0f0f0;
+}
+
+.selected {
+  background-color: #4285f4; /* Change to the color you want for selected option */
+  color: #fff; /* Change text color for better visibility */
+}
 .quiz{
 	text-align: center;
 	margin-top: 20px;
@@ -231,6 +253,10 @@ export default {
 }
 .question{
 	letter-spacing: .13em;
+  padding: 3%;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
 }
 
 .choice{
