@@ -30,7 +30,7 @@ export default {
       questions: [], //question list is just a list of q-ids!!
       category: '',
       difficulty: '',
-      errorMsg: ''
+      errorMsg: '',
       //TODO: make quiz object
     };
   },
@@ -177,6 +177,7 @@ async function submitQuestion() {
 
         <QuestionCard id="questionCard" v-for="question in questions" :key="question.id"
                       :question-id=question.id :question-text=question.questionText />
+
       </div>
       <NewQuestionModel v-if="showNewQuestion" @close="hideNewQuestion" :quiz-id="Number(quizId)"/>
 

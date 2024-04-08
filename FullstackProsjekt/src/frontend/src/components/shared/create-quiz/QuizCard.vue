@@ -45,6 +45,13 @@ export default {
       //create new router-method to editQuiz, using quizId
       router.push({name: 'editQuiz', params: {quizId: this.quizId}});
     },
+    deleteQuiz() {
+      try {
+        apiClient.post('/quiz/delete/' + this.quizId, )
+      } catch (error) {
+        this.errorMsg = 'Error deleting quiz';
+      }
+    }
   }
 }
 </script>
@@ -62,7 +69,7 @@ export default {
       <p>{{ quizCategory }}</p>
     </div>
     <div class="quiz-footer">
-      <!--<button @click="playQuiz" class="play-btn">Play</button>-->
+      <button @click="playQuiz" class="play-btn">Play</button>
       <button @click="editQuiz" class="edit-btn">Edit</button>
     </div>
   </div>

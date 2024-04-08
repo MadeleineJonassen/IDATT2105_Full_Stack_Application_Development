@@ -12,7 +12,7 @@ export default {
       questionText: '',
       answers: [],
       correctAnswerIndex: 0,
-      type: 'MC',
+      type: 'MULTIPLE_CHOICE',
       score: 0,
       correctAnswer: null,
       errorMsg: ''
@@ -27,9 +27,8 @@ export default {
         await apiClient.post('/questions/newQuestion', {
           questionText: this.questionText,
           type: this.type,
-          answer: this.correctAnswer,
-          //options: this.answers.map(answer => answer.text),
-          options: this.answers,
+          answer: this.correctAnswer.text,
+          options: this.answers.map(answer => answer.text),
           score: this.score,
           quizId: this.quizId,
         })
@@ -38,7 +37,6 @@ export default {
         console.log("error: " + error);
         this.errorMsg = 'Error submitting question';
       }
-      //this.$emit('close');
     },
     newAnswer() {
       this.answers.push({ text: ''});
@@ -47,9 +45,7 @@ export default {
       this.correctAnswer = option;
       console.log(this.correctAnswer);
     }
-
   }
-
 };
 </script>
 
