@@ -41,7 +41,7 @@ export default {
       router.push({name: 'playQuiz', params: {quizId: this.quizId}});
     },
     editQuiz() {
-      console.log("edit quiz " + this.quizTitle);
+      console.log("edit quiz " + this.quizTitle + ", quizId: " + this.quizId);
       //create new router-method to editQuiz, using quizId
       router.push({name: 'editQuiz', params: {quizId: this.quizId}});
     },

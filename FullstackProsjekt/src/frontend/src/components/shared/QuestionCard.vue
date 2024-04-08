@@ -10,6 +10,10 @@ export default {
     questionId: {
       type: Number,
       required: true,
+    },
+    questionText: {
+      type: String,
+      required: true,
     }
   },
   mounted() {
@@ -45,7 +49,7 @@ export default {
 <template>
   <div class="question-wrapper">
     <h4>{{questionId}}</h4>
-    <h3>{{question}}</h3>
+    <h3>{{questionText}}</h3>
     <div class="quiz-footer">
       <button @click="editQuestion" class="edit-btn">Edit</button>
       <button @click="deleteQuestion" class="delete-btn">Delete</button>
