@@ -86,6 +86,7 @@ export default {
 <template>
   <div class="modal-overlay" @click="closeModal">
     <div @click.stop class="modal-mask">
+
       <div class="modal-container">
         <form @submit.prevent="handleSubmit">
           <div class="question-title">

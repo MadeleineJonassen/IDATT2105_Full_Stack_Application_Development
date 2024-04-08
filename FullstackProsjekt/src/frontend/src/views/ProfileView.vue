@@ -98,7 +98,6 @@ export default {
 					<h3>{{ attempt.quizTitle }}</h3>
 					<p>Score: {{ attempt.score }}</p>
 					<p>Date: {{ attempt.date }}</p>
-					<!-- Add more details about each quiz attempt as needed -->
 				</div>
 			</div>
 		</section>
@@ -133,69 +132,112 @@ export default {
 </template>
 
 
+<script>
+import Svg from "@/assets/Svg.vue";
+import Modal from "@/components/shared/modal/Modal.vue"
+import {ref} from 'vue'
+
+export default {
+	components: {Modal, Svg},
+	data() {
+		return {
+			userId: null,
+			quizList:[],
+			showModal: ref(false),
+			isLoggedIn: true,
+			user: {
+				username: '',
+			}
+		};
+	},
+	mounted() {
+		this.user.username = localStorage.getItem('username');
+		this.populateQuizzes();
+	},
+	computed: {
+		quizAttempts() {
+			return [
+				{ id: 1, quizTitle: 'Math Quiz', score: '80%', date: '2024-04-05' },
+				{ id: 2, quizTitle: 'Science Quiz', score: '90%', date: '2024-04-04' }
+			];
+		}
+	},
+	methods:{
+		logout(){
+			this.isLoggedIn = false;
+			this.$router.push('/login');
+		},
+		closeModal(){
+			this.showModal=false;
+		},
+		async populateQuizzes() {
+			try {
+				await this.setUserId();
+				const response = await apiClient.get('/quiz/creator/' + this.userId);
+				this.quizList = response.data;
+			} catch (error) {
+				console.error('Error retrieving quizzes:', error);
+			}
+		},
+		async setUserId() {
+			this.userId = await getIdByToken();
+		}
+	}
+};
+</script>
+
+
 <style scoped>
 .profile {
 	max-width: 800px;
 	margin: 0 auto;
 	padding: 30px;
 }
-
 .profile-pic{
 	height: 150px;
 	width: 150px;
 	margin-right: 5vh;
 }
-
 .user-info, .user-quizzes, .profile-options {
 	margin-bottom: 40px;
 }
-
 .user-details {
 	display: flex;
 	align-items: center;
 }
-
 .user-details div {
 	flex: 1;
 }
-
 .user-quizzes .quiz {
 	border: 1px solid #ccc;
-	background-color: #d7d7d7 ;
+	background-color: var(--field-placeholder) ;
 	border-radius: 5px;
 	padding: 10px;
 	margin-bottom: 10px;
 	cursor: pointer;
 }
-
 .profile-options ul {
 	list-style: none;
 	padding: 0;
 }
-
 .profile-options ul li {
 	margin-bottom: 10px;
 }
-
 .profile-options ul li a {
 	text-decoration: none;
-	color: #CCA43B;
+	color: var(--option-color);
 }
 .profile-options ul li a:hover{
-	color: #a2822e;
+	color: var(--option-hover);
 	text-decoration: underline;
 }
-
-
 .progress-tracking {
 	margin-bottom: 40px;
 }
-
 .progress-tracking .quiz-attempt {
 	border: 1px solid #ccc;
 	border-radius: 5px;
 	padding: 10px;
 	margin-bottom: 10px;
 }
-
 </style>
