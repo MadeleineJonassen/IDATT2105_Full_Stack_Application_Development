@@ -1,53 +1,43 @@
-<script>
-import axios from "axios";
-export default {
-	name: 'Home',
-	async created() {
-		const response = await axios.get('user');
-		console.log(response)
-	}
-}
-</script>
-
-
 <template>
 	<body>
+	<!-- Header -->
 	<section class ="header">
 		<div class="text-box">
 			<img id="logo" src="../components/icons/brain.png"/>
 			<h1 class="heading">BrainStormer</h1>
-			<p> An easy way to learn and share quizzes. <br> Make your own quiz now! </p>
+			<p> Get ready to challenge your knowledge and have fun! <br> Experience a new way of learning </p>
 			<router-link to="/dashboard" class="hero-btn">LOOK AT QUIZZES</router-link>
 		</div>
 	</section>
 
-	<!----- Info ----->
+	<!----- Info section ----->
 	<section class="info">
-		<h1>How does it work</h1>
-		<p>Set a difficulty to your quizzes ..... [Add more text here]</p>
+		<h1>Ace your classes with our new learning platform</h1>
+		<p>Explore our various difficulties and challenge yourself</p>
 
 		<div class="row">
 			<div class="course-col">
 				<h3>Easy</h3>
-				<p>The simplest of quizzes </p>
+				<p>Suitable for beginners or those with basic knowledge on the topic.</p>
 			</div>
 			<div class="course-col">
 				<h3>Medium</h3>
-				<p>A more challenging quiz for those who want a challenge </p>
+				<p>Suitable for intermediate users with some experience on the topic.</p>
 			</div>
 			<div class="course-col">
 				<h3>Hard</h3>
-				<p>Quizzes that challenge the mind to new limits... </p>
+				<p>Suitable for advanced users or experts on the topic. </p>
 			</div>
 		</div>
 	</section>
 	<div class="space"> </div>
 
 	<section class="cta">
-		<h1> Enroll For Our Various Online Quizzes </h1>
+		<h1> Include and engage every student </h1>
 		<router-link to="/about" class="hero-btn"> About us</router-link>
 	</section>
 
+	<!----- Footer ----->
 	<footer class="footer">
 		<div class="footer-content">
 			<p>&copy; 2024 BrainStormer. All rights reserved.</p>
@@ -62,25 +52,35 @@ export default {
 </template>
 
 
+<script>
+import axios from "axios";
+export default {
+	name: 'Home',
+	async created() {
+		const response = await axios.get('user');
+		console.log(response)
+	}
+}
+</script>
+
 
 <style scoped>
 .header{
 	min-height: 100vh;
 	width: 100%;
-	background-image: linear-gradient(rgba(4,9,30,0.7), rgba(4,9,30,0.7)),url(photos/lightning.gif);
+	background-image: linear-gradient(rgba(4,9,30,0.7), rgba(4,9,30,0.7)),url(photos/mountain-backdrop.png);
 	background-position: center;
 	background-size: cover;
 	position: relative;
 }
 #logo{
-	height: 150px;
-	width: 150px;
-	padding: 10px;
+	height: 170px;
+	width: 170px;
+	padding: 5vh;
 }
-
 .text-box{
 	width: 90%;
-	color: #fff;
+	color: var(--text-light-color);
 	position: absolute;
 	top: 50%;
 	left: 50%;
@@ -88,18 +88,17 @@ export default {
 	text-align: center;
 }
 .text-box h1{
-	font-size: 62px;
+	font-size: 60px;
 }
 .text-box p{
 	margin: 10px 0 40px;
-	font-size: 18px;
-	color: #fff;
+	font-size: 20px;
+	color: var(--text-light-color);
 }
-
 .hero-btn{
 	display: inline-block;
 	text-decoration: none;
-	color: #fff;
+	color: var(--text-light-color);
 	border: 1px solid #fff;
 	padding: 12px 34px;
 	font-size: 16px;
@@ -109,12 +108,10 @@ export default {
 }
 .hero-btn:hover{
 	border: 1px solid #CCA43B;
-	background: #CCA43B;
+	background: var(--option-hover);
 	transition: 1s;
 	color: #242F40;
 }
-
-/* Info section */
 .info{
 	width: 80%;
 	margin: auto;
@@ -126,24 +123,21 @@ h1{
 	font-weight: 600;
 }
 p{
-	color: #0f1412;
+	color: var(--text-dark-color);
 	font-size: 16px;
 	font-weight: 300;
 	line-height: 22px;
 	padding: 10px;
 }
-
 h3{
 	text-align: center;
 	font-weight: 600;
 	margin: 10px 0;
 }
-
-/* CTA */
 .cta{
 	margin: 100px auto;
 	width: 80%;
-	background-image: linear-gradient(rgba(4,9,30,0.7), rgba(4,9,30,0.7)),url(photos/background.png);
+	background-image: linear-gradient(rgba(4,9,30,0.7), rgba(4,9,30,0.7)),url(photos/office-backdrop.png);
 	background-position: center;
 	background-size: cover;
 	border-radius: 10px;
@@ -151,14 +145,12 @@ h3{
 	padding: 100px 0;
 }
 .cta h1{
-	color: #F2F2F2;
+	color: var(--text-light-color);
 	margin-bottom: 40px;
 	padding: 0;
 }
-
-/* Footer */
 .footer {
-	background-color: #242F40;
+	background-color: var(--sidebar-bd-color);
 	padding: 10px 0;
 	text-align: center;
 }
@@ -181,15 +173,12 @@ h3{
 	margin-right: 0;
 }
 .footer ul li a {
-	color: #fff;
+	color: var(--text-light-color);
 	text-decoration: none;
 }
 .footer ul li a:hover {
 	text-decoration: underline;
 }
-
-
-/* Media for other devices */
 @media (max-width: 700px){
 	.text-box h1{
 		font-size: 42px;
@@ -199,5 +188,4 @@ h3{
 		font-size: 24px;
 	}
 }
-
 </style>

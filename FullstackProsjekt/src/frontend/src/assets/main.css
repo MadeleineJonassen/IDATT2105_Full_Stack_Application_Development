@@ -1,19 +1,45 @@
+:root{
+    --all-background-color:#F2F2F2;
+
+    --sidebar-bd-color: #242F40;
+    --sidebar-item-hover: #CCA43B;
+    --sidebar-item-active: #CCA43B;
+
+    --field-placeholder: #b0b0b0;
+    --field-background: #E5E5E5;
+    --card-background: #d7d7d7;
+
+    --text-light-color: #d7d7d7;
+    --text-dark-color: #242F40;
+
+    --danger-color:#d2442b;
+    --danger-hover:#d9563e;
+
+    --safe-color: #242F40;
+    --safe-hover: #425575;
+    --safe-active: #425575;
+
+    --option-color: #CCA43B;
+    --option-hover: #eebf42;
+    --option-active: #D9C590;
+}
+
+
 body {
     font-family: monospace;
     margin: 0 0 0 28px;
-    background-color: #F2F2F2;
+    background-color: var(--all-background-color);
 }
 
 input {
     padding: 5px;
     border-radius: 5px;
     border: none;
-    background-color: #E5E5E5;
     margin-bottom: 10px;
     font-family: monospace;
 }
 input::placeholder {
-    color: #b0b0b0;
+    color: var(--field-placeholder);
 }
 
 label {
@@ -25,13 +51,10 @@ select{
     font-family: monospace;
 }
 
-
-
 .space{
     margin: 90px;
 }
 
-/* Other */
 .row{
     margin-top: 5%;
     display: flex;
@@ -41,7 +64,7 @@ select{
 }
 .course-col{
     flex-basis: 31%;
-    background: #d7d7d7;
+    background: var(--card-background);
     border-radius: 10px;
     margin-bottom: 5%;
     padding: 20px;
@@ -51,63 +74,59 @@ select{
 .course-col:hover{
     box-shadow: 0 0 20px 0px rgba(0,0,0,0.3);
 }
-.go-back-section{
-    padding-top: 5vh;
-    padding-left: 5vh;
-}
-
-
-/* ERROR HANDLE */
 .error-message{
-    color: #e53a1c;
+    color: var(--danger-color);
     padding: 10px;
     font-size: 16px;
     margin-bottom: 20px;
 }
-
-
-/* BUTTONS */
 .play-btn{
     padding: 10px;
     text-decoration: none;
-    background-color: #242F40;
+    background-color: var(--safe-color);
     border-color: transparent;
-    color: #FFFFFF;
+    color: var(--text-light-color);
     border-radius: 10px;
 }
 .play-btn:hover {
-    background-color: #425575;
+    background-color: var(--safe-hover);
     transition: 0.4s ;
 }
 .play-btn:active{
-    background-color: #425575;
+    background-color: var(--safe-active);
     transition: 0.2s ;
 }
 .edit-btn{
     padding: 10px;
     text-decoration: none;
-    background-color: #CCA43B;
+    background-color: var(--option-color);
     border-color: transparent;
     color: #242F40;
     border-radius: 10px;
     cursor: pointer;
 }
+.edit-btn:hover{
+    background-color: var(--option-hover);
+}
+.edit-btn:active{
+    background-color: var(--option-active);
+}
 .delete-btn{
     padding: 10px;
-    background-color: #cc513b;
+    background-color: var(--danger-color);
     border-color: transparent;
-    color: #242F40;
+    color: var(--text-dark-color);
     border-radius: 10px;
     font-family: monospace;
     cursor: pointer;
     text-decoration: none;
 }
 .delete-btn:hover{
-    background-color: #d9563e;
+    background-color: var(--danger-hover);
 
 }
 .add-Btn {
-    background-color: #242F40;
+    background-color: var(--safe-color);
     color: white;
     font-size: 16px;
     padding: 10px;
@@ -118,14 +137,14 @@ select{
 }
 .add-Btn:hover{
     cursor: pointer;
-    background-color: #2f3d54;
+    background-color: var(--safe-hover);
 }
 .add-Btn:active{
-    background-color: #425575;
+    background-color: var(--safe-active);
     transition: 0.2s ;
 }
 .save-Btn{
-    background-color: #CCA43B;
+    background-color: var(--option-color);
     font-size: 24px;
     padding: 15px;
     border-radius: 20px;
@@ -133,9 +152,8 @@ select{
     margin-top: 10px;
     cursor: pointer;
 }
-
 .close-btn{
-    background-color: #d2442b;
+    background-color: var(--danger-color);
     padding: 10px;
     border-radius: 5px;
     border-color: transparent;
@@ -146,10 +164,10 @@ select{
     color: white;
 }
 .close-btn:hover {
-    background-color: #e15238;
+    background-color: var(--danger-hover);
 }
 .submit-btn{
-    background-color: #CCA43B;
+    background-color: var(--option-color);
     font-size: 20px;
     padding: 10px;
     border-radius: 5px;
@@ -159,19 +177,13 @@ select{
     cursor: pointer;
     width: 120px;
     height: 50px;
-
 }
 .submit-btn:hover{
-    background-color: #a67d0e;
-    color: white;
+    background-color: var(--option-hover);
 }
 .submit-btn:active{
-    background-color: #2D333B;
-    color: white;
+    background-color: var(--option-active);
 }
-
-
-
 
 @media (max-width: 700px){
     .row{

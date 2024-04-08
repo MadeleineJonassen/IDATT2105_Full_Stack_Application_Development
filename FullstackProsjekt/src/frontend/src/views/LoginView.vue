@@ -1,44 +1,3 @@
-<script>
-import Svg from "@/assets/Svg.vue";
-import {setToken} from "@/tokenController.js";
-import {apiClient} from "@/api.js";
-
-export default {
-	name: 'Login',
-	components: {Svg},
-	data() {
-		return {
-      username: '',
-			email: '',
-			password: '',
-			showPassword: false,
-      errorMsg: '',
-		}
-	},
-	methods: {
-		async handleSubmit() {
-      try {
-        await apiClient.post('/auth/login', {
-          username: this.username,
-          password: this.password
-        }).then(response => {
-					alert(this.username + " is now logged in!")
-          setToken(response.data.jwt); //TODO: check token name
-	        localStorage.setItem('username', this.username);
-	        this.$router.push('/profile');
-        });
-      } catch (error) {
-        //TODO: proper error handling
-        this.errorMsg = 'Error logging in, try again';
-      }
-		},
-		togglePasswordVisibility() {
-			this.showPassword = !this.showPassword;
-		}
-	}
-}
-</script>
-
 <template>
 	<body>
 	<div class="loginPage">
@@ -49,7 +8,7 @@ export default {
 
 				<div class="loginBox">
           <label>Username</label> <br>
-          <input type="text" required v-model="username" placeholder="Rizz_Dragon420"/> <br>
+          <input type="text" required v-model="username" placeholder="PartyDragon42"/> <br>
 
 					<label>Password</label> <br>
 					<div class="password-input">
@@ -73,6 +32,49 @@ export default {
 	</body>
 </template>
 
+
+<script>
+import Svg from "@/assets/Svg.vue";
+import {setToken} from "@/tokenController.js";
+import {apiClient} from "@/api.js";
+
+export default {
+	name: 'Login',
+	components: {Svg},
+	data() {
+		return {
+			username: '',
+			email: '',
+			password: '',
+			showPassword: false,
+			errorMsg: '',
+		}
+	},
+	methods: {
+		async handleSubmit() {
+			try {
+				await apiClient.post('/auth/login', {
+					username: this.username,
+					password: this.password
+				}).then(response => {
+					alert(this.username + " is now logged in!")
+					setToken(response.data.jwt); //TODO: check token name
+					localStorage.setItem('username', this.username);
+					this.$router.push('/profile');
+				});
+			} catch (error) {
+				//TODO: proper error handling
+				this.errorMsg = 'Error logging in, try again';
+			}
+		},
+		togglePasswordVisibility() {
+			this.showPassword = !this.showPassword;
+		}
+	}
+}
+</script>
+
+
 <style>
 .loginPage {
 	padding-top: 85px;
@@ -80,7 +82,6 @@ export default {
 	justify-content: center;
 	align-items: center;
 }
-
 .login {
 	text-align: center;
 	padding: 20px;
@@ -90,18 +91,14 @@ export default {
 	margin: 20px;
 	max-width: 450px;
 }
-
 .loginBox {
 	padding: 40px;
 }
-
 .password-input {
 	position: relative;
 	display: inline-block;
 	min-width: 300px;
 }
-
-
 .showPasswordIcon {
 	position: absolute;
 	top: 50%;
@@ -112,16 +109,15 @@ export default {
 	cursor: pointer;
 }
 #signUpLink {
-	color: #CCA43B;
+	color: var(--option-color);
 	padding: 10px;
 	font-size: 16px;
 	text-decoration: none;
 }
 #signUpLink:hover{
-	color: #242F40;
+	color: var(--option-hover);
 	transition: 0.3s;
 }
-
 .submit-section {
 	display: flex;
 	justify-content: center;
@@ -129,8 +125,12 @@ export default {
 }
 
 @media (max-width: 700px) {
-
-
+	.login{
+		max-width: 300px;
+	}
+	.password-input{
+		min-width: 200px;
+	}
 }
 
 </style>
