@@ -5,6 +5,7 @@ import edu.ntnu.idatt2105.model.Question;
 import edu.ntnu.idatt2105.model.QuestionType;
 import edu.ntnu.idatt2105.repository.QuestionRepository;
 import edu.ntnu.idatt2105.repository.QuizRepository;
+import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -41,6 +42,7 @@ public class QuestionService {
      */
     @Transactional
     public Question createOrUpdateQuestion(QuestionDTO questionDTO) {
+
         Question question;
         if (questionDTO.getId() != null) {
             Optional<Question> optionalQuestion = questionRepository.findById(questionDTO.getId());
@@ -65,6 +67,7 @@ public class QuestionService {
         question.setAnswer(questionDTO.getAnswer());
         question.setScore(questionDTO.getScore());
         question.setQuiz(quizRepository.findById(questionDTO.getQuizId()).orElse(null));
+
 
         return questionRepository.save(question);
     }

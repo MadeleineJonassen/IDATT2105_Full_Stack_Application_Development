@@ -1,4 +1,5 @@
 <script>
+/*
 import {apiClient} from "@/api.js";
 export default {
   props: {
@@ -21,6 +22,7 @@ export default {
     }
   },
   beforeMount() {
+    //console.log("before mount:" + this.questionId);
     this.getQuestion(this.questionId);
     this.findCorrectAnswerIndex();
   },
@@ -28,11 +30,11 @@ export default {
     getQuestion(questionId) {
       console.log('Fetching question: ', questionId);
       try {
-        apiClient.get('/questions/get/' + this.questionId).then(response => {
+        apiClient.get('/questions/get/' + questionId).then(response => {
           this.question = response.data;
           this.quizId = response.data.quizId;
-          this.questionText = response.data.id;
-          this.answers = JSON.parse(response.data.options);
+          this.questionText = response.data.questionText;
+          this.answers = response.data.options;
           this.correctAnswer = response.data.answer;
           this.type = response.data.type;
           this.score = response.data.score;
@@ -78,8 +80,121 @@ export default {
     }
   }
 }
-</script>
+*/
 
+import {apiClient} from "@/api.js";
+export default {
+  props: {
+    quizId: {
+      type: Number,
+      required: true
+    },
+    questionId: {
+      type: Number,
+      required: true
+    }
+  },
+  data() {
+    return {
+      questionText: '',
+      answers: [],
+      correctAnswerIndex: 0,
+      type: 'MULTIPLE_CHOICE',
+      score: 0,
+      correctAnswer: null,
+      errorMsg: ''
+    }
+  },
+  beforeMount() {
+    this.getQuestionInfo(this.questionId);
+  },
+  methods: {
+    async getQuestionInfo(questionId) {
+      try {
+        await apiClient.get('/questions/get/' + questionId).then(response => {
+          this.questionText = response.data.questionText;
+          this.answers = response.data.options;
+          this.correctAnswer = response.data.answer;
+          this.score = response.data.score;
+          this.type = response.data.type;
+        })
+      }catch (error) {
+        console.log("Edit question error: " + error);
+        this.errorMsg = 'Error retrieving question';
+      }
+    },
+    async handleSubmit() {
+      try {
+        await apiClient.post('/questions/save', {
+          //TODO: add questionID
+          questionText: this.questionText,
+          type: this.type,
+          answer: this.correctAnswer.text,
+          options: this.answers.map(answer => answer.text),
+          score: this.score,
+          quizId: this.quizId,
+        })
+        this.$emit('close');
+      } catch (error) {
+        console.log("error: " + error);
+        this.errorMsg = 'Error submitting question';
+      }
+    },
+    newAnswer() {
+      this.answers.push({ text: ''});
+    },
+    selectOption(option) {
+      this.correctAnswer = option;
+      console.log(this.correctAnswer);
+    },
+  }
+}
+
+
+
+</script>
+<template>
+  <div class="modal-overlay" >
+    <div @click.stop class="modal-mask">
+      <div class="modal-container">
+        <form @submit.prevent="handleSubmit">
+          <div class="question-title">
+            <h3>Question:</h3>
+            <input v-model="questionText" placeholder="Question">
+
+            <label>Score:</label>
+            <input type="number" id="scoreInput" v-model="score">
+          </div>
+          <div class="modal-body">
+            <table class="table">
+              <thead>
+              <tr>
+                <th scope="col">Answer</th>
+                <th scope="col">Correct</th>
+              </tr>
+              </thead>
+              <tbody>
+              <tr v-for="(answer, index) in answers">
+                <td><input type="text" v-model="answer.text"></td>
+                <td>
+                  <input type="radio" :id="index" :value="answer" v-model="correctAnswerIndex"
+                         :checked="answer === correctAnswer" @change="selectOption(answer)">
+                </td>
+              </tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="modal-footer">
+            <button class="edit-btn" @click="newAnswer">Add answer</button>
+            <button class="modal-default-button" type="submit">SUBMIT</button>
+          </div>
+        </form>
+
+      </div>
+    </div>
+  </div>
+</template>
+<!--
 <template>
   <div class="modal-overlay" @click="closeModal">
     <div @click.stop class="modal-mask">
@@ -93,11 +208,12 @@ export default {
             <label>Score:</label>
             <input type="number" id="scoreInput" v-model="score">
           </div>
-          <div class="modal-body">
+          <div class="modal-body">-->
             <!--
             <AnswerCard answer-id="answerCard" v-for="answer in answers"
                         :key="answer.id" :answerId="answer.id" :answer="answer.answer" :correct="answer.correct"/>
             -->
+<!--
             <table class="table">
               <thead>
               <tr>
@@ -124,7 +240,76 @@ export default {
       </div>
     </div>
   </div>
-</template>
+
+  <div class="modal-overlay" @click="closeModal">
+    <div @click.stop class="modal-mask">
+
+      <div class="modal-container">
+        <div class="question-title">
+          <h3>Question: </h3>
+          <input v-model="questionText" placeholder="Type your question here">
+        </div>
+
+        <div class="modal-body">
+          <table class="table">
+            <thead>
+            <tr>
+              <th scope="col">#</th>
+              <th scope="col">Answer</th>
+              <th scope="col">Correct ?</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr v-for="answer in answers">
+              <th scope="row">{{answer.answer}}</th>
+              <td>
+                <input type="text" v-model="answer.answer" id="questionInput">
+              </td>
+              <td>
+                <input :checked="answer.correct_answer === 1" class="form-check-input" :value="answer.id" @change="handleRadioToggle(answer.id)"  type="radio">
+              </td>
+            </tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="modal-footer">
+          default footer
+          <button
+              class="modal-default-button"
+              @click="$emit('close')">
+            OK
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>-->
+  <!--
+
+	<Transition name="modal">
+		<div v-if="show" class="modal-mask">
+			<div class="modal-container">
+				<div class="modal-header">
+					<slot name="header">default header</slot>
+				</div>
+
+				<div class="modal-body">
+					<slot name="body">default body</slot>
+				</div>
+
+				<div class="modal-footer">
+					<slot name="footer">
+						default footer
+						<button
+								class="modal-default-button"
+								@click="$emit('close')"
+						>OK</button>
+					</slot>
+				</div>
+			</div>
+		</div>
+	</Transition>
+
+</template>-->
 
 <style>
 .modal-mask {

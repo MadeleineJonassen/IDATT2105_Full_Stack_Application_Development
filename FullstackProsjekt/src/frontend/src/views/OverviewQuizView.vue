@@ -4,7 +4,7 @@
     <div class="headerDiv">
 	    <router-link to="/dashboard" ><Svg name="go-back-icon" class="go-back-icon"/></router-link>
 	    <h1>Your quizzes</h1>
-	    <router-link to="/create-quiz" class="add-Btn">Create new quiz</router-link>
+	    <router-link to="/createQuiz" class="add-Btn">Create new quiz</router-link>
     </div>
 		<p>Play, edit or delete a quiz saved from your profile</p>
 

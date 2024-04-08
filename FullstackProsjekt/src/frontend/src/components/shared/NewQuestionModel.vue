@@ -10,9 +10,9 @@ export default {
   data() {
     return {
       questionText: '',
-      answers: [{ text: '', correct: false }],
+      answers: [],
       correctAnswerIndex: 0,
-      type: 'MC',
+      type: 'MULTIPLE_CHOICE',
       score: 0,
       correctAnswer: null,
       errorMsg: ''
@@ -22,37 +22,35 @@ export default {
     //TODO: error prevention/handling
     async handleSubmit() {
       try {
-        this.findCorrectAnswer();
-        await apiClient.post('/questions', {
-          quizId: this.quizId,
+        //this.findCorrectAnswer();
+        //console.log(this.correctAnswer);
+        await apiClient.post('/questions/save', {
           questionText: this.questionText,
           type: this.type,
-          answer: this.correctAnswer,
-          options: this.answers.map(answer => answer.text), //just the strings!
-          score: this.score
+          answer: this.correctAnswer.text,
+          options: this.answers.map(answer => answer.text),
+          score: this.score,
+          quizId: this.quizId,
         })
+        this.$emit('close');
       } catch (error) {
+        console.log("error: " + error);
         this.errorMsg = 'Error submitting question';
       }
     },
-    closeModal() {
-      this.$emit('close');
-    },
     newAnswer() {
-      this.answers.push({ text: '', correct: false });
+      this.answers.push({ text: ''});
     },
-    findCorrectAnswer(){
-      if (this.correctAnswerIndex !== null && this.answers[this.correctAnswerIndex]) {
-        this.correctAnswer = this.answers[this.correctAnswerIndex].text;
-      }
+    selectOption(option) {
+      this.correctAnswer = option;
+      console.log(this.correctAnswer);
     }
   }
-
 };
 </script>
 
 <template>
-  <div class="modal-overlay" @click="closeModal">
+  <div class="modal-overlay" >
     <div @click.stop class="modal-mask">
       <div class="modal-container">
         <form @submit.prevent="handleSubmit">
@@ -68,15 +66,15 @@ export default {
               <thead>
               <tr>
                 <th scope="col">Answer</th>
-                <th scope="col">Correct ?</th>
+                <th scope="col">Correct</th>
               </tr>
               </thead>
               <tbody>
                 <tr v-for="(answer, index) in answers">
                   <td><input type="text" v-model="answer.text"></td>
                   <td>
-                    <input type="radio" :id="'correctAnswer_' + index" :value="index" v-model="correctAnswerIndex">
-                    <label :for="'correctAnswer_' + index">Correct</label>
+                    <input type="radio" :id="index" :value="answer" v-model="correctAnswerIndex"
+                           :checked="answer === correctAnswer" @change="selectOption(answer)">
                   </td>
                 </tr>
               </tbody>
@@ -84,9 +82,10 @@ export default {
           </div>
           <div class="modal-footer">
             <button class="edit-btn" @click="newAnswer">Add answer</button>
-            <button class="modal-default-button" @click="$emit('close')">SUBMIT</button>
+            <button class="modal-default-button" type="submit">SUBMIT</button>
           </div>
         </form>
+
       </div>
     </div>
   </div>
