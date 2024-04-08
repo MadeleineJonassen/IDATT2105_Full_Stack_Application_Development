@@ -21,5 +21,24 @@ public class FullstackProsjektApplication {
         SpringApplication.run(FullstackProsjektApplication.class, args);
     }
 
+    @Bean
+    CommandLineRunner run(RoleRepository roleRepository, UserRepository userRepository, PasswordEncoder encoder) {
+        return args -> {
+            // Exit early if DB already contains the admin user
+            if (roleRepository.findByAuthority("ADMIN").isPresent()) return;
 
+            Role adminRole = roleRepository.save(new Role("ADMIN"));
+            Role userRole = roleRepository.save(new Role("USER"));
+
+            Set<Role> roles = new HashSet<>();
+            roles.add(userRole);
+            User testUser = new User("test", encoder.encode("test"), roles);
+
+            if(userRepository.findByUsername(testUser.getUsername()).isEmpty()) userRepository.save(testUser);
+
+            roles.add(adminRole);
+            User admin = new User("admin", encoder.encode("password"), roles);
+            if(userRepository.findByUsername(admin.getUsername()).isEmpty()) userRepository.save(admin);
+        };
+    }
 }

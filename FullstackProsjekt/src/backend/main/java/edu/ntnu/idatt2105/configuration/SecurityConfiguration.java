@@ -76,9 +76,26 @@ public class SecurityConfiguration {
     return httpSecurity
             .csrf(AbstractHttpConfigurer::disable)
             .authorizeHttpRequests(auth -> {
-              auth.requestMatchers("/api/**",
+              auth.requestMatchers(
+                      "/api/auth/",
+                      "/api/quiz/quiz/",
+                      "/api/quiz/",
+                      "/api/quiz/difficulty",
+                      "/api/quiz/category",
+                      "/api/questions/allQuestionsToAQuiz/",
                       "/v3/api-docs/",
                       "/swagger-ui/").permitAll();
+              auth.requestMatchers(
+                      "/api/quiz/delete/",
+                      "/api/quiz/update",
+                      "/api/quiz/create").hasAnyRole("USER", "ADMIN");
+              auth.requestMatchers(
+                      "/api/questions/delete/",
+                      "/api/questions/update",
+                      "/api/questions/get/").hasAnyRole("USER", "ADMIN");
+              auth.requestMatchers(
+                      "/api/user/getId/**",
+                      "/api/user/").hasAnyRole("USER", "ADMIN");
               auth.anyRequest().authenticated();
 
             })
