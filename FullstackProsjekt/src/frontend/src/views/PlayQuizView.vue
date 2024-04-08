@@ -2,35 +2,37 @@
 import QuizResult from "@/components/shared/PlayQuiz/QuizResult.vue";
 import {getIdByToken} from "@/tokenController.js";
 import {apiClient} from "@/api.js";
+import router from "@/router/index.js";
 
 export default {
   data() {
     return {
+      showPopup: false,
+      popupMessage: '',
       currentQuestion: null,
       quizResult: null,
       currentQuestionIndex: 0,//set to null
       userId: 0, //set to null
       quizId: 0,  //set to null
       quizTitle: 'Quiz title',
-      selectedOption: '',
+      selectedOption: null,
       questions: [],
       currentQuestionText: '',
       currentQuestionId: null,
       currentAnswers: [],
       quizResultId: 0,
       errorMsg: '',
+      totalScore: 0,
+      currentScore: 0,
+      hasAnswered: false,
+      buttonText: "Next Question"
     }
-  },
-  beforeMount() {
-    this.getUser();
   },
   async mounted() {
     await this.getUser();
     await this.setup();
-    this.getQuestions();
     this.getQuiz();
-    this.setCurrentQuestion();
-
+    await this.getQuestions();
   },
   methods: {
     async setup(){
@@ -42,7 +44,10 @@ export default {
       }
       console.log(data)
       try {
-        await apiClient.post('/results/create', data)//TODO: set QuizResultServiceId
+        await apiClient.post('/results/create', data).then(response => {
+          this.quizResultId = response.data.id
+          console.log(response.data)
+        })//TODO: set QuizResultServiceId
       } catch (error) {
         this.errorMsg = 'Error starting quiz';
       }
@@ -53,85 +58,78 @@ export default {
     getQuiz() {
       try {
         apiClient.get('/quiz/quiz/' + this.quizId).then(response => {
-          this.quizTitle = response.data.questions;
+          this.quizTitle = response.data.title;
         });
       } catch (error) {
         this.errorMsg = 'Error retrieving quiz';
       }
     },
-    getQuestions(quizId) {
+    getQuestions() {
       //TODO: use method to fetch questions
       try {
         apiClient.get('/questions/allQuestionsToAQuiz/' + this.quizId).then(response => {
-          this.questionIds = response.data;
+          this.questions = response.data;
+          for (const question of this.questions) {
+            this.totalScore += question.score
+          }
+          console.log(this.totalScore)
+          this.setCurrentQuestion();
         });
-        console.log(this.questionIds[0])
       } catch (error) {
         this.errorMsg = 'Error retrieving questions';
       }
     },
-    getSampleQuestions() {
-      const quest = {
-        id: 0,
-        questionText: "question " + -1,
-        options: ["ans1","ans2", "ansThree"],
+    submitAnswer() {
+      if (this.selectedOption === null) {
+        alert("You must select an option")
+        return;
       }
-      this.questions.push(quest);
-      for(let i=0; i<4; i++){
-        const question = {
-          id: i,
-          questionText: "question " + i,
-          options: ["ans1","ans2"]
+
+      if (this.currentQuestionIndex < this.questions.length - 1) {
+        this.hasAnswered = true;
+        if (this.selectedOption === this.currentQuestion.answer) {
+          this.popupMessage = 'Correct!';
+          this.currentScore += this.currentQuestion.score;
+        } else {
+          this.popupMessage = 'Incorrect!';
         }
-        this.questions.push(question);
-        console.log(question.id);
-        console.log(this.questions.length);
+        this.showPopup = true;
+      } else {
+        // This is the last question
+        this.hasAnswered = true;
+        if (this.selectedOption === this.currentQuestion.answer) {
+          this.popupMessage = 'Correct!';
+          this.currentScore += this.currentQuestion.score;
+        } else {
+          this.popupMessage = 'Incorrect!';
+        }
+        this.showPopup = true;
+        this.buttonText = "Finish";
       }
     },
+
     async nextQuestion() {
-      if(!this.selectedOption) {
-        this.errorMsg = 'You must select an answer';
-      } else {
-        this.errorMsg = '';
-      }
-      console.log(this.selectedOption);
-
-
-      console.log(this.selectedOption);
-      try {
-        const data = {
-          id: this.quizId,
-          questionId: this.currentQuestionId,
-          givenAnswer: this.selectedOption,
-        }
-        console.log(data)
-        await apiClient.post('/questions/save', data)
-      } catch (error) {
-        this.errorMsg = 'Cannot submit question';
-      }
-      this.currentQuestionIndex++
+      this.showPopup = false;
+      this.hasAnswered = false;
+      this.selectedOption = null;
+      this.currentQuestionIndex++;
       this.setCurrentQuestion();
-
     },
     //setting current question, updating info
     setCurrentQuestion() {
-      /*if(!this.questions.empty()){
+      if (this.currentQuestionIndex < this.questions.length) {
         this.currentQuestion = this.questions[this.currentQuestionIndex];
-      }*/ //for some reason this check messes up the app???
-      this.currentQuestion = this.questions[this.currentQuestionIndex];
-      //this.currentQuestionId = this.currentQuestion.id;
-      //this.currentQuestionText = this.currentQuestion.questionText;
-      //this.currentAnswers = this.currentQuestion.options;
-    },
-    setupMCQuestion(question) {
-      this.questionTitle = question.questionText;
-      this.currentAnswers = question.options;
-      this.currentCorrectAnswer = question.answer;
+        this.currentQuestionId = this.currentQuestion.id;
+        this.currentQuestionText = this.currentQuestion.questionText;
+        this.currentAnswers = this.currentQuestion.options;
+      } else {
+        router.push({name: 'dashboard'})
+      }
+
     },
     selectOption(option) {
       this.selectedOption = option;
-      console.log(this.selectedOption);
-    }
+    },
   }
 }
 </script>
@@ -151,18 +149,13 @@ export default {
           <label>{{ option }}</label>
           <input type="radio" :id="option" :value="option" :checked="option === selectedOption" @change="selectOption(option)">
         </li>
-        <!--
-        <li v-for="option in answersList">
-          <label>test label</label>-->
-        <!--
-        <input type="radio" :id="'option'" :value="option"
-               :checked="option === selectedOption">-->
-        <!--<label :for="'option'">option</label>-->
 
       </ul>
-
-
-      <button @click="nextQuestion">Next Question</button>
+      <div v-if="showPopup" class="popup">
+        <p>{{ popupMessage }}</p>
+      </div>
+      <button v-if="hasAnswered" @click="nextQuestion">{{buttonText}}</button>
+      <button v-if="!hasAnswered" @click="submitAnswer">Submit</button>
     </div>
   </div>
 
@@ -204,7 +197,6 @@ export default {
 		<div class="remark">Remark: Satisfactory, Keep trying!</div>
 		<button id="restart">Restart Quiz</button>
 	</div>
-
 	</body>
 -->
 </template>
