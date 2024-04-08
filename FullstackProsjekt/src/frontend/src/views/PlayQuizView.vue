@@ -29,8 +29,9 @@ export default {
     }
   },
   async mounted() {
-    await this.getUser();
-    await this.setup();
+    // await this.getUser();
+    // await this.setup();
+    this.quizId = this.$route.params.quizId;
     this.getQuiz();
     await this.getQuestions();
   },
@@ -84,7 +85,6 @@ export default {
         alert("You must select an option")
         return;
       }
-
       if (this.currentQuestionIndex < this.questions.length - 1) {
         this.hasAnswered = true;
         if (this.selectedOption === this.currentQuestion.answer) {
@@ -105,6 +105,7 @@ export default {
         }
         this.showPopup = true;
         this.buttonText = "Finish";
+        this.popupMessage += "\nYour score is: " + this.currentScore + " / " + this.totalScore
       }
     },
 
