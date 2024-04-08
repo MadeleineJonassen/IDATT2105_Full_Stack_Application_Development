@@ -137,6 +137,7 @@ export default {
 
 
 <template>
+	<body>
   <div class="quiz">
     <div id="quiz-info">
       <h1 id="title">Play quiz</h1>
@@ -158,229 +159,110 @@ export default {
       <button v-if="!hasAnswered" @click="submitAnswer">Submit</button>
     </div>
   </div>
-
-<!--
-	<body>
-
-	<div class="quiz">
-
-		<div id="info">
-			<div id="score">Score: 0</div>
-			<div id="ques-left">Question:1/20</div>
-		</div>
-		<div id="ques-view">
-
-		</div>
-		<div class="question">
-			<h1>Question</h1>
-		</div>
-
-		<div class="choice">
-			<div class="options"><input type="radio" name="options" value="option1" id="opt0"><label for="opt0" id="lb0">Option1</label></div>
-			<div class="options"><input type="radio" name="options" value="option2" id="opt1"><label for="opt1" id="lb1">Option2</label></div>
-			<div class="options"><input type="radio" name="options" value="option3" checked="checked" id="opt2"><label for="opt2" id="lb2">Option3</label></div>
-			<div class="options"><input type="radio" name="options" value="option4" id="opt3"><label for="opt3" id="lb3">Option4</label></div>
-		</div>
-
-		<div class="ans-btn">
-			<button type="button" class="submit-answer">Submit Answer</button>
-			<a href="#display-final-score" type="button" class="view-results">View Results</a>
-		</div>
-
-	</div>
-
-	<div class="final-result">
-		<h1>The Quiz is Over</h1>
-		<div class="solved-ques-no">You Solved 10 questions of {Name of quiz here}</div>
-		<div class="right-wrong">3/4 were right</div>
-		<div id="display-final-score">Your Final Score is: 35</div>
-		<div class="remark">Remark: Satisfactory, Keep trying!</div>
-		<button id="restart">Restart Quiz</button>
-	</div>
 	</body>
--->
 </template>
 
 <style>
+.quiz {
+	text-align: center;
+	margin-top: 40px;
+	margin-left: 20vh;
+	margin-right: 20vh;
+}
+
+#current-q {
+	padding: 20px;
+	background-color: var(--play-card-background);
+	border-radius: 10px;
+	box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+h1#title {
+	margin-bottom: 20px;
+	font-size: 18px;
+	color: var(--text-dark-color);
+}
+
+.question {
+	font-size: 32px;
+}
+
+.options {
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: center;
+}
 
 .option {
-  font-size: 13px;
-  font-weight: bolder;
-  width: 100px;
-  height: 100px;
-  border: 1px solid #ccc;
-  margin: 5px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  cursor: pointer;
+	font-size: 20px;
+	font-weight: bold;
+	width: 100%;
+	height: 60px;
+	border: 2px solid #ccc;
+	border-radius: 10px;
+	margin: 10px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	cursor: pointer;
+	transition: all 0.3s ease;
 }
 
 .option:hover {
-  background-color: #f0f0f0;
+	background-color: var(--play-btn-hover);
 }
 
 .selected {
-  background-color: #4285f4; /* Change to the color you want for selected option */
-  color: #fff; /* Change text color for better visibility */
-}
-.quiz{
-	text-align: center;
-	margin-top: 20px;
-	height: 100vh;
+	background-color: var(--safe-color);
+	color: var(--text-light-color);
 }
 
-#info{
-	height:25px;
+.popup {
+	background-color: rgba(0, 0, 0, 0.8);
+	color: var(--text-light-color);
+	padding: 2vh 8vh;
+	border-radius: 5px;
+	position: fixed;
+	left: 52.5%;
+	bottom: 50%;
+	transform: translateX(-50%);
+	transition: 0.5s ease;
+
 }
 
-#score{
-	width:50%;
-	float:left;
-	font-size: 25px;
-}
-
-#ques-left{
-	width:50%;
-	float:left;
-	font-size:25px;
-}
-
-#ques-view{
-	height: 35px;
-	margin-top: 10px;
-	padding: 2px;
-}
-.question{
-	letter-spacing: .13em;
-  padding: 3%;
-  display: flex;
-  justify-content: center;
-  flex-direction: column;
-}
-
-.choice{
-	padding: 3%;
-}
-
-.options{
-	display:block;
-	font-size: 25px;
-	margin-top: 30px;
-	text-align: left;
-}
-
-input[type=radio] {
-	border: 5px solid white;
-	width: 20px;
-	height: 1.3em;
-	float: left;
-}
-
-.ans-btn{
-	padding: 2%;
-}
-
-.submit-answer{
-	border: 2px solid #CCA43B;
-	padding: 15px;
-	border-radius: 20px;
-	transition: background-color 0.3s,border 0.2s, color 0.2s;
-	margin-right: 10px;
-	font-family: monospace;
-}
-
-.submit-answer:hover{
-	background-color: #CCA43B;
-	padding: 16px;
-	color: #fff;
+button {
+	background-color: var(--option-color);
+	color: var(--text-light-color);
+	font-size: 18px;
+	padding: 10px 20px;
+	margin-top: 5vh;
+	border: none;
+	border-radius: 5px;
 	cursor: pointer;
-	border-radius: 20px;
+	transition: background-color 0.3s ease;
 }
 
-.view-results{
-	text-decoration: none;
-	color: black;
-	border: 2px solid #CCA43B;
-	padding: 15px;
-	border-radius: 20px;
-	transition: background-color 0.3s,border 0.2s, color 0.2s;
+button:hover {
+	background-color: var(--option-hover);
 }
 
-
-.view-results:hover{
-	background-color: #CCA43B;
-	padding: 16px;
-	color: #fff;
-	cursor: pointer;
-	border-radius: 20px;
-}
-
-/*Final Results*/
-.final-result{
-	text-align: center;
-	padding: 10px;
-	font-size: 1.5em;
-	height: 100vh;
-}
-.solved-ques-no{
-	padding: 10px;
-}
-
-.right-wrong{
-	padding: 10px;
-}
-
-#display-final-score{
-	padding: 5%;
-}
-.remark{
-	padding: 5%
-}
-#restart{
-	background-color:#CCA43B;
-	margin-left: 30px;
-	border: 2px solid #CCA43B;
-	padding: 15px;
-	border-radius: 20px;
-	font-size: 80%;
-	transition: background-color 0.3s,border 0.2s, color 0.2s;
-}
-
-#restart:hover{
-	background-color: #CCA43B;
-	color:#fff;
-	cursor: pointer;
-	/*    width: 120px;*/
-	font-size: 90%;
-}
-
-
-@media only screen and (max-width: 1250px) {
-	.options{
-		margin-left: 8%
+@media (max-width: 700px){
+	.quiz{
+		margin-left: 2vh;
+		margin-right: 2vh;
+	}
+	.popup{
+		padding: 1vh 4vh;
+		left: 57%;
+		font-size: 25px;
+	}
+	#current-q{
+		padding: 5px;
 	}
 }
-
-@media only screen and (max-width: 850px) {
-	.options{
-		margin-left: 4%;
+@media (max-width: 1000px) {
+	.popup{
+		left: 54%;
 	}
-}
-
-@media only screen and (max-width: 650px) {
-	.options{
-		display: block;
-		margin-top: 3%;
-
-	}
-}
-
-@media only screen and (max-width: 550px) {
-	.options{
-		margin-top: 3%;
-
-	}
-
 }
 </style>
