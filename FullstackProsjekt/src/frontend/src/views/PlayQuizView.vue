@@ -155,8 +155,8 @@ export default {
       <div v-if="showPopup" class="popup">
         <p>{{ popupMessage }}</p>
       </div>
-      <button v-if="hasAnswered" @click="nextQuestion">{{buttonText}}</button>
-      <button v-if="!hasAnswered" @click="submitAnswer">Submit</button>
+      <button class="play-quiz-btn" v-if="hasAnswered" @click="nextQuestion">{{buttonText}}</button>
+      <button class="play-quiz-btn" v-if="!hasAnswered" @click="submitAnswer">Submit</button>
     </div>
   </div>
 	</body>
@@ -230,7 +230,7 @@ h1#title {
 
 }
 
-button {
+.play-quiz-btn {
 	background-color: var(--option-color);
 	color: var(--text-light-color);
 	font-size: 18px;
@@ -242,7 +242,7 @@ button {
 	transition: background-color 0.3s ease;
 }
 
-button:hover {
+.play-quiz-btn:hover {
 	background-color: var(--option-hover);
 }
 
