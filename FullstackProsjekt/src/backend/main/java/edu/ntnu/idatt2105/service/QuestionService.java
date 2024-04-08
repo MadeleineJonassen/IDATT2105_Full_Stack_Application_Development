@@ -35,50 +35,42 @@ public class QuestionService {
     }
 
     /**
-     * Creates a question.
+     * Creates or updates a question.
      *
      * @param questionDTO The DTO containing the question details.
-     * @return The created question.
+     * @return The created or updated question.
      */
-    public Question createQuestion(QuestionDTO questionDTO) {
-        Question question = new Question();
+    @Transactional
+    public Question createOrUpdateQuestion(QuestionDTO questionDTO) {
+
+        Question question;
+        if (questionDTO.getId() != null) {
+            Optional<Question> optionalQuestion = questionRepository.findById(questionDTO.getId());
+            if (!optionalQuestion.isPresent()) {
+                return null;
+            }
+            question = optionalQuestion.get();
+        } else {
+            question = new Question();
+        }
+
         question.setQuestionText(questionDTO.getQuestionText());
         question.setType(questionDTO.getType());
-        if (questionDTO.getType() == QuestionType.TRUE_OR_FALSE) {
+
+        if (questionDTO.getType().equals(QuestionType.MULTIPLE_CHOICE)) {
+            question.setOptions(questionDTO.getOptionsAsString());
+        } else if (questionDTO.getType().equals(QuestionType.TRUE_OR_FALSE)) {
             question.setOptions("TRUE*FALSE");
-        } else if (questionDTO.getOptions() != null) {
-            question.setOptions(questionDTO.getOptionsAsString());
+        } else {
+            question.setOptions(null);
         }
         question.setAnswer(questionDTO.getAnswer());
         question.setScore(questionDTO.getScore());
-        question.setQuiz(quizRepository.findById(questionDTO.getQuizId())
-                .orElseThrow(() -> new EntityNotFoundException("Quiz not found for ID: " + questionDTO.getQuizId())));
+        question.setQuiz(quizRepository.findById(questionDTO.getQuizId()).orElse(null));
+
 
         return questionRepository.save(question);
     }
-
-
-    /**
-     * Updates a question
-     *
-     * @param questionDTO The DTO containing the question details.
-     * @return The updated question.
-     */
-    public Question updateQuestion(QuestionDTO questionDTO) {
-        Question question = questionRepository.findById(questionDTO.getId())
-                .orElseThrow(() -> new EntityNotFoundException("Question not found for ID: " + questionDTO.getId()));
-
-        question.setQuestionText(questionDTO.getQuestionText());
-        question.setType(questionDTO.getType());
-        if (questionDTO.getOptions() != null) {
-            question.setOptions(questionDTO.getOptionsAsString());
-        }
-        question.setAnswer(questionDTO.getAnswer());
-        question.setScore(questionDTO.getScore());
-
-        return questionRepository.save(question);
-    }
-
 
     /**
      * Deletes a question by its ID.

@@ -126,7 +126,7 @@ export default {
     },
     async handleSubmit() {
       try {
-        await apiClient.post('/questions/newQuestion', {
+        await apiClient.post('/questions/save', {
           //TODO: add questionID
           questionText: this.questionText,
           type: this.type,
@@ -147,9 +147,11 @@ export default {
     selectOption(option) {
       this.correctAnswer = option;
       console.log(this.correctAnswer);
-    }
+    },
   }
-};
+}
+
+
 
 </script>
 <template>

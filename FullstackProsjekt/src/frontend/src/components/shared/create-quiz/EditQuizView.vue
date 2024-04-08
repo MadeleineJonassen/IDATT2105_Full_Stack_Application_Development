@@ -76,13 +76,17 @@ export default {
     },
     hideNewQuestion() {
       this.showNewQuestion = false;
-      //TODO: questions answers, +question count
     },
     deleteQuiz() {
-      //API req, quizId
+      try {
+        apiClient.post('/quiz/delete/' + this.questionId, )
+      } catch (error) {
+        this.errorMsg = 'Error deleting quiz';
+      }
     }
   },
 };
+
 
 /**
 function createQuestion() {
@@ -183,7 +187,7 @@ async function submitQuestion() {
 
 			<div class="footer">
 				<button @click="newQuestion" class="add-Btn"> Add Question </button>
-        <button class="delete-btn"> DELETE QUIZ </button>
+        <button class="delete-btn" @click="deleteQuiz"> DELETE QUIZ </button>
 				<button class="save-Btn"> SAVE QUIZ </button>
 			</div>
 		</div>

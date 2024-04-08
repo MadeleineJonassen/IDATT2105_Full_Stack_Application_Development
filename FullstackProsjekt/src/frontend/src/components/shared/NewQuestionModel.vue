@@ -24,7 +24,7 @@ export default {
       try {
         //this.findCorrectAnswer();
         //console.log(this.correctAnswer);
-        await apiClient.post('/questions/newQuestion', {
+        await apiClient.post('/questions/save', {
           questionText: this.questionText,
           type: this.type,
           answer: this.correctAnswer.text,

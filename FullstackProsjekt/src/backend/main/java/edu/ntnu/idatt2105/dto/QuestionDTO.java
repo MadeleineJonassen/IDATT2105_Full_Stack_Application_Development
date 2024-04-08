@@ -29,6 +29,7 @@ public class QuestionDTO {
   /**
    * Constructor for QuestionDTO.
    *
+   * @param id           The ID of the question.
    * @param questionText The text of the question.
    * @param type         The type of the question.
    * @param answer       The correct answer to the question.
@@ -36,7 +37,8 @@ public class QuestionDTO {
    * @param score        The score assigned to the question.
    * @param quizId       The ID of the quiz the question belongs to.
    */
-  public QuestionDTO(String questionText, QuestionType type, String answer, List<String> options, int score, Integer quizId) {
+  public QuestionDTO(Integer id, String questionText, QuestionType type, String answer, List<String> options, int score, Integer quizId) {
+    this.id = id;
     this.questionText = questionText;
     this.type = type;
     this.answer = answer;
@@ -44,6 +46,7 @@ public class QuestionDTO {
     this.score = score;
     this.quizId = quizId;
   }
+
 
   /**
    * Get the ID of the question.

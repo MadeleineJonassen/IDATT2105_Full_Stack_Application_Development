@@ -37,30 +37,21 @@ public class QuestionController {
    * @param questionDTO The question data to be saved.
    * @return The saved question DTO.
    */
-  @PostMapping("/newQuestion")
-  public QuestionDTO createNewQuestion(@RequestBody QuestionDTO questionDTO) {
-    if (questionDTO.getId() != null) {
-      throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "ID should be null for new questions");
-    }
-    Question question = questionService.createQuestion(questionDTO);
-    return mapQuestionToQuestionDTO(question);
+  @PostMapping("/save")
+  public QuestionDTO saveQuestion(@RequestBody QuestionDTO questionDTO) {
+    Question question = questionService.createOrUpdateQuestion(questionDTO);
+
+    // TODO: make a mapper class to do this
+    return new QuestionDTO(
+            question.getId(),
+            question.getQuestionText(),
+            question.getType(),
+            question.getAnswer(),
+            question.getOptionsList(),
+            question.getScore(),
+            question.getQuiz().getId()
+    );
   }
-
-  /**
-   * Endpoint for updating an existing question.
-   * @param questionDTO The question data to be updated
-   * @return The updated question DTO.
-   */
-  @PutMapping("/questions/{id}")
-  public QuestionDTO updateExistingQuestion(@PathVariable Integer id, @RequestBody QuestionDTO questionDTO) {
-    if (questionDTO.getId() == null || !questionDTO.getId().equals(id)) {
-      throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Question ID mismatch");
-    }
-    Question question = questionService.updateQuestion(questionDTO);
-    return mapQuestionToQuestionDTO(question);
-  }
-
-
 
   /**
    * Endpoint for retrieving a question by ID.
@@ -72,6 +63,7 @@ public class QuestionController {
   public QuestionDTO getQuestion(@PathVariable Integer questionId) {
     Question question = questionService.findQuestionById(questionId);
     return new QuestionDTO(
+            question.getId(),
             question.getQuestionText(),
             question.getType(),
             question.getAnswer(),
@@ -80,6 +72,7 @@ public class QuestionController {
             question.getQuiz().getId()
     );
   }
+
 
   /**
    * Endpoint for deleting a question by ID.
@@ -98,29 +91,18 @@ public class QuestionController {
    * @return A list of question DTOs for the quiz.
    */
   @GetMapping("/allQuestionsToAQuiz/{quizId}")
-    public List<QuestionDTO> getAllQuestionsToAQuiz(@PathVariable Integer quizId) {
-        List<Question> questions = questionService.findAllQuestionsToAQuiz(quizId);
-        return questions.stream()
-                .map(question -> new QuestionDTO(
-                        question.getQuestionText(),
-                        question.getType(),
-                        question.getAnswer(),
-                        question.getOptionsList(),
-                        question.getScore(),
-                        question.getQuiz().getId()
-                ))
-                .collect(Collectors.toList());
-    }
-
-  private QuestionDTO mapQuestionToQuestionDTO(Question question) {
-    return new QuestionDTO(
-            question.getQuestionText(),
-            question.getType(),
-            question.getAnswer(),
-            question.getOptionsList(),
-            question.getScore(),
-            question.getQuiz().getId()
-    );
+  public List<QuestionDTO> getAllQuestionsToAQuiz(@PathVariable Integer quizId) {
+    List<Question> questions = questionService.findAllQuestionsToAQuiz(quizId);
+    return questions.stream()
+            .map(question -> new QuestionDTO(
+                    question.getId(),
+                    question.getQuestionText(),
+                    question.getType(),
+                    question.getAnswer(),
+                    question.getOptionsList(),
+                    question.getScore(),
+                    question.getQuiz().getId()
+            ))
+            .collect(Collectors.toList());
   }
-
 }

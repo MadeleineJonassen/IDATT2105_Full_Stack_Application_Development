@@ -17,7 +17,7 @@ export default {
     }
   },
   beforeMount() {
-    this.quizId = this.$route.params.quizId;
+    this.quizId = Number(this.$route.params.quizId);
   },
   data() {
     return {
