@@ -15,5 +15,5 @@ apiClient.interceptors.request.use(
         return config;
     },
     (error) => {
-    return Promise.reject(error);
+    return Promise.reject("Problem with token: " + error);
 });
