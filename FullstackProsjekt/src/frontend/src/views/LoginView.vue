@@ -7,8 +7,8 @@
 				<p> Sign in to your already existing account</p>
 
 				<div class="loginBox">
-          <label>Username</label> <br>
-          <input type="text" required v-model="username" placeholder="PartyDragon42"/> <br>
+					<label>Username</label> <br>
+					<input type="text" required v-model="username" placeholder="PartyDragon42"/> <br>
 
 					<label>Password</label> <br>
 					<div class="password-input">
@@ -19,8 +19,8 @@
 						</button>
 					</div> <br>
 
-          <label class="error-message">{{errorMsg}}</label><br>
-          <p> Don't have a account?</p><router-link to="/signup" id="signUpLink">SIGNUP!</router-link>
+					<label class="error-message">{{errorMsg}}</label><br>
+					<p> Don't have an account?</p><router-link to="/signup" id="signUpLink">SIGNUP!</router-link>
 				</div>
 			</div>
 
@@ -99,15 +99,20 @@ export default {
 	display: inline-block;
 	min-width: 300px;
 }
+
+.password-input input {
+	padding-right: 40px;
+}
+
 .showPasswordIcon {
 	position: absolute;
-	top: 50%;
 	right: 10px;
 	transform: translateY(-50%);
 	border: none;
 	background: none;
 	cursor: pointer;
 }
+
 #signUpLink {
 	color: var(--option-color);
 	padding: 10px;
