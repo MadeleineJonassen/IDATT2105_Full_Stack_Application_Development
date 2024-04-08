@@ -16,7 +16,6 @@ export default {
 </template>
 
 <style scoped>
-
 /*Final Results*/
 .final-result{
   text-align: center;
@@ -52,7 +51,6 @@ export default {
   background-color: #CCA43B;
   color:#fff;
   cursor: pointer;
-  /*    width: 120px;*/
   font-size: 90%;
 }
 

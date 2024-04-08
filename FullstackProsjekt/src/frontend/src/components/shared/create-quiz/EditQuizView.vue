@@ -188,5 +188,4 @@ input{
 	height: 25px;
 	width: 100%;
 }
-
 </style>

@@ -61,27 +61,11 @@ export default {
 
     <ul v-if="question.options">
       <li v-for="(option) in question.options" :key="option">
-        <!--
-        <input type="radio" :id="'option'" :value="option"
-               :checked="option === selectedOption" @change="selectOption(option)">
-               -->
 
         <label :for="option">option label</label>
       </li>
     </ul>
-    <!--
-    <div class="choice">
-      <div class="options"><input type="radio" name="options" value="option1" id="opt0"><label for="opt0" id="lb0">Option1</label></div>
-      <div class="options"><input type="radio" name="options" value="option2" id="opt1"><label for="opt1" id="lb1">Option2</label></div>
-      <div class="options"><input type="radio" name="options" value="option3" checked="checked" id="opt2"><label for="opt2" id="lb2">Option3</label></div>
-      <div class="options"><input type="radio" name="options" value="option4" id="opt3"><label for="opt3" id="lb3">Option4</label></div>
-    </div>
 
-    <div class="ans-btn">
-      <button type="button" class="submit-answer">Submit Answer</button>
-      <a href="#display-final-score" type="button" class="view-results">View Results</a>
-    </div>
-    -->
 
   </div>
 
@@ -203,7 +187,5 @@ input[type=radio] {
     margin-top: 3%;
 
   }
-
 }
-
 </style>

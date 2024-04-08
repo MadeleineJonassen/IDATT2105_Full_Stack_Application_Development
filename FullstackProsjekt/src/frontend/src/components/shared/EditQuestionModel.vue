@@ -77,9 +77,7 @@ export default {
       }
     }
   }
-
 }
-
 </script>
 
 <template>
@@ -126,75 +124,6 @@ export default {
       </div>
     </div>
   </div>
-  <!--
-  <div class="modal-overlay" @click="closeModal">
-    <div @click.stop class="modal-mask">
-
-      <div class="modal-container">
-        <div class="question-title">
-          <h3>Question: </h3>
-          <input v-model="questionText" placeholder="Type your question here">
-        </div>
-
-        <div class="modal-body">
-          <table class="table">
-            <thead>
-            <tr>
-              <th scope="col">#</th>
-              <th scope="col">Answer</th>
-              <th scope="col">Correct ?</th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr v-for="answer in answers">
-              <th scope="row">{{answer.answer}}</th>
-              <td>
-                <input type="text" v-model="answer.answer" id="questionInput">
-              </td>
-              <td>
-                <input :checked="answer.correct_answer === 1" class="form-check-input" :value="answer.id" @change="handleRadioToggle(answer.id)"  type="radio">
-              </td>
-            </tr>
-            </tbody>
-          </table>
-        </div>
-        <div class="modal-footer">
-          default footer
-          <button
-              class="modal-default-button"
-              @click="$emit('close')">
-            OK
-          </button>
-        </div>
-      </div>
-    </div>
-  </div>-->
-  <!--
-
-	<Transition name="modal">
-		<div v-if="show" class="modal-mask">
-			<div class="modal-container">
-				<div class="modal-header">
-					<slot name="header">default header</slot>
-				</div>
-
-				<div class="modal-body">
-					<slot name="body">default body</slot>
-				</div>
-
-				<div class="modal-footer">
-					<slot name="footer">
-						default footer
-						<button
-								class="modal-default-button"
-								@click="$emit('close')"
-						>OK</button>
-					</slot>
-				</div>
-			</div>
-		</div>
-	</Transition>
-	-->
 </template>
 
 <style>
@@ -225,9 +154,6 @@ export default {
   justify-content: space-between;
 }
 
-
-
-
 .modal-header h5 {
 	margin-top: 0;
 	color: #363636;
@@ -240,7 +166,6 @@ export default {
 .modal-default-button {
 	float: right;
 }
-
 
 .modal-enter-from .modal-container,
 .modal-leave-to .modal-container {

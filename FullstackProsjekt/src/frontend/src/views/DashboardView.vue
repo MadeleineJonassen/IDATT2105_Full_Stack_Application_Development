@@ -86,6 +86,7 @@ export default {
 .go-back-icon{
 	margin-left: 1px;
 }
+
 .search-container {
 	flex-grow: 1;
 }
@@ -99,13 +100,35 @@ export default {
 	display: block;
 	text-align: center;
 }
+.quiz-list {
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: space-between;
+}
+
+.quiz-col {
+	flex-basis: 30%;
+}
+
 .quiz-col {
 	flex-basis: 31%;
-	background: #d7d7d7;
+	background: var(--card-background);
 	border-radius: 10px;
 	margin-bottom: 5%;
 	padding: 20px;
 	box-sizing: border-box;
 	transition: 0.5s;
 }
+.row{
+	margin-top: 5%;
+	display: flex;
+	justify-content: space-between;
+	margin-left: 5%;
+	margin-right: 5%;
+}
+
+.quiz-col:hover{
+	box-shadow: 0 0 20px 0px rgba(0,0,0,0.3);
+}
+
 </style>

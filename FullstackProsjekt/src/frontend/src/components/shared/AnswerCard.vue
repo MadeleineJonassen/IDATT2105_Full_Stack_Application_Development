@@ -1,7 +1,4 @@
 <script>
-import { RouterLink, RouterView } from 'vue-router';
-import router from "@/router/index.js";
-import { useRouter } from 'vue-router';
 export default {
   props: {
     answerId: {
@@ -36,19 +33,6 @@ export default {
 </template>
 
 <style>
-.overViewQuestion-page{
-  padding: 50px;
-}
-
-.quiz-header{
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 10px;
-}
-.quiz-body{
-  margin-bottom: 40px;
-}
 
 .question-wrapper {
   display: flex;

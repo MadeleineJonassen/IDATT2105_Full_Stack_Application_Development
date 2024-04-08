@@ -90,32 +90,6 @@ export default {
       </div>
     </div>
   </div>
-  <!--
-
-	<Transition name="modal">
-		<div v-if="show" class="modal-mask">
-			<div class="modal-container">
-				<div class="modal-header">
-					<slot name="header">default header</slot>
-				</div>
-
-				<div class="modal-body">
-					<slot name="body">default body</slot>
-				</div>
-
-				<div class="modal-footer">
-					<slot name="footer">
-						default footer
-						<button
-								class="modal-default-button"
-								@click="$emit('close')"
-						>OK</button>
-					</slot>
-				</div>
-			</div>
-		</div>
-	</Transition>
-	-->
 </template>
 
 <style>
@@ -146,9 +120,6 @@ export default {
   justify-content: space-between;
 }
 
-
-
-
 .modal-header h5 {
 	margin-top: 0;
 	color: #363636;
@@ -161,7 +132,6 @@ export default {
 .modal-default-button {
 	float: right;
 }
-
 
 .modal-enter-from .modal-container,
 .modal-leave-to .modal-container {
