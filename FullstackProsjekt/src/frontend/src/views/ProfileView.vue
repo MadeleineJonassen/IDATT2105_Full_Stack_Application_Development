@@ -1,5 +1,4 @@
 
-
 <script>
 import Svg from "@/assets/Svg.vue";
 import Modal from "@/components/shared/modal/Modal.vue"
@@ -131,7 +130,7 @@ export default {
 	</body>
 </template>
 
-
+<!--
 <script>
 import Svg from "@/assets/Svg.vue";
 import Modal from "@/components/shared/modal/Modal.vue"
@@ -184,7 +183,7 @@ export default {
 		}
 	}
 };
-</script>
+</script>-->
 
 
 <style scoped>

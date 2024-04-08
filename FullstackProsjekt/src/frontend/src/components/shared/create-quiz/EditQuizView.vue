@@ -178,7 +178,7 @@ async function submitQuestion() {
         <QuestionCard id="questionCard" v-for="question in questions" :key="question.id"
                       :question-id=question.id :question-text=question.questionText />
       </div>
-      <NewQuestionModel v-if="showNewQuestion" @close="hideNewQuestion" :quiz-id="quizId"/>
+      <NewQuestionModel v-if="showNewQuestion" @close="hideNewQuestion" :quiz-id="Number(quizId)"/>
 
 			<div class="footer">
 				<button @click="newQuestion" class="add-Btn"> Add Question </button>

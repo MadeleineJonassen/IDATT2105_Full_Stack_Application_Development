@@ -24,14 +24,14 @@ export default {
       try {
         //this.findCorrectAnswer();
         //console.log(this.correctAnswer);
-        await apiClient.post('/questions/save', {
+        await apiClient.post('/questions/newQuestion', {
           questionText: this.questionText,
           type: this.type,
           answer: this.correctAnswer,
           //options: this.answers.map(answer => answer.text),
           options: this.answers,
           score: this.score,
-          quizId: Number(this.quizId),
+          quizId: this.quizId,
         })
         this.$emit('close');
       } catch (error) {
