@@ -1,6 +1,14 @@
 # BrainStormer
 ### Description
-BrainStormer is a full-stack web application developed for the IDATT2105 course. It provides a comprehensive and user-friendly platform for creating, managing, and taking quizzes for educational, training, or entertainment purposes. Inspired by popular quiz platforms like Quizlet, Kahoot, and Quizizz, BrainStormer aims to offer a similar experience with its own set of unique features.
+BrainStormer is a full-stack web application developed for the IDATT2105 course. It provides a comprehensive and user-friendly platform for creating, managing, and taking quizzes for educational, training, or entertainment purposes. Inspired by popular quiz platforms like Quizlet, Kahoot, and Quizizz, BrainStormer aims to offer a similar experience with its own set of unique features. I wrote the frontend of this application.
+
+## Highlights
+
+<p align="center">
+  <img src="https://github.com/user-attachments/assets/9333815d-1aef-4b88-a066-489528f457ea" alt="Image 1" width="300" style="margin-right: 10px;">
+  <img src="https://github.com/user-attachments/assets/bf39ad05-3a09-46ca-a605-9e0f0757af07" alt="Image 2" width="300">
+</p>
+
 
 ## Features
 - User Authentication
@@ -18,7 +26,7 @@ BrainStormer is a full-stack web application developed for the IDATT2105 course.
 
 ## Running the application
 To run the back-end, run FullstackApplication.java (FullstackProsjekt/src/backend/main/java/edu/ntnu/idatt2105/FullstackProsjektApplication.java). 
-To run the front-end, move to FullstackProsjekt/src/frontend and run the following commands:
+To run the front end, move to FullstackProsjekt/src/frontend and run the following commands:
 ```sh
 npm install
 ```
@@ -54,41 +62,15 @@ npm run lint
 
 ```
 
-### Database Login
-To log in to the database server, use the following credentials:
-
-- IP: 129.241.98.27
-- Username: student
-- Password: R8W9b7D52pw
-
-
 ## Usage
-1. Register or login to your account.
-2. Create a quiz by adding questions, specifying categories, and 3. setting difficulty levels.
+1. Register or log in to your account.
+2. Create a quiz by adding questions, specifying categories, and setting difficulty levels.
 4. Take quizzes created by other users or yourself.
 5. Explore the various features offered by BrainStormer to enhance your quiz experience.
 
-## Support
-For help or assistance, please open an issue on the GitHub repository or contact us via email at brainstormer@example.com.
-
-## Roadmap
-* Implement AI-based generation of questions.
-* Implement collaboration features.
-* Improve accessibility and mobile responsiveness.
-
-## Contributing
-We welcome contributions from the community! If you're interested in contributing, please fork the repository and submit a pull request. Make sure to follow the contribution guidelines outlined in the CONTRIBUTING.md file.
 
 ## Authors and Acknowledgment
 - Torbjørn Antonsen
 - Heine Mærde Brakstad 
 - Krisitane Skogvang Kolshus
 - Madeleine Stenberg Jonassen
-
-## License
-This project is licensed under the NTNU License.
-
-## Project Status
-Development of BrainStormer is active and ongoing. We are constantly working on adding new features and improvements. If you encounter any issues or have suggestions for enhancements, feel free to reach out to us.
-
-Feel free to modify any section further to match your project's specifics!
